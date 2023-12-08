@@ -1,0 +1,148 @@
+.App {
+  text-align: center;
+  background-color: rgb(165, 165, 165);
+  height:  100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+.Loading {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+.todoContainer{
+  display: flex;
+  flex-wrap: wrap;
+  height: fit-content;
+  width: 100%;
+  position: relative;
+  background-color: rgb(247, 247, 247);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+}
+.cards{
+  scrollbar-color: rgb(149, 189, 250) #e0e0e0;
+  scrollbar-width: thin;
+  height: 370px;
+  width: 29.3%;
+  min-width: 240px;
+  overflow-y: scroll;
+  margin: 0 20px;
+}
+.titleContainer{
+  height: 50px;
+  width: 100%; 
+  border-radius: 5px;
+  font-size: 30px;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+.title{
+  position: relative;
+  top: 8px;
+}
+.cardDiv{
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  margin:  10px auto;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  cursor: grab;
+}
+.addIcon{
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  margin: 0 50%;
+}
+.checkBox{
+  margin: 8px;
+}
+.editIcon{
+  position: absolute;
+  right: 0;
+  margin: 8px;
+  cursor: pointer;
+  transition: .5s;
+}
+.editIcon:hover{
+  height: 23px;
+  width: 23px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+.dragIcon{
+  margin: 8px;
+  cursor: pointer;
+}
+.dragIcon:hover{
+  margin: 8px;
+  height: 23px;
+  width: 23px;
+}
+
+.CreateCardDiv{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: fit-content;
+  width: 400px;
+  z-index: 15;
+  background-color: rgb(211, 211, 211);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  bottom: 40px;
+  right: 50px;
+  align-items: center;
+  align-content: center;
+  animation: fadeInUp; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: .3s; /* don't forget to set a duration! */
+}
+.titleCard{
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin: 5px 0;
+}
+.createTaskbutton{
+  height: 30px;
+  width: 100px;
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: .2s;
+  border: none;
+  border-radius: 3px;
+}
+.createTaskbutton:hover{
+  background-color: red;
+  color: white;
+}
+.createTaskinput{
+  height: 30px;
+  width: 80%;
+  margin: 5px;
+}
+@media screen and (max-width: 750px) {
+  .App{
+    height: fit-content;
+  }
+  .todoContainer{
+    display: block;
+    width: 90%;
+  }
+  .cards{
+    min-width: 89%;
+  }
+}

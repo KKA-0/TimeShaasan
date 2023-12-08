@@ -1,0 +1,16 @@
+.nav{
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    background-color: #000000;
+    z-index: 102;
+}
+.logoDiv{
+    height: 100%;
+    width: 100px;
+    margin-left: 50px;
+}
+.logo{
+    height: 100%;
+    margin: auto;
+}
