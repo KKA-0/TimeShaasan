@@ -5,13 +5,18 @@ const taskSchema = new Schema({
     title: {
         type: String,
         required: true
+    },
+    status: {
+      type: Number,
+      default: 0
     }
 })
 
 const checklistSchema = new Schema({
   user_id: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   checklist: [taskSchema]
 });

@@ -1,4 +1,3 @@
-
 const todoSchema = require('./../models/todoSchema')
 
 exports.allTodo = async (req, res) => {
@@ -97,7 +96,7 @@ exports.addTask = async (req, res) => {
             const task = await todoSchema.findOneAndUpdate(
                 { _id: req.params.id },
                 { $push: { doing: { "title": req.body.title } } },
-                { new: true } // Return the modified document
+                { new: true }
               );
             res
                 .status(201)

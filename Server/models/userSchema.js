@@ -11,6 +11,15 @@ const userSchema = new Schema({
     unique: true,
     required: true
   },
+  todo_id: {
+    type: String,
+  },
+  checklist_id: {
+    type: String,
+  },
+  focussession_id: {
+    type: String,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

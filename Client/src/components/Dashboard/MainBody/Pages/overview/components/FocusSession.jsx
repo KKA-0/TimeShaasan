@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import dashboard from './../Dashboard.module.css'
+import dashboard from './../../../../Dashboard.module.css'
 
 const FocusSession = () => {
 
@@ -14,8 +14,10 @@ const FocusSession = () => {
         else if(Second === 0){
             setMinute(Minute-1)
             setSecond(60)
+            console.log("Minute")
         }else{
             setSecond(Second-1)
+            console.log("Second")
         }
       }, 1000)
     }, [Second])
@@ -25,6 +27,14 @@ const FocusSession = () => {
         setSecond(59)
     }
 
+    const StopTimer = () => {
+      
+    }
+
+    const ResetTimer = () => {
+      setMinute(45)
+      setSecond(59)
+    }
   return (
     <>
         <div className={dashboard.focusSessions}>
@@ -34,6 +44,8 @@ const FocusSession = () => {
           </div>
           <div className={dashboard.FocusSessionSettings}>
             <button onClick={StartTimer}>Start</button>
+            <button onClick={StopTimer}>Stop</button>
+            <button onClick={ResetTimer}>Reset</button>
           </div>
         </div>
     </>
