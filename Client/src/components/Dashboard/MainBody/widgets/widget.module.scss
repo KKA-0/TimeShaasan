@@ -1,3 +1,8 @@
+.center_div_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .NavOptions_div{
     height: 250px;
     width: 250px;
@@ -30,11 +35,25 @@
     background-color: rgb(30, 30, 30);
     font-weight: 600;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
+    @extend .center_div_flex;
 }
 .loggout:hover{
     background-color: rgba(241, 52, 52, 0.77);
+}
+// Add Widget
+.add_Btn_div{
+    position: sticky;
+    bottom: 30px;
+    color: white;
+    padding: 5px;
+    background-color: rgb(58, 58, 58);
+    height: 50px;
+    width: 50px;
+    border-radius: 8px;
+    @extend .center_div_flex;
+    cursor: pointer;
+}
+.add_Btn_div:hover{
+    background-color: rgb(92, 81, 57);
 }

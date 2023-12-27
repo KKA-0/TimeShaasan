@@ -10,30 +10,21 @@
     top: 80px;
     left: 230px;
 }
-.kanbanBoarddiv{
-    height: 450px;
-    width: 100%;
-    bottom: 5px;
-    left: 250px;
-    border-radius: 10px;
-    background-color: #0f0f0f;
-    margin: 15px 15px;
-    display: flex;
-    flex-direction: row;
-}
+
 .checklistDiv{
     height: 450px;
     width: 100%;
     bottom: 5px;
-    left: 250px;
     border-radius: 10px;
     background-color: #0f0f0f;
     margin: 15px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
+/* FOCUS SESSIONS */
 .focusSessions{
     height: 250px;
     width: 45%;
@@ -72,21 +63,32 @@
 }
 
 /* KARBAN BOARD */
-
+.kanbanBoarddiv{
+    height: 450px;
+    width: 100%;
+    bottom: 5px;
+    left: 250px;
+    border-radius: 10px;
+    background-color: #0f0f0f;
+    margin: 15px 15px;
+    display: flex;
+    flex-direction: row;
+}
 .todo_Div{
     /* background-color: antiquewhite; */
-    height: 100%;
+    height: 450px;
     width: 33.3%;
     border-radius: 10px 0px 0px 10px;
 }
 .doin_Div{
     /* background-color: aquamarine; */
+    height: 450px;
     height: 100%;
     width: 33.3%;
 }
 .done_Div{
     /* background-color: blue; */
-    height: 100%;
+    height: 450px;
     width: 33.3%;
     border-radius: 0px 10px 10px 0px;
 }
@@ -131,15 +133,17 @@
 }
 
 .Div_cards{
-    height: 390px;
+    height: 390px; /* or any fixed height you desire */
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    overflow-y: auto; /* Use 'auto' to show scrollbar when necessary */
 }
 
 .todo_Div_card{
-    height: 60px;
+    min-height: 60px; /* Set a minimum height for child divs */
     width: 95%;
     background-color: rgb(26, 26, 26);
     margin: 8px 0px;

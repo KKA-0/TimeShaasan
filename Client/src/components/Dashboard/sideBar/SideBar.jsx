@@ -23,7 +23,7 @@ const SideBar = () => {
         <div draggable='true' className={dashboard.kanbanOption}>
           <Link className={sidebar.a} to="/focus-session"><CgTimer  color="white" size="2em" className={dashboard.icon}/><span className={dashboard.siderbarOption}>Focus Session</span></Link>
         </div>
-        <div draggable='true' className={dashboard.kanbanOption}>
+        <div className={dashboard.settingoption}>
           <Link className={sidebar.a} to="/settings"><IoMdSettings  color="white" size="2em" className={dashboard.icon}/><span className={dashboard.siderbarOption}>Settings</span></Link>
         </div>
       </div>

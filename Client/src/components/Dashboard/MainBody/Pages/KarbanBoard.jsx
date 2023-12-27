@@ -1,6 +1,7 @@
 import React from 'react'
 import Pages from './Pages.module.css'
 import RequireAuth from '../../../RequireAuth/RequireAuth'
+import AddWidget from '../widgets/addWidget'
 
 const KarbanBoard = () => {
 
@@ -13,8 +14,28 @@ const KarbanBoard = () => {
             </div>
             <div className={Pages.Div_cards}>
               <div className={Pages.todo_Div_card}>
-
               </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <AddWidget/>
             </div>
           </div>
           <div className={Pages.doin_Div}>
@@ -22,8 +43,27 @@ const KarbanBoard = () => {
               <span>In-Progress</span>
             </div>
             <div className={Pages.Div_cards}>
+            <div className={Pages.todo_Div_card}>
+              </div>
               <div className={Pages.todo_Div_card}>
-
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
+              </div>
+              <div className={Pages.todo_Div_card}>
               </div>
             </div>
           </div>

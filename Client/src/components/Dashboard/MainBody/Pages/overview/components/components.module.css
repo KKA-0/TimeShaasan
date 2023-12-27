@@ -93,7 +93,6 @@
     align-items: center;
     flex-direction: column;
 }
-
 .todo_Div_card{
     height: 50px;
     width: 95%;
@@ -104,16 +103,16 @@
     cursor: pointer;
 }
 .card_title_div{
+    /* background-color: aliceblue; */
     height: 60%;
     width: 100%;
-    /* background-color: aliceblue; */
     color: white;
     padding: 0px 5px;
     cursor: pointer;
 }
 .card_DateTime_div{
+    /* background-color: aqua; */
     height: 40%;
     width: 100%;
-    /* background-color: aqua; */
     cursor: pointer;
 }
