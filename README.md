@@ -5,7 +5,7 @@
 
 
 <details><summary>Introduction</summary>
-The Initiative to Become The King of your Time, The name "Time Shaasan" is inspired why hindi word "Shaasan" which means Rule. Time Shaasan Aims to Allow it's users to Control/Organize there time Effectively with many inbuilt Features. 
+The Initiative to Become The King of your Time, The name "Time Shaasan" is inspired why hindi word "Shaasan/शासन" which means Rule. Time Shaasan Aims to Allow it's users to Control/Organize there time Effectively with many inbuilt Features. 
 </details>
 
 <details><summary>Set up Locally</summary>
