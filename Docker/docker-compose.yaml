@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  database:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "2717:27017"
+    volumes:
+      - mongo_db:/data/db
+
+  server:
+    build:
+      context: ../Server
+      dockerfile: Dockerfile
+
+    ports:
+      - "4000:4000"
+    depends_on:
+      - database
+    restart: always
+
+  # client:
+  #   build:
+  #     context: ./Client
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - server
+  #   ports:
+  #     - "80:3000"
+  #   restart: always
+
+volumes:
+  mongo_db: {}
