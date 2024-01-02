@@ -1,0 +1,21 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+}
+.logoDiv{
+    height: 100%;
+    margin-left: 50px;
+    width: 300px;
+}
+.logo{
+    height: 100%;
+    margin: auto;
+}
+.user{
+    margin-right: 50px;
+    cursor: pointer;
+}

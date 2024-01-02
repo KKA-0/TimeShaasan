@@ -1,0 +1,59 @@
+.center_div_flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.NavOptions_div{
+    height: 250px;
+    width: 250px;
+    background-color: rgb(22, 22, 22);
+    border-radius: 10px;
+    position: absolute;
+    top: 75px;
+    right: 20px;
+    z-index: 200;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+}
+
+.musicWidgetDiv{
+    height: 400px;
+    width: 300px;
+    position: absolute;
+    z-index: 102;
+    bottom: 0;
+    right: 0;
+
+}
+.musicDiv{
+    height: 100%;
+    width: 100%;
+}
+
+.loggout{
+    height: 50px;
+    width: 100%;
+    background-color: rgb(30, 30, 30);
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    @extend .center_div_flex;
+}
+.loggout:hover{
+    background-color: rgba(241, 52, 52, 0.77);
+}
+// Add Widget
+.add_Btn_div{
+    position: sticky;
+    bottom: 30px;
+    color: white;
+    padding: 5px;
+    background-color: rgb(58, 58, 58);
+    height: 50px;
+    width: 50px;
+    border-radius: 8px;
+    @extend .center_div_flex;
+    cursor: pointer;
+}
+.add_Btn_div:hover{
+    background-color: rgb(92, 81, 57);
+}

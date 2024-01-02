@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+.mainBody{
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    flex-wrap: wrap;
+    height: 85%;
+    width: 80%;
+    top: 80px;
+    left: 230px;
+}
+
+.checklistDiv{
+    height: 450px;
+    width: 100%;
+    bottom: 5px;
+    border-radius: 10px;
+    background-color: #0f0f0f;
+    margin: 15px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* FOCUS SESSIONS */
+.focusSessions{
+    height: 250px;
+    width: 50%;
+    background-color: rgb(58, 58, 58);
+    right: 50px;
+    top: 100px;
+    border-radius: 10px;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.timerDiv{
+    background-color: rgb(22, 22, 22);
+    height: 150px;
+    width: 100%;
+    font-family: 'Silkscreen', sans-serif;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+}
+.timer{
+    font-size: 70px;
+}
+.day{
+    font-size: 20px;
+}
+
+
+/* CHECKLIST */
+.checklist{
+    height: 40px;
+    width: 90%;
+    background-color: aquamarine;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+/* KARBAN BOARD */
+.kanbanBoarddiv{
+    height: 450px;
+    width: 100%;
+    bottom: 5px;
+    left: 250px;
+    border-radius: 10px;
+    background-color: #0f0f0f;
+    margin: 15px 15px;
+    display: flex;
+    flex-direction: row;
+}
+.todo_Div{
+    /* background-color: antiquewhite; */
+    height: 450px;
+    width: 33.3%;
+    border-radius: 10px 0px 0px 10px;
+}
+.doin_Div{
+    /* background-color: aquamarine; */
+    height: 450px;
+    height: 100%;
+    width: 33.3%;
+}
+.done_Div{
+    /* background-color: blue; */
+    height: 450px;
+    width: 33.3%;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.todo_Div_title{
+    height: 60px;
+    background-color:#1b1b1b;
+    width: 100%;
+    color: white;
+    border-radius: 10px 0px 0px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Silkscreen', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doin_Div_title{
+    height: 60px;
+    background-color:#1b1b1b;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Silkscreen', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.done_Div_title{
+    height: 60px;
+    background-color:#1b1b1b;
+    width: 100%;
+    color: white;
+    border-radius: 0px 10px 10px 0px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Silkscreen', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Div_cards{
+    height: 390px; /* or any fixed height you desire */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto; /* Use 'auto' to show scrollbar when necessary */
+}
+
+.todo_Div_card{
+    min-height: 60px; /* Set a minimum height for child divs */
+    width: 95%;
+    background-color: rgb(26, 26, 26);
+    margin: 8px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.todo_Div_card:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+}
+.add_Btn_div{
+    position: sticky;
+    bottom: 30px;
+}
+.inputAddFeild{
+  height: 60%;
+  width: 85%;
+  background: rgb(34, 34, 34);
+  border: none;
+  border-radius: 15px;
+  padding: 0px 15px;
+  color: white;
+  outline: none;
+}
