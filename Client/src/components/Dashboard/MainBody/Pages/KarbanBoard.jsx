@@ -3,30 +3,35 @@ import Pages from './Pages.module.css'
 import RequireAuth from '../../../RequireAuth/RequireAuth'
 import AddWidget from '../widgets/addWidget'
 import Cards from './cards/karbanboard.card'
-
-import { useDrop } from 'react-dnd'
+import {DndContext, closestCenter} from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 const KarbanBoard = () => {
 
   const ref = useRef(null);
   const [AddTODO, setAddTODO] = useState("")
-  const [TODO, setTODO] = useState([{id: "hw3h4ergaw4gaew4g" ,note: "hello", status: 0}])
-  const [DOING, setDOING] = useState([{id: "gewgw54gw4gwergwe4e4" ,note: "hello1", status: 1}])
-  const [DONE, setDONE] = useState([{id: "asdfasdgasdghq34h" ,note: "hello2", status: 2}])
+  const [TODOs, setTODOs] = useState(["hello", "world", "hello world"])
+  // const [DOING, setDOING] = useState([{id: "gewgw54gw4gwergwe4e4" ,note: "hello1", status: 1}])
+  // const [DONE, setDONE] = useState([{id: "asdfasdgasdghq34h" ,note: "hello2", status: 2}])
 
   const addTODOfn = () => {
+
     if(AddTODO){ // If New TODO AVAILABLE in TODO State
-      setTODO(TODO => [AddTODO, ...TODO]) // Add Note to TODO Array
+      setTODOs(TODOs => [AddTODO, ...TODOs]) // Add Note to TODO Array
       // console.log(TODO) 
       ref.current.value = ''; // Empty the Input Feild
       setAddTODO("") // Emptying The TODO State
     }
   }
 
-
+  function handleDragEnd(event) {
+    console.log("drag over")
+  }
+  
 
   return (
       <div className={Pages.mainBody}>
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <div className={Pages.kanbanBoarddiv}>
           <div className={Pages.todo_Div}>
             <div className={Pages.todo_Div_title}>
@@ -34,13 +39,15 @@ const KarbanBoard = () => {
             </div>
             <div className={Pages.Div_cards}>
               <div className={Pages.todo_Div_card}>
-                <input type='text' ref={ref} className={Pages.inputAddFeild} placeholder='your task here...' onChange={(e) => setAddTODO({id: 1, note: e.target.value})}/>
+                <input type='text' ref={ref} className={Pages.inputAddFeild} placeholder='your task here...' onChange={(e) => setAddTODO(e.target.value)}/>
               </div>
-              {
-                TODO.map((item) => 
-                  <Cards item={item}/>
-                )
-              }
+                <SortableContext items={TODOs} strategy={verticalListSortingStrategy}>
+                {
+                  TODOs.map(TODO => 
+                    <Cards key={TODO} id={TODO}/>
+                  )
+                }
+                </SortableContext>
               <div onClick={addTODOfn} className={Pages.add_Btn_div}>
                 <AddWidget/>
               </div>
@@ -51,11 +58,11 @@ const KarbanBoard = () => {
               <span>In-Progress</span>
             </div>
             <div className={Pages.Div_cards}>
-            {
+            {/* {
                 DOING.map((item) => 
                   <Cards item={item}/>
                 )
-              }
+              } */}
             </div>
           </div>
           <div className={Pages.done_Div}>
@@ -63,16 +70,18 @@ const KarbanBoard = () => {
               <span>Done</span>
             </div>
             <div className={Pages.Div_cards}>
-            {
+            {/* {
                 DONE.map((item) => 
                   <Cards item={item}/>
                 )
-              }
+              } */}
             </div>
           </div>
         </div>
+        </DndContext>
       </div>
   )
+  
 }
 
 export default RequireAuth(KarbanBoard)

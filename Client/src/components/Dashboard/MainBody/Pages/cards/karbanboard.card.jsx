@@ -1,20 +1,24 @@
 import React from 'react'
 import Pages from './../Pages.module.css'
-import { useDrag } from 'react-dnd'
+import { useSortable } from '@dnd-kit/sortable'
+import {CSS, useNodeRef} from "@dnd-kit/utilities"
 
-const Cards = ({item}) => {
- 
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: "TODO",
-        item: { id: item.id, note: item.note, status: item.status },
-        collect: (monitor) => ({
-            isDragging: !!monitor.isDragging()
-        })
-    })) 
-
+const Cards = (props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+} = useSortable({id: props.id});
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+  
   return (
-        <div ref={drag} className={Pages.todo_Div_card} style={(isDragging) ? {opacity: ".25"} : {opacity: "1"} }>
-            <span >{item.note}</span>
+        <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={Pages.todo_Div_card}>
+            <span>{props.id}</span>
         </div>
   )
 }
