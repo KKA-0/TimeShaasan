@@ -20,7 +20,9 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.25.1",
     "sass": "^1.69.6",
+    "socket.io-client": "^4.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
