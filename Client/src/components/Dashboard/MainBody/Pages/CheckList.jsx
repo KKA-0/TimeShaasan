@@ -4,7 +4,7 @@ import pages from './../Pages/Pages.module.css'
 import components from './../Pages/overview/components/components.module.css'
 import RequireAuth from '../../../RequireAuth/RequireAuth'
 import AddWidget from '../widgets/addWidget'
-import useCheckList from '../../../../hooks/useCheckList'
+import useCheckList from '../../../../hooks/useCheckList.redux'
 
 const CheckList = () => {
 

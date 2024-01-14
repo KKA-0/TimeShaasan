@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 
-const useFocusSession = (sessionsLimit, startTimestamp) => {
-
+const useFocusSession = (sessionsLimit, startTimestamp, stopTimeremain) => {
   const [remainingTime, setRemainingTime] = useState(calculateRemainingTime());
 
   function calculateRemainingTime() {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const elapsedTime = currentTime - startTimestamp;
-    const remainingTimeInSeconds = sessionsLimit - elapsedTime;
+    if (stopTimeremain > 0) {
+      // If the timer has been stopped, use stopTimeremain as the remaining time
+      return stopTimeremain;
+    } else {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const elapsedTime = currentTime - startTimestamp;
+      const remainingTimeInSeconds = sessionsLimit - elapsedTime;
 
-    return remainingTimeInSeconds >= 0 ? remainingTimeInSeconds : 0;
+      return remainingTimeInSeconds >= 0 ? remainingTimeInSeconds : 0;
+    }
   }
 
   useEffect(() => {
@@ -18,7 +22,8 @@ const useFocusSession = (sessionsLimit, startTimestamp) => {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [startTimestamp, sessionsLimit]);
+    // eslint-disable-next-line
+  }, [startTimestamp, sessionsLimit, stopTimeremain]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);

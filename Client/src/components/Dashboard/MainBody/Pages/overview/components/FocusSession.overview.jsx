@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import dashboard from './../../../../Dashboard.module.css'
 import useFocusSession from '../../../../../../hooks/useFocusSession';
+import { useSelector } from 'react-redux';
 
 const FocusSession = () => {
-
-  const startTimestamp = 1704538064;
-  const sessionsLimit = 2400;
+  const [sessionsLimit, setsessionsLimit] = useState(0)
+  const [startTimestamp, setstartTimestamp] = useState(0)
+  
+  const Session = useSelector((state) => state.user.session)
+  useEffect(() => {
+    setsessionsLimit(Session.sessionsLimit)
+    setstartTimestamp(Session.startTimestamp)
+  }, [Session])
   const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp);
   return (
     <>

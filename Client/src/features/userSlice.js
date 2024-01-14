@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { userData, checklistData } from './userThunk'
+import { sessionThunk } from './sessionThunk'
 
 const initialState = {
     username: "",
     id: "",
     email: "",
-    checklist: []
+    checklist: [],
+    session: {
+        startTimestamp: 0,
+        sessionsLimit: 0,
+        remainingTime: 0
+    }
 }
 
 
@@ -21,6 +27,12 @@ export const userSlice = createSlice({
         removeChecklist: (state) => {
             state.checklist = []
         },
+        updateFocusSession: (state, action) => {
+            state.session.startTimestamp = action.payload.startTimestamp
+            state.session.sessionsLimit = action.payload.sessionsLimit
+            state.session.remainingTime = action.payload.remainingTime
+            state.session.ToggleTimer = action.payload.ToggleTimer
+        },
         removeUser: (state, action) => {
             state.userData = state.userData.filter((user) => 
             user.id !== action.payload)
@@ -35,10 +47,15 @@ export const userSlice = createSlice({
             })
             .addCase(checklistData.fulfilled, (state, action) => {
                 state.checklist = action.payload;
-              });
+            })
+            .addCase(sessionThunk.fulfilled, (state, action) => {
+                state.session.startTimestamp = action.payload.data.focus.start_Timestamp
+                state.session.sessionsLimit = action.payload.data.focus.sessions_limit
+                state.session.remainingTime = action.payload.data.focus.remaining_Time
+            });
     }
 }) 
 
-export const { addUser, removeUser, removeChecklist } = userSlice.actions
+export const { addUser, removeUser, removeChecklist, updateFocusSession } = userSlice.actions
 
 export default userSlice.reducer

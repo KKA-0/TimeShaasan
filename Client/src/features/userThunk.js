@@ -26,7 +26,7 @@ export const userData = createAsyncThunk(
 
 export const checklistData = createAsyncThunk(
   'checklistData',
-  async (userdata, thunkAPI) => {
+  async (checklistData, thunkAPI) => {
     const id = thunkAPI.getState().user.id;
     try {
       const response = await axios.get(`http://localhost:4000/api/checklist/${id}`);

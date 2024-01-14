@@ -1,64 +1,101 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+// import { io } from "socket.io-client";
 import Pages from './../Pages/Pages.module.css'
 import RequireAuth from '../../../RequireAuth/RequireAuth'
 import useFocusSession  from '../../../../hooks/useFocusSession';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFocusSession } from './../../../../features/userSlice'
 
 import { MdOutlineMotionPhotosPause } from "react-icons/md";
 import { LuTimerReset } from "react-icons/lu";
 import { RxResume } from "react-icons/rx";
 import { Tooltip } from 'react-tooltip'
-// import { io } from "socket.io-client";
+
+import useFocusSession_redux from '../../../../hooks/useFocusSession.redux';
 
 const FocusSession = () => {
-  const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+  const useFocusSession_redux_Data = useFocusSession_redux()
+  console.log(useFocusSession_redux_Data)
+  const dispatch = useDispatch()
   const [sessionsLimit, setsessionsLimit] = useState(0)
   const [startTimestamp, setstartTimestamp] = useState(0)
+  const [stopTimeremain, setstopTimeremain] = useState(0)
+  const [ToggleTimer, setToggleTimer] = useState(false)
   const Startvalue = useRef(0)
   // const socket = io("http://localhost:4000");
   
   //   useEffect(() => {
     //     socket.on("connect", () => {
-  //     });
-  //   }, [])
-    
-  //   const engine = socket.io.engine;
-  //   engine.on("packet", ({ type, data }) => {
+      //     });
+      //   }, [])
+      
+      //   const engine = socket.io.engine;
+      //   engine.on("packet", ({ type, data }) => {
     //     console.log(type, data);
     //   });
     
     const StartTimer = () => {
+      const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
       setsessionsLimit(Startvalue.current.value)
       setstartTimestamp(currentUnixTimeInSeconds)
+      dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false}))
     }
-    const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp);
+    const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp, stopTimeremain);
     
-    // const StopTimer = () => {
+    const StopTimer = () => {
+      if(ToggleTimer === false){
+        const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+        const elapsedTime = currentUnixTimeInSeconds - startTimestamp;
+        const remainingTime = sessionsLimit - elapsedTime;
+        setstopTimeremain(remainingTime)
+        setToggleTimer(true)
+        dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: remainingTime, ToggleTimer: true}))
+      }else{
+        const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+        setstartTimestamp(currentUnixTimeInSeconds)
+        setsessionsLimit(stopTimeremain)
+        setstopTimeremain(0)
+        setToggleTimer(false)
+      }
+    }
       
-    // }
-      
-    // const ResetTimer = () => {
-    //   setMinute(45)
-    //   setSecond(59)
-    // }
-        
+    const ResetTimer = () => {
+      const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
+      setsessionsLimit(Startvalue.current.value)
+      setstartTimestamp(currentUnixTimeInSeconds)
+      dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false}))
+    }
+
+    
+    // If Session Exists in Redux
+    const Session = useSelector((state) => state.user.session)
+    useEffect(() => {
+      setsessionsLimit(Session.sessionsLimit)
+      setstartTimestamp(Session.startTimestamp)
+      setstopTimeremain(Session.remainingTime)
+      setToggleTimer(Session.ToggleTimer)
+    }, [Session])
         
   return (
       <div className={Pages.mainBody}>
           <div className={Pages.focusSessions}>
             <div className={Pages.timerDiv}>
               <span className={Pages.timer}>{formatTime(remainingTime)}</span>
-              <span className={Pages.remaining}>Remaining</span>
+              <span className={Pages.remaining} style={(ToggleTimer) ? {color: "red"} : {color: "white"}}>Remaining</span>
             </div>
             <div className={Pages.FocusSessionSettings}>
-              <div onClick={() => StartTimer("hello1")}>
+            { (ToggleTimer) ? 
+              <div onClick={() => StartTimer()}>
                 <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Resume Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsResume" />
               </div>
-              <div>
+            :
+              <div onClick={() => StopTimer()}>
                 <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content="Pause Timer" data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsPause" />
               </div>
-              <div>
+            }
+              <div onClick={() => ResetTimer()}>
                 <LuTimerReset size='3em' data-tooltip-id="iconsReset" data-tooltip-content="Reset Timer" data-tooltip-place="top" className={Pages.iconsReset} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsReset" />
               </div>

@@ -20,6 +20,11 @@ const focus_Session = new mongoose.Schema({
         required: true,
         default: 0
     },
+    remaining_Time:{
+        type: Number,
+        required: true,
+        default: 0
+    }
 });
 
 focus_Session_Schema = mongoose.model('focus_Session', focus_Session);
