@@ -14,8 +14,6 @@ import { Tooltip } from 'react-tooltip'
 import useFocusSession_redux from '../../../../hooks/useFocusSession.redux';
 
 const FocusSession = () => {
-  const useFocusSession_redux_Data = useFocusSession_redux()
-  console.log(useFocusSession_redux_Data)
   const dispatch = useDispatch()
   const [sessionsLimit, setsessionsLimit] = useState(0)
   const [startTimestamp, setstartTimestamp] = useState(0)
@@ -38,7 +36,7 @@ const FocusSession = () => {
       const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
       setsessionsLimit(Startvalue.current.value)
       setstartTimestamp(currentUnixTimeInSeconds)
-      dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false}))
+      dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false, id: id}))
     }
     const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp, stopTimeremain);
     
@@ -66,14 +64,20 @@ const FocusSession = () => {
       dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false}))
     }
 
+    useFocusSession_redux()
     
     // If Session Exists in Redux
+    const id = useSelector((state) => state.user.id)
     const Session = useSelector((state) => state.user.session)
     useEffect(() => {
-      setsessionsLimit(Session.sessionsLimit)
-      setstartTimestamp(Session.startTimestamp)
-      setstopTimeremain(Session.remainingTime)
-      setToggleTimer(Session.ToggleTimer)
+      // if(Session.startTimestamp){
+        setsessionsLimit(Session.sessionsLimit)
+        setstartTimestamp(Session.startTimestamp)
+        setstopTimeremain(Session.remainingTime)
+        setToggleTimer(Session.ToggleTimer)
+      // }else{
+      //   console.log("Session Does not Found in Redux State")
+      // }
     }, [Session])
         
   return (
@@ -84,17 +88,17 @@ const FocusSession = () => {
               <span className={Pages.remaining} style={(ToggleTimer) ? {color: "red"} : {color: "white"}}>Remaining</span>
             </div>
             <div className={Pages.FocusSessionSettings}>
-            { (ToggleTimer) ? 
+            
               <div onClick={() => StartTimer()}>
                 <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Resume Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsResume" />
               </div>
-            :
+            
               <div onClick={() => StopTimer()}>
                 <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content="Pause Timer" data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsPause" />
               </div>
-            }
+            
               <div onClick={() => ResetTimer()}>
                 <LuTimerReset size='3em' data-tooltip-id="iconsReset" data-tooltip-content="Reset Timer" data-tooltip-place="top" className={Pages.iconsReset} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsReset" />

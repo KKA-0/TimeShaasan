@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { userData, checklistData } from './userThunk'
 import { sessionThunk } from './sessionThunk'
+import axios from 'axios'
 
 const initialState = {
     username: "",
@@ -32,6 +33,19 @@ export const userSlice = createSlice({
             state.session.sessionsLimit = action.payload.sessionsLimit
             state.session.remainingTime = action.payload.remainingTime
             state.session.ToggleTimer = action.payload.ToggleTimer
+            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/focus/${action.payload.id}`, {
+                sessions_limit: action.payload.sessionsLimit,
+                start_Timestamp: action.payload.startTimestamp,
+                remaining_Time: action.payload.remainingTime,
+                ToggleTimer: action.payload.ToggleTimer
+              })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
         },
         removeUser: (state, action) => {
             state.userData = state.userData.filter((user) => 

@@ -16,12 +16,13 @@ exports.AddFocusSession = async (req, res) => {
 
 exports.UpdateFocusSession = async (req, res) => {
     try{
-        await focus_Session_Schema.findByIdAndUpdate( req.params.id, {
+        await focus_Session_Schema.findOneAndUpdate({ user_id: req.params.id }, {
             sessions: req.body.sessions,
             sessions_limit: req.body.sessions_limit,
             start_Timestamp: req.body.start_Timestamp,
-            remainingTime: req.body.remainingTime
-        })
+            remainingTime: req.body.remainingTime,
+            ToggleTimer: req.body.ToggleTimer
+        });        
         res.status(200).json({
             success: true,
         })
