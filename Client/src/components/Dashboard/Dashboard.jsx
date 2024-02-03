@@ -5,7 +5,7 @@ import SideBar from './sideBar/SideBar'
 import FocusSession from './MainBody/Pages/FocusSession'
 import Auth from './MainBody/Pages/auth'
 import Overview from './MainBody/Pages/overview/overview'
-import KarbanBoard from './MainBody/Pages/KarbanBoard'
+import KanbanBoard from './MainBody/Pages/KanbanBoard'
 import CheckList from './MainBody/Pages/CheckList.jsx'
 import Settings from './MainBody/widgets/Settings.jsx'
 import MusicWidget from './MainBody/widgets/musicWidget.jsx'
@@ -39,7 +39,7 @@ const Dashboard = () => {
           <Route path='/auth' element={<Auth/>} />
           <Route path='/overview' element={<Overview/>} />
           <Route path='/focus-session' element={<FocusSession/>} />
-          <Route path='/karbanboard' element={<KarbanBoard/>} />
+          <Route path='/kanbanboard' element={<KanbanBoard/>} />
           <Route path='/checklist' element={<CheckList/>}/>
           <Route path='/settings' element={<Settings/>}/>
         </Routes>
