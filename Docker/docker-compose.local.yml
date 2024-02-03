@@ -1,7 +1,6 @@
 version: '3.9'
 
 services:
-
   client:
     image: client
     build:
@@ -9,7 +8,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-    - "3000:3000"
+      - "3000:3000"
 
   server:
     image: server
