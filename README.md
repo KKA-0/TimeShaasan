@@ -12,6 +12,10 @@ The Initiative to Become The King of your Time, The name "Time Shaasan" is inspi
 
 </details>
 
-<details><summary>Architecture</summary>
-  https://www.figma.com/file/TriDTcM8Pmb0OGZ1c6UHAh/TimeShaasan?type=whiteboard&node-id=0%3A1&t=otXsh7wnaD8wLhOK-1
+<details open><summary>Architecture</summary>
+
+![TimeShaasan Re-Arch Microservice](https://github.com/KKA-0/TimeShaasan/assets/85556603/c2362025-47c5-4663-8d4d-1ebfa7100e45)
+
+https://www.figma.com/file/9CMOVhCx5UkOH0d5CMTlEA/TimeShaasan-Re-Arch-Microservice?type=whiteboard&node-id=0%3A1&t=EYJhgKNjSoJcoThB-1
+  
 </details>
