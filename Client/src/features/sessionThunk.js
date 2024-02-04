@@ -6,7 +6,7 @@ export const sessionThunk = createAsyncThunk(
     async (sessionData, thunkAPI) => {
         const id = thunkAPI.getState().user.id;
         try{
-            const SessionDB =axios.get(`http://localhost:4000/api/focus/${id}`)
+            const SessionDB =axios.get(`${process.env.REACT_APP_DOMAIN}/api/focus/${id}`)
             return SessionDB;
         } catch(err) {
             console.error(err);

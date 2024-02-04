@@ -26,7 +26,7 @@ const RequireAuth = (Component) => {
               'Authorization': `Bearer ${cookiesToken}`
             }
           }
-          axios.get('http://localhost:4000/api/token', axiosHead)
+          axios.get(`${process.env.REACT_APP_DOMAIN}/api/token`, axiosHead)
           .then(function (response) {
             console.log(response);
             dispatch(addUser(response.data.decoded))

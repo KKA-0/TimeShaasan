@@ -41,7 +41,7 @@ export const userSlice = createSlice({
                 ToggleTimer: action.payload.ToggleTimer
               })
               .then(function (response) {
-                console.log(response);
+                // console.log(response);
               })
               .catch(function (error) {
                 console.log(error);

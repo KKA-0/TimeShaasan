@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusSession } from './../../../../features/userSlice'
 
 import { MdOutlineMotionPhotosPause } from "react-icons/md";
-import { LuTimerReset } from "react-icons/lu";
 import { RxResume } from "react-icons/rx";
 import { Tooltip } from 'react-tooltip'
 
