@@ -20,7 +20,7 @@ exports.UpdateFocusSession = async (req, res) => {
             sessions: req.body.sessions,
             sessions_limit: req.body.sessions_limit,
             start_Timestamp: req.body.start_Timestamp,
-            remainingTime: req.body.remainingTime,
+            remaining_Time: req.body.remaining_Time,
             ToggleTimer: req.body.ToggleTimer
         });        
         res.status(200).json({

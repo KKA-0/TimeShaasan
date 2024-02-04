@@ -11,7 +11,8 @@ const initialState = {
     session: {
         startTimestamp: 0,
         sessionsLimit: 0,
-        remainingTime: 0
+        remainingTime: 0,
+        ToggleTimer: true,
     }
 }
 
@@ -66,6 +67,7 @@ export const userSlice = createSlice({
                 state.session.startTimestamp = action.payload.data.focus.start_Timestamp
                 state.session.sessionsLimit = action.payload.data.focus.sessions_limit
                 state.session.remainingTime = action.payload.data.focus.remaining_Time
+                state.session.ToggleTimer = action.payload.data.focus.ToggleTimer
             });
     }
 }) 

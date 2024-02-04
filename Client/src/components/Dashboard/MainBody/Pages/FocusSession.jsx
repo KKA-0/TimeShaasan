@@ -47,7 +47,7 @@ const FocusSession = () => {
         const remainingTime = sessionsLimit - elapsedTime;
         setstopTimeremain(remainingTime)
         setToggleTimer(true)
-        dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: remainingTime, ToggleTimer: true}))
+        dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: remainingTime, ToggleTimer: true, id: id}))
       }else{
         const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
         setstartTimestamp(currentUnixTimeInSeconds)
@@ -56,13 +56,6 @@ const FocusSession = () => {
         setToggleTimer(false)
       }
     }
-      
-    const ResetTimer = () => {
-      const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
-      setsessionsLimit(Startvalue.current.value)
-      setstartTimestamp(currentUnixTimeInSeconds)
-      dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false}))
-    }
 
     useFocusSession_redux()
     
@@ -70,14 +63,10 @@ const FocusSession = () => {
     const id = useSelector((state) => state.user.id)
     const Session = useSelector((state) => state.user.session)
     useEffect(() => {
-      // if(Session.startTimestamp){
         setsessionsLimit(Session.sessionsLimit)
         setstartTimestamp(Session.startTimestamp)
         setstopTimeremain(Session.remainingTime)
         setToggleTimer(Session.ToggleTimer)
-      // }else{
-      //   console.log("Session Does not Found in Redux State")
-      // }
     }, [Session])
         
   return (
@@ -90,20 +79,16 @@ const FocusSession = () => {
             <div className={Pages.FocusSessionSettings}>
             
               <div onClick={() => StartTimer()}>
-                <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Resume Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
+                <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Start/Reset Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsResume" />
               </div>
             
               <div onClick={() => StopTimer()}>
-                <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content="Pause Timer" data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
+                <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content={(ToggleTimer) ? "Resume Timer" : "Pause Timer"} data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
                 <Tooltip id="iconsPause" />
               </div>
-            
-              <div onClick={() => ResetTimer()}>
-                <LuTimerReset size='3em' data-tooltip-id="iconsReset" data-tooltip-content="Reset Timer" data-tooltip-place="top" className={Pages.iconsReset} style={{ margin: '5px', cursor: 'pointer' }}/>
-                <Tooltip id="iconsReset" />
-              </div>
             </div>
+            
             <div className={Pages.FocusOptions}>
               <select ref={Startvalue} className={Pages.SessionsLimit}>
                 <option value='900'>15 Mins</option>
