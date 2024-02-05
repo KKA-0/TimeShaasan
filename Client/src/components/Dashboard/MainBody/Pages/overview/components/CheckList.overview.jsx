@@ -1,7 +1,7 @@
 import React from 'react'
 import dashboard  from './../../../../Dashboard.module.css'
 import components from './components.module.css'
-import useCheckList from '../../../../../../hooks/useCheckList' 
+import useCheckList from '../../../../../../hooks/useCheckList.redux' 
 
 const CheckList = () => {
 

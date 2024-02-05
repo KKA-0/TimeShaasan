@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { userData, checklistData } from './userThunk'
+import { sessionThunk } from './sessionThunk'
+import axios from 'axios'
 
 const initialState = {
     username: "",
     id: "",
     email: "",
-    checklist: []
+    checklist: [],
+    session: {
+        startTimestamp: 0,
+        sessionsLimit: 0,
+        remainingTime: 0,
+        ToggleTimer: true,
+    }
 }
 
 
@@ -21,6 +29,25 @@ export const userSlice = createSlice({
         removeChecklist: (state) => {
             state.checklist = []
         },
+        updateFocusSession: (state, action) => {
+            state.session.startTimestamp = action.payload.startTimestamp
+            state.session.sessionsLimit = action.payload.sessionsLimit
+            state.session.remainingTime = action.payload.remainingTime
+            state.session.ToggleTimer = action.payload.ToggleTimer
+            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/focus/${action.payload.id}`, {
+                sessions_limit: action.payload.sessionsLimit,
+                start_Timestamp: action.payload.startTimestamp,
+                remaining_Time: action.payload.remainingTime,
+                ToggleTimer: action.payload.ToggleTimer
+              })
+              .then(function (response) {
+                // console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+        },
         removeUser: (state, action) => {
             state.userData = state.userData.filter((user) => 
             user.id !== action.payload)
@@ -35,10 +62,16 @@ export const userSlice = createSlice({
             })
             .addCase(checklistData.fulfilled, (state, action) => {
                 state.checklist = action.payload;
-              });
+            })
+            .addCase(sessionThunk.fulfilled, (state, action) => {
+                state.session.startTimestamp = action.payload.data.focus.start_Timestamp
+                state.session.sessionsLimit = action.payload.data.focus.sessions_limit
+                state.session.remainingTime = action.payload.data.focus.remaining_Time
+                state.session.ToggleTimer = action.payload.data.focus.ToggleTimer
+            });
     }
 }) 
 
-export const { addUser, removeUser, removeChecklist } = userSlice.actions
+export const { addUser, removeUser, removeChecklist, updateFocusSession } = userSlice.actions
 
 export default userSlice.reducer

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { checklistData } from './../features/userThunk'
+import { checklistData } from '../features/userThunk'
 
 const useCheckList = () => {
 

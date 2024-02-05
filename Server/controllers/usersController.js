@@ -1,6 +1,8 @@
 const userSchema = require('./../models/userSchema')
+const focus_Session_Schema = require('./../models/focusSession.schema')
+const checklistSchema = require('./../models/checklistSchema')
+
 const jwt = require('jsonwebtoken');
-const axios = require('axios')
 
 const signToken = (data) => {
     return jwt.sign({id: data.id, email: data.email, username: data.username},
@@ -27,10 +29,9 @@ exports.addUser = async (req, res) => {
         try{
             if (!userExist){
                 const newUser = await userSchema.create(req.body);
-                console.log(newUser._id) 
-                await axios.post('http://localhost:4000/api/checklist', {
-                    "user_id": newUser._id
-                })
+                // Creating User Collections
+                await checklistSchema.create({ user_id: newUser._id });
+                await focus_Session_Schema.create({ user_id: newUser._id })
                 const token = signToken(newUser)
                 res.status(201).json({
                     user: newUser,
