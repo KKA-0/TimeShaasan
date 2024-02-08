@@ -30,10 +30,10 @@ export const userSlice = createSlice({
             state.checklist = []
         },
         updateFocusSession: (state, action) => {
-            state.session.startTimestamp = action.payload.startTimestamp
-            state.session.sessionsLimit = action.payload.sessionsLimit
-            state.session.remainingTime = action.payload.remainingTime
-            state.session.ToggleTimer = action.payload.ToggleTimer
+            // state.session.startTimestamp = action.payload.startTimestamp
+            // state.session.sessionsLimit = action.payload.sessionsLimit
+            // state.session.remainingTime = action.payload.remainingTime
+            // state.session.ToggleTimer = action.payload.ToggleTimer
             axios.patch(`${process.env.REACT_APP_DOMAIN}/api/focus/${action.payload.id}`, {
                 sessions_limit: action.payload.sessionsLimit,
                 start_Timestamp: action.payload.startTimestamp,

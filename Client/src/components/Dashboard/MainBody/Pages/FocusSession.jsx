@@ -7,17 +7,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusSession } from './../../../../features/userSlice'
 
 import { MdOutlineMotionPhotosPause } from "react-icons/md";
+import { LuTimerReset } from "react-icons/lu";
 import { RxResume } from "react-icons/rx";
 import { Tooltip } from 'react-tooltip'
 
 import useFocusSession_redux from '../../../../hooks/useFocusSession.redux';
 
 const FocusSession = () => {
+
+  // States for Storing Values
   const dispatch = useDispatch()
+
+  // State for Session Limit
   const [sessionsLimit, setsessionsLimit] = useState(0)
+
+  // State for Start Timestamp
   const [startTimestamp, setstartTimestamp] = useState(0)
+
+  // State for Remaining Time
   const [stopTimeremain, setstopTimeremain] = useState(0)
-  const [ToggleTimer, setToggleTimer] = useState(false)
+
+  // State for Toggle Timer [ true = pause, false = resume]
+  const [ToggleTimer, setToggleTimer] = useState(true)
+
+  // Ref for Getting the Value of Session Limit
   const Startvalue = useRef(0)
   // const socket = io("http://localhost:4000");
   
@@ -30,17 +43,22 @@ const FocusSession = () => {
       //   engine.on("packet", ({ type, data }) => {
     //     console.log(type, data);
     //   });
-    
+
+    // Fn to Start Timer by updating states, redux and API call
     const StartTimer = () => {
       const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
       setsessionsLimit(Startvalue.current.value)
       setstartTimestamp(currentUnixTimeInSeconds)
+      setToggleTimer(false)
       dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false, id: id}))
     }
+    // Custom hook for updating and Runnig Timer
     const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp, stopTimeremain);
-    
+
+    // Fn for Stopping Timer and Resumeing Timer when ToogleTimer
     const StopTimer = () => {
       if(ToggleTimer === false){
+        // Stopping Timer From Running state
         const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
         const elapsedTime = currentUnixTimeInSeconds - startTimestamp;
         const remainingTime = sessionsLimit - elapsedTime;
@@ -48,15 +66,17 @@ const FocusSession = () => {
         setToggleTimer(true)
         dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: remainingTime, ToggleTimer: true, id: id}))
       }else{
+        // Resuming Timer From Stopped state
         const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
         setstartTimestamp(currentUnixTimeInSeconds)
         setsessionsLimit(stopTimeremain)
+        dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: stopTimeremain, remainingTime: 0, ToggleTimer: false, id: id}))
         setstopTimeremain(0)
         setToggleTimer(false)
       }
     }
 
-    useFocusSession_redux()
+    const _useFocusSession_redux = useFocusSession_redux()
     
     // If Session Exists in Redux
     const id = useSelector((state) => state.user.id)
@@ -66,7 +86,8 @@ const FocusSession = () => {
         setstartTimestamp(Session.startTimestamp)
         setstopTimeremain(Session.remainingTime)
         setToggleTimer(Session.ToggleTimer)
-    }, [Session])
+        // console.log('Session Redux Thunk')
+    }, [Session, _useFocusSession_redux])
         
   return (
       <div className={Pages.mainBody}>
