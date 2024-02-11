@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFocusSession } from './../../../../features/userSlice'
 
 import { MdOutlineMotionPhotosPause } from "react-icons/md";
-import { LuTimerReset } from "react-icons/lu";
 import { RxResume } from "react-icons/rx";
 import { Tooltip } from 'react-tooltip'
 
@@ -88,42 +87,42 @@ const FocusSession = () => {
         setToggleTimer(Session.ToggleTimer)
         // console.log('Session Redux Thunk')
     }, [Session, _useFocusSession_redux])
-        
+
   return (
-      <div className={Pages.mainBody}>
-          <div className={Pages.focusSessions}>
-            <div className={Pages.timerDiv}>
-              <span className={Pages.timer}>{formatTime(remainingTime)}</span>
-              <span className={Pages.remaining} style={(ToggleTimer) ? {color: "red"} : {color: "white"}}>Remaining</span>
-            </div>
-            <div className={Pages.FocusSessionSettings}>
-            
-              <div onClick={() => StartTimer()}>
-                <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Start/Reset Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
-                <Tooltip id="iconsResume" />
-              </div>
-            
-              <div onClick={() => StopTimer()}>
-                <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content={(ToggleTimer) ? "Resume Timer" : "Pause Timer"} data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
-                <Tooltip id="iconsPause" />
-              </div>
-            </div>
-            
-            <div className={Pages.FocusOptions}>
-              <select ref={Startvalue} className={Pages.SessionsLimit}>
-                <option value='900'>15 Mins</option>
-                <option value='1800'>30 Mins</option>
-                <option value='2700' selected>45 Mins</option>
-                <option value='3600'>1 Hour</option>
-                <option value='5400'>1.5 Hours</option>
-                <option value='7200'>2 Hours</option>
-              </select>
-              <div className={Pages.Sessions}>
-                <span>0/3</span>
-              </div>
-            </div>
+    <>
+      <div className={Pages.focusSessions}>
+        <div className={Pages.timerDiv}>
+          <span className={Pages.timer}>{formatTime(remainingTime)}</span>
+          <span className={Pages.remaining} style={(ToggleTimer) ? {color: "red"} : {color: "white"}}>Remaining</span>
+        </div>
+        <div className={Pages.FocusSessionSettings}>
+        
+          <div onClick={() => StartTimer()}>
+            <RxResume size='3em' data-tooltip-id="iconsResume" data-tooltip-content="Start/Reset Timer" data-tooltip-place="top" className={Pages.iconsResume} style={{ margin: '5px', cursor: 'pointer' }}/>
+            <Tooltip id="iconsResume" />
           </div>
+        
+          <div onClick={() => StopTimer()}>
+            <MdOutlineMotionPhotosPause size='3em' data-tooltip-id="iconsPause" data-tooltip-content={(ToggleTimer) ? "Resume Timer" : "Pause Timer"} data-tooltip-place="top" className={Pages.iconsPause} style={{ margin: '5px', cursor: 'pointer' }}/>
+            <Tooltip id="iconsPause" />
+          </div>
+        </div>
+        
+        <div className={Pages.FocusOptions}>
+          <select ref={Startvalue} className={Pages.SessionsLimit}>
+            <option value='900'>15 Mins</option>
+            <option value='1800'>30 Mins</option>
+            <option value='2700' selected>45 Mins</option>
+            <option value='3600'>1 Hour</option>
+            <option value='5400'>1.5 Hours</option>
+            <option value='7200'>2 Hours</option>
+          </select>
+          <div className={Pages.Sessions}>
+            <span>0/3</span>
+          </div>
+        </div>
       </div>
+    </>
   )
 }
 

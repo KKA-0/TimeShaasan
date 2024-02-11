@@ -9,6 +9,7 @@ import KarbanBoard from './MainBody/Pages/KarbanBoard'
 import CheckList from './MainBody/Pages/CheckList.jsx'
 import Settings from './MainBody/widgets/Settings.jsx'
 import MusicWidget from './MainBody/widgets/musicWidget.jsx'
+import Pages from './MainBody/Pages/Pages.module.css'
 
 import { MdLibraryMusic } from "react-icons/md";
 import { useSelector } from 'react-redux'
@@ -34,16 +35,15 @@ const Dashboard = () => {
       {(user) ? <SideBar/> : ""}
       {(user) ?  <div onClick={MusicToggle} className={dashboard.MusicToggle}> <MdLibraryMusic color='white' size="2em" /> </div> : ""}
       {(user) ? <MusicWidget MusicToggle={Music}/> : ""}
-      
-        <Routes>
-          <Route path='/' element={<FocusSession/>} />
-          <Route path='/auth' element={<Auth/>} />
-          <Route path='/overview' element={<Overview/>} />
-          <Route path='/focus-session' element={<FocusSession/>} />
-          <Route path='/karbanboard' element={<KarbanBoard/>} />
-          <Route path='/checklist' element={<CheckList/>}/>
-          <Route path='/settings' element={<Settings/>}/>
-        </Routes>
+          <Routes>
+            <Route path='/' element={<FocusSession/>} />
+            <Route path='/auth' element={<Auth/>} />
+            <Route path='/overview' element={<div className={dashboard.mainBody}><Overview/></div>} />
+            <Route path='/focus-session' element={<div className={Pages.mainBody}><FocusSession/></div>} />
+            <Route path='/karbanboard' element={<div className={Pages.mainBody}><KarbanBoard/></div>} />
+            <Route path='/checklist' element={<div className={Pages.mainBody}><CheckList/></div>}/>
+            <Route path='/settings' element={<div className={Pages.mainBody}><Settings/></div>}/>
+          </Routes>
     </div>
   )
 }
