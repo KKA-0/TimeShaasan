@@ -1,27 +1,50 @@
-import React from 'react'
+import React from "react";
+import { Draggable } from "react-beautiful-dnd";
+import styled from "styled-components";
 import Pages from './../Pages.module.css'
-import { useSortable } from '@dnd-kit/sortable'
-import {CSS} from "@dnd-kit/utilities"
 
-const Cards = ({ id, title }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition
-} = useSortable({ id });
+const Container = styled.div`
+    background-color: ${(props) => bgcolorChange(props)};
+`;
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition
-  }
-  
-  return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners} className={Pages.todo_Div_card}>
-            <span>{title}</span>
-        </div>
-  )
+const bgcolorChange = (props) => {
+    return props.isDragging
+        ? "lightgreen"
+        : props.isDraggable
+            ? props.isBacklog
+                ? "#F2D7D5"
+                : "#DCDCDC"
+            : props.isBacklog
+                ? "#F2D7D5"
+                : "";
 }
 
-export default Cards
+const Cards = ({ task, index }) => {
+    return (
+        <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
+            {(provided, snapshot) => (
+                <Container
+                    className={Pages.todo_Div_card}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                    isDragging={snapshot.isDragging}
+                >
+                    <div>
+                        <span>
+                            <small>
+                                #{task.id}
+                                {"  "}
+                            </small>
+                        </span>
+                    </div>
+                    <div>
+                        <div>{task.title}</div>
+                    </div>
+                </Container>
+            )}
+        </Draggable>
+    );
+}
+
+export default Cards;

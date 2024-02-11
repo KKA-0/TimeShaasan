@@ -8,7 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+
       <Provider store={store}>
         <GoogleOAuthProvider clientId="714026040429-ah8ji0rvj42m8hhdtuf4uqgoimg7dgld.apps.googleusercontent.com">
           <BrowserRouter>
@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </BrowserRouter>
         </GoogleOAuthProvider>
       </Provider>
-  </React.StrictMode>
+
 );
