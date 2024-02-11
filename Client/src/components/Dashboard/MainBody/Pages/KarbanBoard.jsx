@@ -26,7 +26,6 @@ const KarbanBoard = () => {
 
 
   return (
-      <div className={Pages.mainBody}>
         <div className={Pages.kanbanBoarddiv}>
           <div className={Pages.todo_Div}>
             <div className={Pages.todo_Div_title}>
@@ -71,7 +70,6 @@ const KarbanBoard = () => {
             </div>
           </div>
         </div>
-      </div>
   )
 }
 

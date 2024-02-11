@@ -1,5 +1,4 @@
 import React from 'react'
-import dashboard from './../../Dashboard.module.css'
 import pages from './../Pages/Pages.module.css'
 import components from './../Pages/overview/components/components.module.css'
 import RequireAuth from '../../../RequireAuth/RequireAuth'
@@ -11,7 +10,6 @@ const CheckList = () => {
   const CheckListData = useCheckList()
   
   return (
-    <div className={dashboard.mainBody}>
       <div className={pages.checklistDiv}>
         <div className={components.checklistTitle}>
           CheckList
@@ -25,7 +23,6 @@ const CheckList = () => {
         <AddWidget/>
         </div>
       </div>
-    </div>
   )
 }
 
