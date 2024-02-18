@@ -1,17 +1,19 @@
+// useCheckList.js
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { checklistData } from '../features/userThunk'
 
 const useCheckList = () => {
+  const dispatch = useDispatch()
+  const checklist = useSelector((state) => state.user.checklist);
 
-    const dispatch = useDispatch()
-    useEffect(() => {
+  useEffect(() => {
+    if (checklist.length === 0) {
       dispatch(checklistData())
-    }, [dispatch])
-    
-    const checklist = useSelector((state) => state.user.checklist);
+    }
+  }, [dispatch, checklist.length])
 
-  return checklist
+  return checklist;
 }
 
-export default useCheckList
+export default useCheckList;

@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import dashboard  from './../../../../Dashboard.module.css'
 import components from './components.module.css'
 import useCheckList from '../../../../../../hooks/useCheckList.redux' 
-
+import ChecklistCard from './../../cards/checklist.card'
 const CheckList = () => {
 
-    const CheckListData = useCheckList()
-    
+    const getCheckList = useCheckList() // Hooks for getting the Checklist data from DB if available in Redux
+
+    useEffect(() => {
+    }, [getCheckList])
+
   return (
     <div className={dashboard.checklistDiv}>
         <div className={components.checklistTitle}>
@@ -14,8 +17,8 @@ const CheckList = () => {
         </div>
         <div className={components.checkList_listDiv}>
         {
-            CheckListData.map((item) =>
-                <div className={components.checklist}> <input type='checkbox'/><span> {item.title} </span> </div>
+            getCheckList.map((item) =>
+              <ChecklistCard title={item.title} status={item.status} task_id={item.task_id}/>
             )
         }
         </div>

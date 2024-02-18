@@ -8,6 +8,6 @@ router
     .route('/checklist/:id')
     .get(checklistController.getCheckList)
     .post(checklistController.addCheckList)
-    // .put(checklistController.rmTask)
+    .patch(checklistController.UpdateStatusCheckList)
 
 module.exports = router
