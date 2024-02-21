@@ -9,5 +9,6 @@ router
     .get(checklistController.getCheckList)
     .post(checklistController.addCheckList)
     .patch(checklistController.UpdateStatusCheckList)
+    .put(checklistController.RemoveChecklist)
 
 module.exports = router

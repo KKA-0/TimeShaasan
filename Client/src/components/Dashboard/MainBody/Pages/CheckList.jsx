@@ -31,14 +31,16 @@ const CheckList = () => {
       </div>
       <input ref={newCheckList} className={pages.inputAddFeild} style={{margin: "5px 0", width: "40%", minWidth: "200px"}} placeholder='Add Item Here...'/>
       <div className={components.checkList_listDiv}>
-        {getCheckList.map((item) =>
-          <ChecklistCard 
-            title={item.title}
-            status={item.status}
-            task_id={item.task_id}
-          />
-        )}
-        <div onClick={handleAddCheckList}>
+        {
+          getCheckList.slice().reverse().map((item) =>
+            <ChecklistCard 
+              title={item.title}
+              status={item.status}
+              task_id={item.task_id}
+            />
+          )
+        }
+      <div onClick={handleAddCheckList}>
           <AddWidget/>
         </div>
       </div>

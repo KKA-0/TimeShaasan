@@ -44,9 +44,19 @@ export const userSlice = createSlice({
             console.log(newChecklist)
             state.checklist.push(newChecklist)
         },
-        removeChecklist: (state) => {
-            state.checklist = []
-        },
+        removeChecklist: (state, action) => {
+            const { task_id } = action.payload;
+            state.checklist = state.checklist.filter(item => item.task_id !== task_id);
+            axios.put(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                task_id: task_id
+            })
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },        
         updatechecklist: (state, action) => {
             const { task_id } = action.payload;
             const tasks = current(state.checklist)

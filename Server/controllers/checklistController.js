@@ -66,3 +66,20 @@ exports.UpdateStatusCheckList = async (req, res) => {
         });
     }
 };
+
+exports.RemoveChecklist = async (req, res) => { 
+    try{
+        const removed = await checklistSchema.findOneAndUpdate(
+            { user_id: req.params.id },
+            { $pull: { checklist: { task_id: req.body.task_id } } },
+            { new: true }
+        )
+        res.status(200).json({
+            removed
+        })
+    }catch (err) {
+        res.status(400).json({
+            error: err.message
+        });
+    }
+ }
