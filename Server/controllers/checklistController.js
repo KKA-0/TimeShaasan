@@ -30,11 +30,13 @@ exports.addCheckList = async ( req, res ) => {
     try{
         const checklist = await checklistSchema.findOneAndUpdate(
             { user_id: req.params.id },
-            { $push: { checklist: { "title": req.body.title} } },
+            { $push: { checklist: { "title": req.body.title, task_id: req.body.task_id} } },
             { new: true }
         )
+        const newChecklist_pos = checklist.checklist.length  - 1
+        const newChecklist = checklist.checklist[newChecklist_pos]
         res.status(200).json({
-            checklist
+            newChecklist
         })
     }catch(err){
         res.status(400).json({
@@ -42,3 +44,42 @@ exports.addCheckList = async ( req, res ) => {
         })
     }
 }
+
+exports.UpdateStatusCheckList = async (req, res) => {
+    try {
+        const checklist = await checklistSchema.findOneAndUpdate(
+            { user_id: req.params.id, "checklist.task_id": req.body.task_id },
+            { $set: { "checklist.$.status": req.body.status } },
+            { new: true }
+        );
+        if (!checklist) {
+            return res.status(404).json({
+                error: "Checklist item not found"
+            });
+        }
+        res.status(200).json({
+            message: "success"
+        });
+    } catch (err) {
+        res.status(400).json({
+            error: err.message
+        });
+    }
+};
+
+exports.RemoveChecklist = async (req, res) => { 
+    try{
+        const removed = await checklistSchema.findOneAndUpdate(
+            { user_id: req.params.id },
+            { $pull: { checklist: { task_id: req.body.task_id } } },
+            { new: true }
+        )
+        res.status(200).json({
+            removed
+        })
+    }catch (err) {
+        res.status(400).json({
+            error: err.message
+        });
+    }
+ }

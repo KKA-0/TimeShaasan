@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 import { userData, checklistData } from './userThunk'
 import { sessionThunk } from './sessionThunk'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     username: "",
@@ -26,8 +27,59 @@ export const userSlice = createSlice({
             state.id = action.payload.id
             state.email = action.payload.email
         },
-        removeChecklist: (state) => {
-            state.checklist = []
+        addchecklist: (state, action) => {
+            const task_id = uuidv4()
+            axios.post(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                task_id: task_id,
+                title: action.payload.title,
+                status: action.payload.status
+            })
+            .then(function (response) {
+                // console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            const newChecklist = {...action.payload, task_id: task_id}
+            console.log(newChecklist)
+            state.checklist.push(newChecklist)
+        },
+        removeChecklist: (state, action) => {
+            const { task_id } = action.payload;
+            state.checklist = state.checklist.filter(item => item.task_id !== task_id);
+            axios.put(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                task_id: task_id
+            })
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },        
+        updatechecklist: (state, action) => {
+            const { task_id } = action.payload;
+            const tasks = current(state.checklist)
+            const updatechecklist = tasks.map(item => {
+                if(item.task_id === task_id) {
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                        task_id,
+                        status: item.status === 0 ? 1 : 0
+                    })
+                    .then(function (response) {
+                        // console.log(response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                    return {
+                        ...item,
+                        status: item.status === 0 ? 1 : 0
+                    };
+                }
+                return item;
+            });
+            state.checklist = updatechecklist;
         },
         updateFocusSession: (state, action) => {
             // state.session.startTimestamp = action.payload.startTimestamp
@@ -62,6 +114,7 @@ export const userSlice = createSlice({
             })
             .addCase(checklistData.fulfilled, (state, action) => {
                 state.checklist = action.payload;
+
             })
             .addCase(sessionThunk.fulfilled, (state, action) => {
                 state.session.startTimestamp = action.payload.data.focus.start_Timestamp
@@ -72,6 +125,6 @@ export const userSlice = createSlice({
     }
 }) 
 
-export const { addUser, removeUser, removeChecklist, updateFocusSession } = userSlice.actions
+export const { addUser, addchecklist, removeUser, removeChecklist, updateFocusSession, updatechecklist } = userSlice.actions
 
 export default userSlice.reducer
