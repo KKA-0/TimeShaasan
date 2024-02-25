@@ -57,7 +57,7 @@ export const userSlice = createSlice({
                 console.log(error);
             });
         },        
-        updatechecklist: (state, action) => {
+        updateChecklistStatus: (state, action) => {
             const { task_id } = action.payload;
             const tasks = current(state.checklist)
             const updatechecklist = tasks.map(item => {
@@ -80,6 +80,31 @@ export const userSlice = createSlice({
                 return item;
             });
             state.checklist = updatechecklist;
+        },
+        updateChecklistTitle: (state, action) => {
+            const { task_id, newTitle} = action.payload
+            const tasks = current(state.checklist)
+            const updatechecklist = tasks.map(item => {
+                if(item.task_id === task_id) {
+                    // axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                    //     task_id,
+                    //     status: item.status === 0 ? 1 : 0
+                    // })
+                    // .then(function (response) {
+                    //     // console.log(response.data)
+                    // })
+                    // .catch(function (error) {
+                    //     console.log(error);
+                    // });
+                    return {
+                        ...item,
+                        title: newTitle
+                    };
+                }
+                return item;
+            });
+            state.checklist = updatechecklist;
+
         },
         updateFocusSession: (state, action) => {
             // state.session.startTimestamp = action.payload.startTimestamp
@@ -125,6 +150,6 @@ export const userSlice = createSlice({
     }
 }) 
 
-export const { addUser, addchecklist, removeUser, removeChecklist, updateFocusSession, updatechecklist } = userSlice.actions
+export const { addUser, addchecklist, removeUser, removeChecklist, updateFocusSession, updateChecklistStatus, updateChecklistTitle } = userSlice.actions
 
 export default userSlice.reducer

@@ -35,7 +35,10 @@
     color: red;
     cursor: pointer;
 }
-
+.MdEdit:hover{
+    color: greenyellow;
+    cursor: pointer;
+}
 /* KARBAN BOARD */
 
 .todo_Div{
