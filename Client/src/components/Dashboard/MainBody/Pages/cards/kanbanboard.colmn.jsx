@@ -43,12 +43,6 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
                         </div>
                     )}
                 </Droppable>
-                {/* {
-                    (id === "todo") ?
-                        <div className={Pages.add_Btn_div} onClick={handleAddTask}>
-                            <AddWidget />
-                        </div> : ""
-                } */}
             </div>
         </div>
     );
