@@ -86,16 +86,18 @@ export const userSlice = createSlice({
             const tasks = current(state.checklist)
             const updatechecklist = tasks.map(item => {
                 if(item.task_id === task_id) {
-                    // axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
-                    //     task_id,
-                    //     status: item.status === 0 ? 1 : 0
-                    // })
-                    // .then(function (response) {
-                    //     // console.log(response.data)
-                    // })
-                    // .catch(function (error) {
-                    //     console.log(error);
-                    // });
+
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/edit/${state.id}`, {
+                        task_id,
+                        title: action.payload.newTitle
+                    })
+                    .then(function (response) {
+                        console.log(response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
                     return {
                         ...item,
                         title: newTitle

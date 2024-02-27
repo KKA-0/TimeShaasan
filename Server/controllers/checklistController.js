@@ -83,3 +83,25 @@ exports.RemoveChecklist = async (req, res) => {
         });
     }
  }
+
+ exports.UpdateEditCheckList = async (req, res) => {
+    try {
+        const checklist = await checklistSchema.findOneAndUpdate(
+            { user_id: req.params.id, "checklist.task_id": req.body.task_id },
+            { $set: { "checklist.$.title": req.body.title } },
+            { new: true }
+        );
+        if (!checklist) {
+            return res.status(404).json({
+                error: "Checklist item not found"
+            });
+        }
+        res.status(200).json({
+            message: "success"
+        });
+    } catch (err) {
+        res.status(400).json({
+            error: err.message
+        });
+    }
+};
