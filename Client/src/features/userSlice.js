@@ -41,7 +41,7 @@ export const userSlice = createSlice({
                 console.log(error);
             });
             const newChecklist = {...action.payload, task_id: task_id}
-            console.log(newChecklist)
+            // console.log(newChecklist)
             state.checklist.push(newChecklist)
         },
         removeChecklist: (state, action) => {

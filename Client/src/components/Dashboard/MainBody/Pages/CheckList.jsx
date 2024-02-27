@@ -19,7 +19,7 @@ const CheckList = () => {
   const handleAddCheckList = () => { // Fn for Adding New Checklist Card to Checklist
     const input = newCheckList.current.value
     if (input && input.length < 40) {
-      dispatch(addchecklist({title: input}))
+      dispatch(addchecklist({title: input, status: 0}))
       newCheckList.current.value = ""
     }
   } 
