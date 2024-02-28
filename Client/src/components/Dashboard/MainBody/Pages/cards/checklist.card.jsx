@@ -26,6 +26,12 @@ const ChecklistCard = ({title, status, task_id}) => {
         }
         setEdit(false) // set state to false to exit from edit mode
     }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleEditTask()
+        }
+      }
     
     useEffect(() => {
         if (status !== null && status !== undefined) {
@@ -40,11 +46,11 @@ const ChecklistCard = ({title, status, task_id}) => {
             <input ref={newStatus} task_id={task_id} onClick={handleChangeStatus} type='checkbox'/>
             {
                 (Edit) 
-                ? <input type='text' value={EditTitle} onChange={(e) => setEditTitle(e.target.value)}/>
+                ? <input type='text' value={EditTitle} maxLength={40} onKeyDown={handleKeyDown} className={components.EditTitle} onChange={(e) => setEditTitle(e.target.value)}/>
                 : <span style={(status) ? {textDecoration: "line-through", margin: "0px 10px"} : {textDecoration: "none", margin: "0px 10px"}}>{title}</span>
             }
         </div>
-        <div>
+        <div className={components.optionsChecklist}>
             {
                 (Edit) 
                 ? <FaCheck size="1.5em" onClick={handleEditTask} className={components.MdEdit}/>
