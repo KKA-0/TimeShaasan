@@ -142,3 +142,24 @@ body {
     height: 1.5rem;
   }
   
+
+
+@media only screen and (max-width: 767px) {
+  .auth-Div {
+    width: 90vw !important;
+    left: 5% !important;
+}
+.oauthButton{
+  width: 75vw!important;
+}
+.form > input {
+  width: 68vw !important;
+  text-align: center;
+}
+.form{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+}

@@ -125,3 +125,15 @@
     width: 100%;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 767px) {
+    .todo_Div_title{
+        font-size: small !important;
+    }
+    .done_Div_title{
+        font-size: small !important;
+    }
+    .doin_Div_title{
+        font-size: small !important;
+    }
+  }
