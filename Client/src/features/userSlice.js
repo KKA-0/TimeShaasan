@@ -5,7 +5,7 @@ const initialState = {
     username: "",
     id: "",
     email: "",
-    checklist: []
+    checklist: [],
 }
 
 
@@ -25,6 +25,9 @@ export const userSlice = createSlice({
             state.userData = state.userData.filter((user) => 
             user.id !== action.payload)
         },
+        addTodo: (state, action) => {
+            state.todo.push(action.payload)
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -39,6 +42,6 @@ export const userSlice = createSlice({
     }
 }) 
 
-export const { addUser, removeUser, removeChecklist } = userSlice.actions
+export const { addUser, removeUser, removeChecklist, addTodo } = userSlice.actions
 
 export default userSlice.reducer

@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const bgcolorChange = (props) => {
     return props.isDragging
-        ? "lightgreen"
+        ? "rgb(34, 34, 34)"
         : props.isDraggable
             ? props.isBacklog
                 ? "#F2D7D5"
@@ -30,14 +30,6 @@ const Cards = ({ task, index }) => {
                     ref={provided.innerRef}
                     isDragging={snapshot.isDragging}
                 >
-                    <div>
-                        <span>
-                            <small>
-                                #{task.id}
-                                {"  "}
-                            </small>
-                        </span>
-                    </div>
                     <div>
                         <div>{task.title}</div>
                     </div>

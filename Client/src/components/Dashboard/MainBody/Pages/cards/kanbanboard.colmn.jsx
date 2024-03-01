@@ -15,6 +15,11 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+        handleAddTask()
+    }
+  }
     return (
         <div className={Pages.todo_Div}>
             <div className={Pages.todo_Div_title}>
@@ -23,10 +28,7 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
             <div className={Pages.Div_cards}>
                 {id === "todo" && 
                     <div className={Pages.todo_Div_card}>
-                        <input type='text' className={Pages.inputAddFeild} placeholder='your task here...' value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}/><div className={Pages.add_Btn_div} onClick={handleAddTask}>
-              <AddWidget />
-          </div> 
+                        <input type='text' className={Pages.inputAddFeild} onKeyDown={handleKeyDown} maxLength={40} placeholder='your task here...' value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)}/>
                     </div>
                 }
                 <Droppable droppableId={id}>
@@ -43,12 +45,12 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
                         </div>
                     )}
                 </Droppable>
-                {/* {
+                {
                     (id === "todo") ?
-                        <div className={Pages.add_Btn_div} onClick={handleAddTask}>
-                            <AddWidget />
-                        </div> : ""
-                } */}
+                    <div className={Pages.add_Btn_div} onClick={handleAddTask}>
+                        <AddWidget />
+                    </div>  : ""
+                }
             </div>
         </div>
     );
