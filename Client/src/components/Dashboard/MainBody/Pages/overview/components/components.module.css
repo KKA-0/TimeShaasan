@@ -6,6 +6,14 @@
     color: whitesmoke;
     font-size: 18px;
 }
+.checkList_listDiv{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+}
 .checklist{
     height: 40px;
     width: 90%;
@@ -14,17 +22,18 @@
     font-size: 18px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: rgb(29, 29, 29);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
     color: white;
 }
-.checkList_listDiv{
-    height: 100%;
-    width: 100%;
+.checkList_list_content{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: scroll;
+    justify-content: space-evenly;
+}
+.MdDelete:hover{
+    color: red;
+    cursor: pointer;
 }
 
 /* KARBAN BOARD */

@@ -26,7 +26,6 @@ const KarbanBoard = () => {
         dispatch(addTodo(newTask))
       };
     return (
-        <div className={Pages.mainBody}>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <div className={Pages.kanbanBoarddiv}>
                     <Colmn title={"TO DO"} tasks={Todo} id={"todo"} onAddTask={handleAddTask}/>
@@ -34,7 +33,6 @@ const KarbanBoard = () => {
                     <Colmn title={"DONE"} tasks={Done} id={"done"} />
                 </div>
             </DragDropContext>
-        </div>
     );
 }
 

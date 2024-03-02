@@ -4,7 +4,7 @@ import axios from 'axios'
 export const userData = createAsyncThunk(
     'userData',
     async (userdata, thunkAPI) => {
-       const userDB = axios.post('http://localhost:4000/api/user', {
+       const userDB = axios.post(`${process.env.REACT_APP_DOMAIN}/api/user`, {
             username:userdata.given_name,
             email:userdata.email
         })
@@ -26,10 +26,10 @@ export const userData = createAsyncThunk(
 
 export const checklistData = createAsyncThunk(
   'checklistData',
-  async (userdata, thunkAPI) => {
+  async (checklistData, thunkAPI) => {
     const id = thunkAPI.getState().user.id;
     try {
-      const response = await axios.get(`http://localhost:4000/api/checklist/${id}`);
+      const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/checklist/${id}`);
       return response.data.checklists[0].checklist;
     } catch (error) {
       console.error(error);

@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
+    task_id: {
+      type: String,
+      required: true,
+    },
     title: {
         type: String,
         required: true
@@ -10,7 +14,7 @@ const taskSchema = new Schema({
       type: Number,
       default: 0
     }
-})
+}, { _id: false });
 
 const checklistSchema = new Schema({
   user_id: {
