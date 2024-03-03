@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { taskData } from './taskThunk'
 
 const initialState = {
     todo: [],
@@ -21,7 +23,25 @@ export const taskSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.todo.push(action.payload);
+            const { user_id, id, title } = action.payload
+            state.todo.push({id, title});
+            const tasks = state.todo;
+            tasks.map((item, index) => {
+                if(item.id === id){
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/todo/${user_id}`, {
+                        index: index,
+                        task_id: id,
+                        title
+                    })
+                    .then(function (response) {
+                        console.log(response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
+                return item;
+            })
         },
         moveTask: (state, action) => {
             const { source, destination, draggableId } = action.payload;
@@ -59,9 +79,17 @@ export const taskSlice = createSlice({
                 const tasks = state[source.droppableId];
                 moveTo(state, source.droppableId, destination.droppableId, draggableId, tasks, destination.index);
             }
-        },
+        }
+    },
+        extraReducers: (builder) => {
+            builder
+                .addCase(taskData.fulfilled, (state, action) => {
+                    state.todo = action.payload.todo
+                    state.inProgress = action.payload.doing
+                    state.done = action.payload.done
+                })
+        }
         
-    }
 }) 
 
 export const { addTodo, moveTask } = taskSlice.actions
