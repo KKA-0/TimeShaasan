@@ -14,20 +14,25 @@ const KanbanBoard = () => {
     const taskData = useTask()
 
     const handleDragEnd = (result) => {
-        // const data = {
-        //     user_id: user_id,
-        //     source: result.source.droppableId,
-        //     destination: result.destination.droppableId,
-        //     index: result.source.index,
-        //     task_id: result.draggableId
-        // }
-        dispatch(moveTask(result))
+        // console.log(result)
+        if(result.destination === null || result.destination === undefined) {
+            return 0;
+        }else{
+            const data = {
+                user_id: user_id,
+                source: result.source.droppableId,
+                destination: result.destination.droppableId,
+                index: result.destination.index,
+                task_id: result.draggableId
+            }
+            dispatch(moveTask(data))
+        }
     };
     
     const handleAddTask = (title) => {
         const newTask = {
           user_id,
-          id: uuidv4(),
+          task_id: uuidv4(),
           title: title,
         };
         dispatch(addTodo(newTask))
@@ -35,9 +40,9 @@ const KanbanBoard = () => {
     return (
             <DragDropContext onDragEnd={handleDragEnd}>
                 <div className={Pages.kanbanBoarddiv}>
-                    <Colmn title={"TO DO"} tasks={taskData.todo} id={"todo"} onAddTask={handleAddTask}/>
-                    <Colmn title={"IN PROGRESS"} tasks={taskData.inProgress} id={"inProgress"} />
-                    <Colmn title={"DONE"} tasks={taskData.done} id={"done"} />
+                    <Colmn title={"TO DO"} tasks={taskData.todo} colmn={"todo"} onAddTask={handleAddTask}/>
+                    <Colmn title={"IN PROGRESS"} tasks={taskData.inProgress} colmn={"inProgress"} />
+                    <Colmn title={"DONE"} tasks={taskData.done} colmn={"done"} />
                 </div>
             </DragDropContext>
     );

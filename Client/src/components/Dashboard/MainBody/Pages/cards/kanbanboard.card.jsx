@@ -21,7 +21,7 @@ const bgcolorChange = (props) => {
 
 const Cards = ({ task, index }) => {
     return (
-        <Draggable draggableId={`${task.id}`} key={task.id} index={index}>
+        <Draggable draggableId={`${task.task_id}`} key={task.task_id} index={index}>
             {(provided, snapshot) => (
                 <Container
                     className={Pages.todo_Div_card}

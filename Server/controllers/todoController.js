@@ -121,9 +121,9 @@ exports.addTask = async (req, res) => {
 }
 
 exports.moveTask = async (req, res) => {
-    const { source, destination, sourceId, index } = req.body
+    const { source, destination, sourceId } = req.body
     try {
-        console.log(source, sourceId)
+        // console.log(source,destination, sourceId)
         const task = await todoSchema.findOne(
             { user_id: req.params.id },
             {
@@ -131,7 +131,6 @@ exports.moveTask = async (req, res) => {
             }
         );
         movedTask = {
-            index: index,
             title: task[source][0].title,
             task_id: task[source][0].task_id
         }

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
-    index: {
-        type: Number,
-        default: 0
-    },
+    // index: {
+    //     type: Number,
+    //     default: 0
+    // },
     task_id: {
       type: String,
       required: true,
@@ -25,7 +25,7 @@ const todoSchema = new Schema({
     required: true
   },
   todo: [taskSchema],
-  doing: [taskSchema],
+  inProgress: [taskSchema],
   done: [taskSchema]
 
 });

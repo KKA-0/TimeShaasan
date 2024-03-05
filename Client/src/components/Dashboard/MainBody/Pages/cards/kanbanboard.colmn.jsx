@@ -5,7 +5,7 @@ import Pages from './../Pages.module.css'
 import AddWidget from './../../widgets/addWidget'
 
 
-const Colmn = ({ title, tasks, id , onAddTask}) => {
+const Colmn = ({ title, tasks, colmn , onAddTask}) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
 
   const handleAddTask = () => {
@@ -26,12 +26,12 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
                 <h3>{title}</h3>
             </div>
             <div className={Pages.Div_cards}>
-                {id === "todo" && 
+                {colmn === "todo" && 
                     <div className={Pages.todo_Div_card}>
                         <input type='text' className={Pages.inputAddFeild} onKeyDown={handleKeyDown} maxLength={40} placeholder='your task here...' value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)}/>
                     </div>
                 }
-                <Droppable droppableId={id}>
+                <Droppable droppableId={colmn}>
                     {(provided, snapshot) => (
                         <div className={Pages.TaskList}
                             ref={provided.innerRef}
@@ -39,14 +39,14 @@ const Colmn = ({ title, tasks, id , onAddTask}) => {
                             isDraggingOver={snapshot.isDraggingOver}
                         >
                             {tasks.map((task, index) => (
-                                <Cards key={task.id} task={task} index={index} />
+                                <Cards key={task.task_id} task={task} index={index} />
                             ))}
                             {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
                 {
-                    (id === "todo") ?
+                    (colmn === "todo") ?
                     <div className={Pages.add_Btn_div} onClick={handleAddTask}>
                         <AddWidget />
                     </div>  : ""
