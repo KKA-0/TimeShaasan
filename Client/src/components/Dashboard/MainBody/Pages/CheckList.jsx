@@ -19,17 +19,21 @@ const CheckList = () => {
   const handleAddCheckList = () => { // Fn for Adding New Checklist Card to Checklist
     const input = newCheckList.current.value
     if (input && input.length < 40) {
-      dispatch(addchecklist({title: input}))
+      dispatch(addchecklist({title: input, status: 0}))
       newCheckList.current.value = ""
     }
   } 
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleAddCheckList()
+    }
+  }
   return (
     <div className={pages.checklistDiv}>
       <div className={components.checklistTitle}>
         CheckList
       </div>
-      <input ref={newCheckList} className={pages.inputAddFeild} style={{margin: "5px 0", width: "40%", minWidth: "200px"}} placeholder='Add Item Here...'/>
+      <input ref={newCheckList} className={pages.inputAddFeild} onKeyDown={handleKeyDown} maxLength={40} style={{margin: "5px 0", width: "40%", minWidth: "200px"}} placeholder='Add Item Here...'/>
       <div className={components.checkList_listDiv}>
         {
           getCheckList.slice().reverse().map((item) =>
@@ -40,7 +44,7 @@ const CheckList = () => {
             />
           )
         }
-      <div onClick={handleAddCheckList}>
+      <div style={{position: "absolute", bottom: "30px"}} onClick={handleAddCheckList}>
           <AddWidget/>
         </div>
       </div>
