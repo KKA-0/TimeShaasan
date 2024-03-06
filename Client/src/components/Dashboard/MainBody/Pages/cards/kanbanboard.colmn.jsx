@@ -27,7 +27,7 @@ const Colmn = ({ title, tasks, colmn , onAddTask}) => {
             </div>
             <div className={Pages.Div_cards}>
                 {colmn === "todo" && 
-                    <div className={Pages.todo_Div_card}>
+                    <div className={Pages.todo_input}>
                         <input type='text' className={Pages.inputAddFeild} onKeyDown={handleKeyDown} maxLength={40} placeholder='your task here...' value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)}/>
                     </div>
                 }
@@ -39,7 +39,7 @@ const Colmn = ({ title, tasks, colmn , onAddTask}) => {
                             isDraggingOver={snapshot.isDraggingOver}
                         >
                             {tasks.map((task, index) => (
-                                <Cards key={task.task_id} task={task} index={index} />
+                                <Cards key={task.task_id} colm={colmn} task={task} index={index} />
                             ))}
                             {provided.placeholder}
                         </div>

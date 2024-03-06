@@ -13,5 +13,8 @@ router
 router
     .route('/todo/move/:id')
         .patch(todoController.moveTask)
+router
+    .route('/todo/edit/:id')
+        .patch(todoController.editTask)
 
 module.exports = router

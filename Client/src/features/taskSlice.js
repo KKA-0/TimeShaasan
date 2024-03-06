@@ -56,6 +56,36 @@ export const taskSlice = createSlice({
                 return item;
             })
         },
+        removeTodo: (state, action) => {
+            const { user_id, task_id, colm } = action.payload
+            state[colm] = state[colm].filter(item => item.task_id !== task_id);
+            axios.put(`${process.env.REACT_APP_DOMAIN}/api/todo/${user_id}`, {
+                colm,
+                task_id
+            })
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        editTodo: (state, action) => {
+            const { user_id, task_id, colm, title } = action.payload
+            console.log(user_id, task_id, colm, title)
+            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/todo/edit/${user_id}`, {
+                colm,
+                task_id,
+                title
+            })
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        },
         moveTask: (state, action) => {
             const { source, destination, task_id, index, user_id } = action.payload;
             if(destination === null || source === null) return;
@@ -88,10 +118,10 @@ export const taskSlice = createSlice({
                 const tasks = state.inProgress;  
                 moveTo(state, "inProgress", "todo", task_id, tasks, index, user_id);
             }
-            else if(destination === source){
-                const tasks = state[source];
-                moveTo(state, source, destination, task_id, tasks, index, user_id);
-            }
+            // else if(destination === source){
+            //     const tasks = state[source];
+            //     moveTo(state, source, destination, task_id, tasks, index, user_id);
+            // }
         }
     },
         extraReducers: (builder) => {
@@ -105,6 +135,6 @@ export const taskSlice = createSlice({
         
 }) 
 
-export const { addTodo, moveTask } = taskSlice.actions
+export const { addTodo, removeTodo, editTodo, moveTask } = taskSlice.actions
 
 export default taskSlice.reducer
