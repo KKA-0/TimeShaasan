@@ -17,9 +17,13 @@ const CheckList = () => {
         </div>
         <div className={components.checkList_listDiv}>
         {
-            getCheckList.map((item) =>
-              <ChecklistCard title={item.title} status={item.status} task_id={item.task_id}/>
-            )
+          getCheckList.slice().reverse().map((item) =>
+            <ChecklistCard 
+              title={item.title}
+              status={item.status}
+              task_id={item.task_id}
+            />
+          )
         }
         </div>
     </div>

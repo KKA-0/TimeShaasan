@@ -41,7 +41,7 @@ export const userSlice = createSlice({
                 console.log(error);
             });
             const newChecklist = {...action.payload, task_id: task_id}
-            console.log(newChecklist)
+            // console.log(newChecklist)
             state.checklist.push(newChecklist)
         },
         removeChecklist: (state, action) => {
@@ -57,7 +57,7 @@ export const userSlice = createSlice({
                 console.log(error);
             });
         },        
-        updatechecklist: (state, action) => {
+        updateChecklistStatus: (state, action) => {
             const { task_id } = action.payload;
             const tasks = current(state.checklist)
             const updatechecklist = tasks.map(item => {
@@ -81,6 +81,33 @@ export const userSlice = createSlice({
             });
             state.checklist = updatechecklist;
         },
+        updateChecklistTitle: (state, action) => {
+            const { task_id, newTitle} = action.payload
+            const tasks = current(state.checklist)
+            const updatechecklist = tasks.map(item => {
+                if(item.task_id === task_id) {
+
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/edit/${state.id}`, {
+                        task_id,
+                        title: action.payload.newTitle
+                    })
+                    .then(function (response) {
+                        console.log(response.data)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                    return {
+                        ...item,
+                        title: newTitle
+                    };
+                }
+                return item;
+            });
+            state.checklist = updatechecklist;
+
+        },
         updateFocusSession: (state, action) => {
             // state.session.startTimestamp = action.payload.startTimestamp
             // state.session.sessionsLimit = action.payload.sessionsLimit
@@ -103,9 +130,6 @@ export const userSlice = createSlice({
         removeUser: (state, action) => {
             state.userData = state.userData.filter((user) => 
             user.id !== action.payload)
-        },
-        addTodo: (state, action) => {
-            state.todo.push(action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -129,7 +153,7 @@ export const userSlice = createSlice({
 }) 
 
 
-export const { addUser, addchecklist,addTodo, removeUser, removeChecklist, updateFocusSession, updatechecklist } = userSlice.actions
+export const { addUser, addchecklist, removeUser, removeChecklist, updateFocusSession, updateChecklistStatus, updateChecklistTitle } = userSlice.actions
 
 
 export default userSlice.reducer

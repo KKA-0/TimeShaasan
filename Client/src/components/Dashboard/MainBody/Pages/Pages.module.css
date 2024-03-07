@@ -245,6 +245,7 @@
   color: white;
   outline: none;
 }
+
 .TaskList{
     padding: 3px;
     transition: background-color 0.2s ease;
@@ -276,3 +277,39 @@
 .task_Title, .task_Option{
     margin: 10px 20px;
 }
+
+
+@media only screen and (max-width: 767px) {
+    .focusSessions{
+        width: 65vw !important;
+        margin: 15px 0 !important;
+        margin-bottom: 15vh!important;
+    }
+    .timer{
+        font-size: larger;
+    }
+    .mainBody{
+        width: 80%;
+        top: 80px;
+        left: 65px;
+    }
+    .todo_Div_title{
+        font-size: medium;
+    }
+    .done_Div_title{
+        font-size: medium;
+    }
+    .doin_Div_title{
+        font-size: medium;
+    }
+  }
+
+  /* Table Media Query */
+/* @media only screen and (max-width: 1100px) {
+    .mainBody{
+        width: 90%;
+        top: 80px;
+        left: 55px;
+    }
+} */
+
