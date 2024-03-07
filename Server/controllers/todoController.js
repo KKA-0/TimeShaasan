@@ -56,10 +56,10 @@ exports.getTodos = async (req, res) => {
 exports.rmTask = async (req, res) => {
     try {
             const { colm, task_id } = req.body
-            console.log(colm, task_id)
+            //console.log(colm, task_id)
             const updatedTask = await todoSchema.findOneAndUpdate(
                 { user_id: req.params.id },
-                { $pull: { todo: { task_id } } },
+                { $pull: { [colm]: { task_id } } },
                 { new: true } 
             );     
             res
@@ -113,7 +113,7 @@ exports.moveTask = async (req, res) => {
             title: task[source][0].title,
             task_id: task[source][0].task_id
         }
-        console.log(movedTask);
+        // console.log(movedTask);
         await todoSchema.findOneAndUpdate(
             { user_id: req.params.id },
             {
@@ -150,8 +150,8 @@ exports.editTask = async (req, res) => {
             res
                 .status(200)
                 .json({
-                    newTitle
-                    // status: "success"
+                    // newTitle
+                    status: "success"
                 })
     }catch(err) {
         res
