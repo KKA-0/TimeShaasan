@@ -5,7 +5,7 @@ import SideBar from './sideBar/SideBar'
 import FocusSession from './MainBody/Pages/FocusSession'
 import Auth from './MainBody/Pages/auth'
 import Overview from './MainBody/Pages/overview/overview'
-import KarbanBoard from './MainBody/Pages/KarbanBoard'
+import KanbanBoard from './MainBody/Pages/KanbanBoard'
 import CheckList from './MainBody/Pages/CheckList.jsx'
 import Settings from './MainBody/widgets/Settings.jsx'
 import MusicWidget from './MainBody/widgets/musicWidget.jsx'
@@ -40,7 +40,7 @@ const Dashboard = () => {
             <Route path='/auth' element={<Auth/>} />
             <Route path='/overview' element={<div className={dashboard.mainBody}><Overview/></div>} />
             <Route path='/focus-session' element={<div className={Pages.mainBody}><FocusSession/></div>} />
-            <Route path='/karbanboard' element={<div className={Pages.mainBody}><KarbanBoard/></div>} />
+            <Route path='/KanbanBoard' element={<div className={Pages.mainBody}><KanbanBoard/></div>} />
             <Route path='/checklist' element={<div className={Pages.mainBody}><CheckList/></div>}/>
             <Route path='/settings' element={<div className={Pages.mainBody}><Settings/></div>}/>
           </Routes>

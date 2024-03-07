@@ -34,42 +34,40 @@ exports.addTodo = async (req, res) => {
     }
 }
 
+exports.getTodos = async (req, res) => {
+    try {
+        const todos = await todoSchema.findOne(
+            { user_id: req.params.id }
+        )
+        res
+            .status(200)
+            .json({
+                todos
+            })
+    }catch(err) {
+        res
+            .status(400)
+            .json({
+                Error: err
+            })
+    }
+}
+
 exports.rmTask = async (req, res) => {
     try {
-        if(req.body.Task === "todo"){
+            const { colm, task_id } = req.body
+            console.log(colm, task_id)
             const updatedTask = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $pull: { todo: { _id: req.body.task_id } } },
-                { new: true } // Return the modified document
+                { user_id: req.params.id },
+                { $pull: { todo: { task_id } } },
+                { new: true } 
             );     
             res
-                .status(201)
+                .status(200)
                 .json({
-                    updatedTask
+                    // updatedTask
+                    status: "success"
                 })
-        }else if(req.body.Task === "doing"){
-            const updatedTask = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $pull: { doing: { _id: req.body.task_id } } },
-                { new: true } // Return the modified document
-            ); 
-            res
-                .status(201)
-                .json({
-                    updatedTask
-                })
-        }else if(req.body.Task === "done") {
-            const updatedTask = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $pull: { done: { _id: req.body.task_id } } },
-                { new: true } // Return the modified document
-            ); 
-            res
-                .status(201)
-                .json({
-                    updatedTask
-                })
-        }
     }catch(err) {
         res
             .status(400)
@@ -81,40 +79,80 @@ exports.rmTask = async (req, res) => {
 
 exports.addTask = async (req, res) => {
     try {
-        if(req.body.Task === "todo"){
-            const task = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $push: { todo: { "title": req.body.title } } },
-                { new: true } // Return the modified document
-              );
+        const newTask = await todoSchema.findOneAndUpdate(
+            { user_id: req.params.id }, // find user from param id
+            { $push: { todo: {"index": req.body.index , "title": req.body.title, task_id: req.body.task_id} } }, // push new task in todo 
+            { new: true }
+        ) 
             res
-                .status(201)
-                .json({
-                    task
-                })
-        }else if(req.body.Task === "doing") {
-            const task = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $push: { doing: { "title": req.body.title } } },
-                { new: true }
-              );
-            res
-                .status(201)
-                .json({
-                    task
-                })
-        }else if(req.body.Task === "done") {
-            const task = await todoSchema.findOneAndUpdate(
-                { _id: req.params.id },
-                { $push: { done: { "title": req.body.title } } },
-                { new: true } // Return the modified document
-              );
-            res
-                .status(201)
-                .json({
-                    task
-                })
+            .status(201)
+            .json({
+                // newTask
+                status: "success"
+            })
+    }catch(err) {
+        res
+            .status(400)
+            .json({
+                Error: err
+            })
+    }
+}
+
+exports.moveTask = async (req, res) => {
+    const { source, destination, sourceId } = req.body
+    try {
+        // console.log(source,destination, sourceId)
+        const task = await todoSchema.findOne(
+            { user_id: req.params.id },
+            {
+                [source]: { $elemMatch: { task_id: sourceId } }
+            }
+        );
+        movedTask = {
+            title: task[source][0].title,
+            task_id: task[source][0].task_id
         }
+        console.log(movedTask);
+        await todoSchema.findOneAndUpdate(
+            { user_id: req.params.id },
+            {
+                $push: { [destination]: movedTask }
+            }
+        )
+        await todoSchema.findOneAndUpdate(
+            { user_id: req.params.id },
+            { $pull: { [source]: { task_id: sourceId} } },
+            { new: true }
+        )
+        res.status(200).json(movedTask);
+    }catch(err) {
+        res
+            .status(400)
+            .json({
+                Error: err
+            })
+    }
+}
+
+exports.editTask = async (req, res) => {
+    try {
+        const { colm, task_id, title } = req.body
+        const newTitle = await todoSchema.findOneAndUpdate(
+            { user_id: req.params.id, [colm]: {$elemMatch: { task_id } } },
+            { 
+                $set: { [`${colm}.$.title`]: title }
+            },
+            { 
+                new: true 
+            }
+        )
+            res
+                .status(200)
+                .json({
+                    newTitle
+                    // status: "success"
+                })
     }catch(err) {
         res
             .status(400)

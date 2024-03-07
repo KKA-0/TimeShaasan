@@ -9,6 +9,7 @@
     width: 80%;
     top: 80px;
     left: 230px;
+
     align-content: center;
     justify-content: center;
 }
@@ -120,6 +121,9 @@
     height: 450px;
     width: 33.3%;
     border-radius: 10px 0px 0px 10px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 .doin_Div{
     /* background-color: aquamarine; */
@@ -182,8 +186,7 @@
     position: relative;
     overflow-y: auto; /* Use 'auto' to show scrollbar when necessary */
 }
-
-.todo_Div_card{
+.todo_input{
     min-height: 60px; /* Set a minimum height for child divs */
     width: 95%;
     background-color: rgb(26, 26, 26);
@@ -196,8 +199,37 @@
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+.todo_Div_card{
+    min-height: 60px; /* Set a minimum height for child divs */
+    width: 95%;
+    background-color: rgb(26, 26, 26);
+    margin: 8px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
 .todo_Div_card:hover{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+}
+.task_edit{
+    height: 60%;
+    width: 70%;
+    outline: none;
+    background-color: #2f2f2f;
+    border: none;
+    border-bottom: outset;
+    border-radius: 1px;
+    color: #fff;
+    margin: 0 10px;
+
+}
+.task_edit_done:hover{
+    color: greenyellow;
 }
 .add_Btn_div{
     position: sticky;
@@ -213,6 +245,39 @@
   color: white;
   outline: none;
 }
+
+.TaskList{
+    padding: 3px;
+    transition: background-color 0.2s ease;
+    flex-grow: 1;
+    min-height: 100px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.task_Option{
+    height: 30px;
+    width: 30px;
+    background-color: #202020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.task_Option:hover{
+    height: 30px;
+    width: 30px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.task_Title, .task_Option{
+    margin: 10px 20px;
+}
+
 
 @media only screen and (max-width: 767px) {
     .focusSessions{
@@ -247,3 +312,4 @@
         left: 55px;
     }
 } */
+

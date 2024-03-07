@@ -15,7 +15,7 @@ const SideBar = () => {
           <Link className={sidebar.a} to="/overview"><MdSpaceDashboard color="white" size="2em" className={dashboard.icon}/> <span className={dashboard.siderbarOption}>Overview</span></Link>
         </div>
         <div draggable='true' className={dashboard.kanbanOption}>
-          <Link className={sidebar.a} to="/karbanboard"><BsKanban color="white" size="2em" className={dashboard.icon}/><span className={dashboard.siderbarOption}>Kanban Board</span></Link>
+          <Link className={sidebar.a} to="/kanbanboard"><BsKanban color="white" size="2em" className={dashboard.icon}/><span className={dashboard.siderbarOption}>Kanban Board</span></Link>
         </div>
         <div draggable='true' className={dashboard.kanbanOption}>
           <Link className={sidebar.a} to="/checklist"><GoChecklist  color="white" size="2em" className={dashboard.icon}/><span className={dashboard.siderbarOption}>Check List</span></Link>

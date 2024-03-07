@@ -7,7 +7,14 @@ router.post('/todo', todoController.addTodo)
 
 router
     .route('/todo/:id')
+    .get(todoController.getTodos)
     .patch(todoController.addTask)
     .put(todoController.rmTask)
+router
+    .route('/todo/move/:id')
+        .patch(todoController.moveTask)
+router
+    .route('/todo/edit/:id')
+        .patch(todoController.editTask)
 
 module.exports = router

@@ -130,7 +130,7 @@ export const userSlice = createSlice({
         removeUser: (state, action) => {
             state.userData = state.userData.filter((user) => 
             user.id !== action.payload)
-        },
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -152,6 +152,8 @@ export const userSlice = createSlice({
     }
 }) 
 
+
 export const { addUser, addchecklist, removeUser, removeChecklist, updateFocusSession, updateChecklistStatus, updateChecklistTitle } = userSlice.actions
+
 
 export default userSlice.reducer

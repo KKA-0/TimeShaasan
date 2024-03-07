@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
-    pos: {
-        type: Number,
-        default: 0
+    // index: {
+    //     type: Number,
+    //     default: 0
+    // },
+    task_id: {
+      type: String,
+      required: true,
     },
     title: {
         type: String,
@@ -12,8 +16,8 @@ const taskSchema = new Schema({
     },
     description: {
         type: String
-    },
-})
+    }
+}, { _id: false });
 
 const todoSchema = new Schema({
   user_id: {
@@ -21,7 +25,7 @@ const todoSchema = new Schema({
     required: true
   },
   todo: [taskSchema],
-  doing: [taskSchema],
+  inProgress: [taskSchema],
   done: [taskSchema]
 
 });

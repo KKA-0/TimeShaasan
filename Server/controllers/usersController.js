@@ -1,7 +1,7 @@
 const userSchema = require('./../models/userSchema')
 const focus_Session_Schema = require('./../models/focusSession.schema')
 const checklistSchema = require('./../models/checklistSchema')
-
+const todosSchema = require('./../models/todoSchema')
 const jwt = require('jsonwebtoken');
 
 const signToken = (data) => {
@@ -32,6 +32,7 @@ exports.addUser = async (req, res) => {
                 // Creating User Collections
                 await checklistSchema.create({ user_id: newUser._id });
                 await focus_Session_Schema.create({ user_id: newUser._id })
+                await todosSchema.create({ user_id: newUser._id })
                 const token = signToken(newUser)
                 res.status(201).json({
                     user: newUser,
