@@ -48,11 +48,23 @@ const FocusSession = () => {
       const currentUnixTimeInSeconds = Math.floor(new Date().getTime() / 1000);
       setsessionsLimit(Startvalue.current.value)
       setstartTimestamp(currentUnixTimeInSeconds)
-      setToggleTimer(false)
+      setToggleTimer(false)  
       dispatch(updateFocusSession({startTimestamp: currentUnixTimeInSeconds, sessionsLimit: Startvalue.current.value, remainingTime: 0, ToggleTimer: false, id: id}))
+      if(Notification.permission === "default"){
+        Notification.requestPermission().then(function (permission) { console.log(permission) });
+      }
     }
     // Custom hook for updating and Runnig Timer
     const { remainingTime, formatTime } = useFocusSession(sessionsLimit, startTimestamp, stopTimeremain);
+
+    useEffect(() => {
+      if(remainingTime === 1){
+        const title = "Times Up! Good Job 😊"
+        const body ="Take a Break and Get Ready for the Next One"
+        new Notification(title, { body })
+      }
+    }, [remainingTime])
+    
 
     // Fn for Stopping Timer and Resumeing Timer when ToogleTimer
     const StopTimer = () => {
