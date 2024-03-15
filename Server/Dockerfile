@@ -1,11 +1,11 @@
-FROM node:20
+FROM node:20-alpine
 
-WORKDIR /user/server
+WORKDIR server/
 
-COPY . /user/server
+COPY . .
 
 RUN npm i
 
 EXPOSE 4000
 
-CMD [ "node", "server.js" ]
+CMD ["npm", "start"]

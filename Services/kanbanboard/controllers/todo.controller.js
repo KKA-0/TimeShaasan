@@ -4,7 +4,7 @@ const { Kafka } = require('kafkajs')
 // Kafka configuration
 const kafka = new Kafka({
     clientId: 'todoService',
-    brokers: ['localhost:9092',],
+    brokers: ['kafka:9092',],
 })
 
 const ConsumerConfig = async () => {
