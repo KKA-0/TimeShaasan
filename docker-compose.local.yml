@@ -10,6 +10,7 @@ services:
   #   ports:
   #     - "3000:3000"
 
+  # Kafka Configuration
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
@@ -32,6 +33,13 @@ services:
     depends_on:
       - zookeeper
 
+  # Auth Service and DB Configuration
+  auth_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4001:27017"
+
   auth_service:
     image: auth_service
     build:
@@ -42,6 +50,16 @@ services:
     - "5001:5001"
     depends_on:
       - kafka
+      - auth_mongo
+    environment:
+      DB_URI: mongodb://auth_mongo:27017
+
+  # Checklist Service and DB Configuration
+  checklist_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4002:27017"
 
   checklist_service:
     image: checklist_service
@@ -53,6 +71,16 @@ services:
     - "5002:5002"
     depends_on:
       - kafka
+      - checklist_mongo
+    environment:
+      DB_URI: "mongodb://checklist_mongo:27017"
+
+  # KanbanBoard Service and DB Configuration
+  kanbanboard_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4003:27017"
 
   kanbanboard_service:
     image: kanbanboard_service
@@ -64,6 +92,16 @@ services:
     - "5003:5003"
     depends_on:
       - kafka
+      - kanbanboard_mongo
+    environment:
+      DB_URI: "mongodb://kanbanboard_mongo:27017"
+
+  # Pomodoro Service and DB Configuration
+  pomodoro_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4004:27017"
 
   pomodoro_service:
     image: pomodoro_service
@@ -75,7 +113,11 @@ services:
     - "5004:5004"
     depends_on:
       - kafka
+      - pomodoro_mongo
+    environment:
+      DB_URI: "mongodb://pomodoro_mongo:27017"
 
+  # Notify Service Configuration
   notify_service:
     image: notify_service
     build:
@@ -86,11 +128,6 @@ services:
     - "5005:5005"
     depends_on:
       - kafka
-  # mongo:
-  #   image: mongo
-  #   restart: always
-  #   ports:
-  #     - "27017:27017"
 
   # redis:
   #   image: redis
