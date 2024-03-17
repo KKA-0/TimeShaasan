@@ -2,16 +2,16 @@ const checklistController = require('./../controllers/checklist.controller')
 const express = require('express')
 const router = express.Router()
 
-router.post('/checklist', checklistController.createCheckList)
+router.post('/', checklistController.createCheckList)
 
 router
-    .route('/checklist/:id')
+    .route('/:id')
     .get(checklistController.getCheckList)
     .post(checklistController.addCheckList)
     .patch(checklistController.UpdateStatusCheckList)
     .put(checklistController.RemoveChecklist)
 router
-    .route('/checklist/edit/:id')
+    .route('/edit/:id')
     .patch(checklistController.UpdateEditCheckList)
 
 module.exports = router

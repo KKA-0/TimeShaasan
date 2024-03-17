@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 // Routes
-app.use('/api/v1/auth', authRoutes)
-app.use('/api/v1/', userRoutes)
+app.use('/api/v1', authRoutes)
+app.use('/api/v1/user', userRoutes)
 
 app.listen(PORT, () => {
     console.log('Server running on port: ' + PORT)

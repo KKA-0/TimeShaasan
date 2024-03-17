@@ -21,9 +21,14 @@ mongoose.connect(process.env.DB_URI)
   .then(() => console.log("🧬 Connected to Database!"))
   .catch(() => console.log("Something Went Wrong to Database Connnection!"))
 
-
 // Routes
-app.use('/api/v1/checklist', routes)
+app.use('/', (req, res) => {
+  res.status(200).json({
+    message: "WORKING HAI BHAI"
+  })
+})
+
+app.use('/api/v1/', routes)
 
 app.listen(PORT, () => {
     console.log('Server running on port: ' + PORT)

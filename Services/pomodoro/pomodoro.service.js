@@ -24,7 +24,7 @@ mongoose.connect(process.env.DB_URI)
 
 
 // Routes
-app.use('/api/v1/focus', routes)
+app.use('/api/v1/', routes)
 
 app.listen(PORT, () => {
     console.log('Server running on port: ' + PORT)

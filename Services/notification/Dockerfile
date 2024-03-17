@@ -2,9 +2,11 @@ FROM node:20-alpine
 
 WORKDIR notify/
 
-COPY . .
+COPY package*.json ./
 
 RUN npm i
+
+COPY . .
 
 EXPOSE 5005
 
