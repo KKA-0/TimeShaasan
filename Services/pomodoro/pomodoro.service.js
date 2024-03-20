@@ -24,6 +24,7 @@ mongoose.connect(process.env.DB_URI)
 
 
 // Routes
+app.use('/working', (req, res) => { res.send("working") } )
 app.use('/api/v1/', routes)
 
 app.listen(PORT, () => {

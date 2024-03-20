@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 // Routes
+app.use('/working', (req, res) => { res.send("working") } )
 app.use('/api/v1', authRoutes)
 app.use('/api/v1/user', userRoutes)
 

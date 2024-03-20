@@ -22,12 +22,7 @@ mongoose.connect(process.env.DB_URI)
   .catch(() => console.log("Something Went Wrong to Database Connnection!"))
 
 // Routes
-app.use('/', (req, res) => {
-  res.status(200).json({
-    message: "WORKING HAI BHAI"
-  })
-})
-
+app.use('/working', (req, res) => { res.send("working") } )
 app.use('/api/v1/', routes)
 
 app.listen(PORT, () => {

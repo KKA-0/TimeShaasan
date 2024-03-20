@@ -72,7 +72,7 @@ const createNotify = async (email) => {
 var cors = require('cors')
 app.use(cors());
 
-
+app.use('/working', (req, res) => { res.send("working") } )
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
