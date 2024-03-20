@@ -8,6 +8,25 @@ import AddWidget from './../../widgets/addWidget'
 const Colmn = ({ title, tasks, colmn , onAddTask}) => {
     const [newTaskTitle, setNewTaskTitle] = useState("");
 
+    function todoDiv(){
+        if(colmn === "todo"){
+            return Pages.todo_Div
+        }else if(colmn === "inProgress"){
+            return Pages.doin_Div
+        }else if(colmn === "done"){
+            return Pages.done_Div
+        }
+      }
+      function todo_Div_title(){
+        if(colmn === "todo"){
+            return Pages.todo_Div_title
+        }else if(colmn === "inProgress"){
+            return Pages.doin_Div_title
+        }else if(colmn === "done"){
+            return Pages.done_Div_title
+        }
+      }
+
   const handleAddTask = () => {
     if (newTaskTitle.trim() !== "") {
       onAddTask(newTaskTitle);
@@ -21,8 +40,8 @@ const Colmn = ({ title, tasks, colmn , onAddTask}) => {
     }
   }
     return (
-        <div className={Pages.todo_Div}>
-            <div className={Pages.todo_Div_title}>
+        <div className={todoDiv()}>
+            <div className={todo_Div_title()}>
                 <h3>{title}</h3>
             </div>
             <div className={Pages.Div_cards}>
