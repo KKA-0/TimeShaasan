@@ -1,0 +1,122 @@
+// Variables
+$dark-gray: rgb(29, 29, 29);
+$light-gray: rgb(37, 37, 37);
+$medium-gray: rgb(58, 58, 58);
+$box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+
+// Mixins
+@mixin shared-styles {
+  border-radius: 5px;
+  height: 50px;
+  width: 80%;
+  margin: 10px auto;
+  background-color: $dark-gray;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+// Styles
+.a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebarDiv {
+  position: absolute;
+  z-index: 100;
+  height: 450px;
+  width: 70px;
+  background-color: $light-gray;
+  top: 100px;
+  border-radius: 0 8px 8px 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: white;
+  transition: ease-in-out .3s;
+
+  &:hover {
+    width: 190px;
+
+    .siderbarOption {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  @media (max-width: 550px) {
+    height: 70px;
+    width: 80%;
+    display: flex;
+    top: 90%;
+    left: 10%;
+    border-radius: 8px;
+    padding: 0px 10px;
+
+    &:hover {
+        width: fit-content;
+    
+        .siderbarOption {
+          width: 100%;
+          display: none;
+        }
+      }
+  }
+}
+
+.siderbarOption {
+  display: none;
+}
+
+.kanbanOption,
+.settingoption {
+  @include shared-styles;
+  @media (max-width: 550px) {
+    width: 50px;
+    margin: 10px auto;
+  }
+}
+
+.settingoption {
+  margin-top: 150px;
+  @media (max-width: 550px) {
+    margin-top: 0px;
+    margin: 10px 10px;
+  }
+}
+
+.focusSessions {
+  height: 250px;
+  width: 35%;
+  background-color: $medium-gray;
+  right: 50px;
+  top: 100px;
+  border-radius: 10px;
+  margin: 0 15px;
+}
+
+.timerDiv {
+  background-color: $dark-gray;
+  height: 150px;
+  width: 100%;
+  font-family: 'Silkscreen', sans-serif;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: $box-shadow;
+
+  .timer {
+    font-size: 70px;
+  }
+
+  .day {
+    font-size: 20px;
+  }
+}
+
+// ICONS STYLE
+.icon {
+  margin: 8px;
+}
