@@ -61,7 +61,7 @@
 
 .todo_Div{
     /* background-color: antiquewhite; */
-    height: fit-content;
+    height: 250px;
     width: 33.3%;
     border-radius: 10px 0px 0px 10px;
     overflow-y: scroll;
@@ -123,21 +123,22 @@
 }
 
 .Div_cards{
-    height: 390px;
+    height: 190px;
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .todo_Div_card{
-    height: 50px;
+    height: fit-content;
     width: 95%;
     background-color: rgb(26, 26, 26);
     margin: 8px 0px;
+    padding: 4px 0px;
     border-radius: 10px;
     cursor: pointer;
-    overflow-y: scroll;
-    overflow-x: hidden;
     display: flex;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -147,11 +148,13 @@
 }
 .card_title_div{
     /* background-color: aliceblue; */
-    height: 60%;
+    height: 100%;
     width: 100%;
     color: white;
-    padding: 0px 5px;
+    padding: 5px 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .card_DateTime_div{
     /* background-color: aqua; */
