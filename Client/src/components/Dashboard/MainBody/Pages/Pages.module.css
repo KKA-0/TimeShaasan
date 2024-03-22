@@ -8,7 +8,7 @@
     height: 85%;
     width: 80%;
     top: 80px;
-    left: 230px;
+    left: 150px;
 
     align-content: center;
     justify-content: center;
@@ -279,7 +279,7 @@
 }
 
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 850px) {
     .focusSessions{
         width: 65vw !important;
         margin: 15px 0 !important;
@@ -291,7 +291,7 @@
     .mainBody{
         width: 80%;
         top: 80px;
-        left: 65px;
+        left: 10%;
     }
     .todo_Div_title{
         font-size: medium;

@@ -1,0 +1,30 @@
+.Setting_Container{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(11, 11, 11);
+    border-radius: 10px;
+}
+.settings_title{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.settings_span{
+    font-size: 30px;
+    font-weight: 400;
+    color: white;
+    margin: 0px 50px;
+    font-family: Silkscreen, sans-serif;
+}
+.settings_nav{
+    height: 40px;
+    width: 100%;
+    color: rgb(205, 205, 205);
+    font-size: 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    cursor: pointer;
+    margin-bottom: -10px;
+}
