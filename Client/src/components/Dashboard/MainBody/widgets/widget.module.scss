@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 @import './scss/_taskOption.scss';
+@import './scss/_Settings.scss';
+@import './scss/_BasicInfo.scss';
 
 .center_div_flex {
     display: flex;
@@ -58,4 +61,10 @@
 }
 .add_Btn_div:hover{
     background-color: rgb(92, 81, 57);
+}
+.line{
+    background-color: rgb(75, 75, 75);
+    width: 90%;
+    height: 1px;
+    margin: auto;
 }
