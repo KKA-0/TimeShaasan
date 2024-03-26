@@ -1,0 +1,142 @@
+version: '3.9'
+
+services:
+  # client:
+  #   image: client
+  #   build:
+  #     context: ../client
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+
+  # Kafka Configuration
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    hostname: localhost
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "newUser:1:1"
+    depends_on:
+      - zookeeper
+
+  # Auth Service and DB Configuration
+  auth_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4001:27017"
+
+  auth_service:
+    container_name: auth_service
+    build: ./Services/auth/.
+    restart: always
+    ports:
+    - "5001:5001"
+    depends_on:
+      - kafka
+      - auth_mongo
+    environment:
+      DB_URI: mongodb://auth_mongo:27017
+      
+
+  # Checklist Service and DB Configuration
+  checklist_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4002:27017"
+
+  checklist_service:
+    container_name: checklist_service
+    build: ./Services/checklist/.
+    restart: always
+    ports:
+    - "5002:5002"
+    depends_on:
+      - kafka
+      - checklist_mongo
+    environment:
+      DB_URI: "mongodb://checklist_mongo:27017"
+
+  # KanbanBoard Service and DB Configuration
+  kanbanboard_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4003:27017"
+
+  kanbanboard_service:
+    container_name: kanbanboard_service
+    build: ./Services/kanbanboard/.
+    restart: always
+    ports:
+    - "5003:5003"
+    depends_on:
+      - kafka
+      - kanbanboard_mongo
+    environment:
+      DB_URI: "mongodb://kanbanboard_mongo:27017"
+
+  # Pomodoro Service and DB Configuration
+  pomodoro_mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "4004:27017"
+
+  pomodoro_service:
+    container_name: pomodoro_service
+    build: ./Services/pomodoro/.
+    restart: always
+    ports:
+    - "5004:5004"
+    depends_on:
+      - kafka
+      - pomodoro_mongo
+    environment:
+      DB_URI: "mongodb://pomodoro_mongo:27017"
+
+  # Notify Service Configuration
+  notify_service:
+    container_name: notify_service
+    build: ./Services/notification/.
+    restart: always
+    ports:
+    - "5005:5005"
+    depends_on:
+      - kafka
+
+  # redis:
+  #   image: redis
+  #   restart: always
+  #   ports:
+      # - "6379:6379"
+
+  Nginx:
+    image: nginx
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./Nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - auth_service
+      - checklist_service
+      - kanbanboard_service
+      - pomodoro_service
+    
