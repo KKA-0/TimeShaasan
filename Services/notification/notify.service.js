@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = 5005
+const pug = require('pug');
 const { Kafka } = require('kafkajs')
 const nodemailer = require("nodemailer");
 
@@ -19,7 +20,7 @@ const ConsumerConfig = async () => {
     await consumer.subscribe({ topics: ['newUser'] })
     await consumer.run({
         eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
-            createNotify(message.headers.email.toString())
+            createNotify(message.headers.email.toString(), message.headers.username.toString())
             console.log({
                 value: message.value.toString(),
                 email: message.headers.email.toString()
@@ -30,7 +31,7 @@ const ConsumerConfig = async () => {
 ConsumerConfig()
 
 const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
+    host: process.env.HOSTNAME,
     port: 587,
     secure: false,
     auth: {
@@ -39,14 +40,16 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-const createNotify = async (email) => {
+const createNotify = async (email, username) => {
     try {
+        const html = pug.renderFile(`${__dirname}/Views/newUser.pug`, {
+          username
+        });
         const info = await transporter.sendMail({
-            from: `${process.env.USER} <${process.env.EMAIL}>`, // sender address
+            from: `${process.env.USER_Name} <${process.env.EMAIL}>`, // sender address
             to: email, // list of receivers
-            subject: "Congrats for being on Time ✔", // Subject line
-            text: "Welcome to TimeShaasan", // plain text body
-            html: "<b>Welcome to TimeShaasan</b>", // html body
+            subject: "You are now successfully registered | TimeShaasan", // Subject line
+            html // pug template body
           });
         
         console.log("Message sent: %s", info.messageId);
@@ -67,6 +70,9 @@ const createNotify = async (email) => {
     
 //       console.log("Message sent: %s", info.messageId);
 // }
+
+// For Testing Email
+// createNotify("jadonharsh109@gmail.com")
 
 // CORS
 var cors = require('cors')
