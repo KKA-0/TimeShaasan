@@ -28,6 +28,7 @@ const producerConfig = async (data) => {
             value: data.user_id.toString(), 
             headers: {
                 'email': data.email,
+                'username': data.username
             }
         },
       ],
