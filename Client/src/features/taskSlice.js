@@ -14,7 +14,7 @@ const moveTo = (state, source, destination, task_id, tasks, index, user_id) => {
         if(item.task_id === task_id){
             state[source] = state[source].filter(item => item.task_id !== task_id);
             state[destination].splice(index, 0, item);
-            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/todo/move/${user_id}`,
+            axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_Move_Task}${user_id}`,
             {
                 sourceId: task_id,
                 source,
@@ -41,7 +41,7 @@ export const taskSlice = createSlice({
             const tasks = state.todo;
             tasks.map((item, index) => {
                 if(item.task_id === task_id){
-                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/todo/${user_id}`, {
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_ADD_TASK}${user_id}`, {
                         index: index,
                         task_id: task_id,
                         title
@@ -59,7 +59,7 @@ export const taskSlice = createSlice({
         removeTodo: (state, action) => {
             const { user_id, task_id, colm } = action.payload
             state[colm] = state[colm].filter(item => item.task_id !== task_id);
-            axios.put(`${process.env.REACT_APP_DOMAIN}/api/todo/${user_id}`, {
+            axios.put(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_REMOVE_TASK}${user_id}`, {
                 colm,
                 task_id
             })
@@ -73,7 +73,7 @@ export const taskSlice = createSlice({
         editTodo: (state, action) => {
             const { user_id, task_id, colm, title } = action.payload
             console.log(user_id, task_id, colm, title)
-            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/todo/edit/${user_id}`, {
+            axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_EDIT_TASK}${user_id}`, {
                 colm,
                 task_id,
                 title
