@@ -8,13 +8,45 @@
 The Initiative to Become The King of your Time, The name "Time Shaasan" is inspired by hindi word "Shaasan/शासन" which means Rule. Time Shaasan Aims to Allow it's users to Control/Organize there time Effectively with many inbuilt Features. 
 </details>
 
-<details><summary>Set up Locally</summary>
+<details open><summary>Set up Locally</summary>
+
+### Setup Locally - Monolithic
+> Reminder: Clone the Repo, Remember to Setup Environmental Variables in client and server by creating .env file refer example.env.
+which consist of MongoDB Connection string & Commenting Microservice Variables in Client env.
+
+Starting Client [ React  ]
+```
+cd Client && npm i && npm start
+```
+
+Starting Node Server [ Node, Express ]
+```
+cd Server && npm i && npm start
+```
+
+### Setup Locally - Microservice
+
+> Reminder: The Following commands Requires Docker and Docker Compose to be installed.
+
+
+Starting All Microservices, Databases, Kafka and Nginx
+```
+docker-compose -f docker-compose.local.yml up
+```
+
+### Deploy - Microservice
+> Reminder: The Following commands Requires Docker and Docker Compose to be installed. This does not Requires Github repository to be cloned locally.
+
+Following Fetches the Latest Images from DockerHub.
+
+```
+cd Docker && docker-compose -f docker-compose.prod.yml up
+```
+
 
 </details>
 
 <details open><summary>Architecture</summary>
-
-Microservice
 
 <img width="2426" alt="TimeShaasan Re-Arch Microservice(1)" src="https://github.com/KKA-0/TimeShaasan/assets/85556603/f13b0e68-d4c2-4e24-bcae-9ea1d7d0b18a">
 
