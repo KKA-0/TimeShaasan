@@ -85,6 +85,7 @@ html{
     width: 80%;
     top: 15vh;
     left: 15vw;
+    justify-content: center;
 }
 
 /* ICONS STYLE */
@@ -115,20 +116,20 @@ html{
         z-index: 0;
     }
     .mainBody{
-        width: 95%;
+        width: 100%;
         top: 80px;
         position: fixed;
-        left: 90px;
-        height: 100%;
+        left: 0;
+        height: 71%;
         z-index: 99;
         overflow-y: scroll;    
     }
     .kanbanBoarddiv{
-        width: 65vw !important;
+        width: 85vw !important;
         margin: 15px 0 !important;
     }
     .checklistDiv{
-        width: 65vw !important;
+        width: 85vw !important;
         margin: 15px 0 !important;
     }
   }

@@ -31,7 +31,7 @@ const Colmn = ({ title, tasks, colmn }) => {
           </div>
           <Droppable droppableId={colmn}>
             {(provided, snapshot) => (
-                <div className={components.Div_cards}
+                <div  className={`${components.Div_cards} ${components.scrollContainer}`}
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                     isDraggingOver={snapshot.isDraggingOver}

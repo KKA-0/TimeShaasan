@@ -281,7 +281,7 @@
 
 @media only screen and (max-width: 850px) {
     .focusSessions{
-        width: 65vw !important;
+        width: 85vw !important;
         margin: 15px 0 !important;
         margin-bottom: 15vh!important;
     }
@@ -313,3 +313,25 @@
     }
 } */
 
+
+
+/* Scrollbar  Styles */
+
+.scrollContainer {
+    overflow-y: auto; 
+    max-height: 400px; 
+  }
+  
+  /* Define scrollbar styles */
+  .scrollContainer::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .scrollContainer::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .scrollContainer::-webkit-scrollbar-track {
+    /* background-color: #f1f1f1; */
+  }

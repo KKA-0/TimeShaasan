@@ -15,7 +15,7 @@ const CheckList = () => {
         <div className={components.checklistTitle}>
         CheckList
         </div>
-        <div className={components.checkList_listDiv}>
+        <div className={`${components.checkList_listDiv} ${components.scrollContainer}`}>
         {
           getCheckList.slice().reverse().map((item) =>
             <ChecklistCard 

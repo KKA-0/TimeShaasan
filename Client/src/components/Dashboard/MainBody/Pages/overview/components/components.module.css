@@ -12,7 +12,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
 }
 .checklist{
     height: fit-content;
@@ -27,10 +28,11 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
     color: white;
     position: relative;
+    word-break: break-all;
 }
 .checkList_list_content{
     display: flex;
-    width: 80%;
+    width: 65%;
 }
 .optionsChecklist{
     position: absolute;
@@ -64,14 +66,14 @@
     height: 250px;
     width: 33.3%;
     border-radius: 10px 0px 0px 10px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 .doin_Div{
     /* background-color: aquamarine; */
     height: fit-content;
     width: 33.3%;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 .done_Div{
@@ -79,7 +81,7 @@
     height: fit-content;
     width: 33.3%;
     border-radius: 0px 10px 10px 0px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 
@@ -128,7 +130,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
 }
 .todo_Div_card{
@@ -149,7 +151,8 @@
 .card_title_div{
     /* background-color: aliceblue; */
     height: 100%;
-    width: 100%;
+    /* width: 100%; */
+    word-break: break-word;
     color: white;
     padding: 5px 5px;
     cursor: pointer;
@@ -173,4 +176,24 @@
     .doin_Div_title{
         font-size: small !important;
     }
+  }
+
+
+  .scrollContainer {
+    overflow-y: auto; 
+    max-height: 400px; 
+  }
+  
+  /* Define scrollbar styles */
+  .scrollContainer::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .scrollContainer::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .scrollContainer::-webkit-scrollbar-track {
+    /* background-color: #f1f1f1; */
   }
