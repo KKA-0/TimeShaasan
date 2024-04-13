@@ -3,6 +3,7 @@ const focus_Session_Schema = require('./../models/focusSession.schema')
 const checklistSchema = require('./../models/checklistSchema')
 const todosSchema = require('./../models/todoSchema')
 const jwt = require('jsonwebtoken');
+const client = require('../server')
 
 const signToken = (data) => {
     return jwt.sign({id: data.id, email: data.email, username: data.username},
@@ -33,6 +34,7 @@ exports.addUser = async (req, res) => {
                 await checklistSchema.create({ user_id: newUser._id });
                 await focus_Session_Schema.create({ user_id: newUser._id })
                 await todosSchema.create({ user_id: newUser._id })
+                await client.set(`${newUser._id}`, 'default')
                 const token = signToken(newUser)
                 res.status(201).json({
                     user: newUser,
