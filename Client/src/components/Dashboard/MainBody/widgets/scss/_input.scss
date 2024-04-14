@@ -1,0 +1,43 @@
+.formField {
+    margin: 10px 0px;
+    position: relative;
+  }
+  
+  .formField .inputfield {
+    padding: 20px 15px 10px 15px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: 550;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 0 5px transparent;
+    width: 65%;
+  }
+  
+  .formField .inputfield:hover,
+  .formField .inputfield:focus {
+    box-shadow: 0 0 0 2px #333;
+  }
+  
+  .formField .spanText {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 13px 15px;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: -1px -1px 0 #f1f1f1, 1px -1px 0 #f1f1f1, -1px 1px 0 #f1f1f1,
+      1px 1px 0 #f1f1f1;
+    transition: 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  
+  .formField .inputfield:focus + .spanText,
+  .formField .inputfield:valid + .spanText {
+    transform: translateY(-12px) translateX(-5px) scale(0.95);
+    transition: 0.3s ease-in-out;
+  }
+  

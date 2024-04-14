@@ -1,3 +1,4 @@
+require('dotenv').config({path: ".env"})
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan')
@@ -8,16 +9,15 @@ const socket = require('./socket.io')
 const { createClient } = require('redis');
 
 const client = createClient({
-    password: process.env.PASSWORD_REDIS,
+    password: `${process.env.PASSWORD_REDIS}`,
     socket: {
-        host: process.env.HOSTNAME_REDIS,
+        host: `${process.env.HOSTNAME_REDIS}`,
         port: process.env.PORT_REDIS
     }
 });
 client.connect()
 module.exports = client;
 
-require('dotenv').config({path: ".env"})
 
 console.log(process.env.STATUS)
 
