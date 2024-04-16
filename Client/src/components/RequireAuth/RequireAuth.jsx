@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 import { addUser } from '../../features/userSlice';
 
 const RequireAuth = (Component) => {
@@ -33,6 +34,7 @@ const RequireAuth = (Component) => {
           })
           .catch(function (error) {
             console.warn(error);
+            toast.error('Error in fetching user data');
           });
         }
     }

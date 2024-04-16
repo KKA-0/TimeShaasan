@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export const taskData = createAsyncThunk(
   'taskData',
@@ -10,6 +11,7 @@ export const taskData = createAsyncThunk(
         return response.data.todos;
       } catch (error) {
         console.error(error);
+        toast.error('Error in fetching task data');
         throw error;
       }
   })

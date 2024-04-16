@@ -5,6 +5,7 @@ import { userData } from '../../../../features/userThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from "react-router-dom";
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const Auth = () => {
     const [loading, setLoading] = useState(false); 
@@ -36,12 +37,14 @@ const Auth = () => {
             dispatch(userData(user.data));
           } catch (error) {
             console.error('Error fetching user data:', error);
+            toast.error('Error fetching user data. Please try again later.');
           } finally {
             setLoading(false); 
           }
         },
         onError: () => {
           console.log('Login Failed');
+          toast.error('An error occurred. Login Failed');
         },
       });
     if(user){
@@ -49,6 +52,7 @@ const Auth = () => {
     }
     else {
         console.log("Not Loggedin")
+        toast.error('Not Loggedin');
     }
   return (
     <>

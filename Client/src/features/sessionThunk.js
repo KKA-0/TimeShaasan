@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export const sessionThunk = createAsyncThunk(
     'sessionData',
@@ -10,6 +11,7 @@ export const sessionThunk = createAsyncThunk(
             return SessionDB;
         } catch(err) {
             console.error(err);
+            toast.error('Error in sessionData');
             throw err;
         }
 })

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import{ toast } from 'react-toastify';
 
 export const userData = createAsyncThunk(
     'userData',
@@ -19,6 +20,7 @@ export const userData = createAsyncThunk(
         })
         .catch(function (err) {
             console.log(err)
+            toast.error('Error in adding user');
         })
         return userDB
     }
@@ -33,6 +35,7 @@ export const checklistData = createAsyncThunk(
       return response.data.checklists[0].checklist;
     } catch (error) {
       console.error(error);
+      toast.error('Error in fetching checklist data');
       throw error;
     }
   })

@@ -3,6 +3,7 @@ import { userData, checklistData } from './userThunk'
 import { sessionThunk } from './sessionThunk'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 
 const initialState = {
     username: "",
@@ -39,6 +40,7 @@ export const userSlice = createSlice({
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error('Error in adding checklist');
             });
             const newChecklist = {...action.payload, task_id: task_id}
             // console.log(newChecklist)
@@ -55,6 +57,7 @@ export const userSlice = createSlice({
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error('Error in removing checklist');
             });
         },        
         updateChecklistStatus: (state, action) => {
@@ -71,6 +74,7 @@ export const userSlice = createSlice({
                     })
                     .catch(function (error) {
                         console.log(error);
+                        toast.error('Error in updating checklist');
                     });
                     return {
                         ...item,
@@ -96,6 +100,7 @@ export const userSlice = createSlice({
                     })
                     .catch(function (error) {
                         console.log(error);
+                        toast.error('Error in updating checklist');
                     });
 
                     return {
@@ -124,6 +129,7 @@ export const userSlice = createSlice({
               })
               .catch(function (error) {
                 console.log(error);
+                toast.error('Error in updating focus session');
               });
 
         },
