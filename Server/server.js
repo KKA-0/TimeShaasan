@@ -1,3 +1,4 @@
+require('dotenv').config({path: ".env"})
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan')
@@ -5,7 +6,18 @@ const app = express();
 const http = require('http').createServer(app);
 const socket = require('./socket.io')
 
-require('dotenv').config({path: ".env"})
+const { createClient } = require('redis');
+
+const client = createClient({
+    password: `${process.env.PASSWORD_REDIS}`,
+    socket: {
+        host: `${process.env.HOSTNAME_REDIS}`,
+        port: process.env.PORT_REDIS
+    }
+});
+client.connect()
+module.exports = client;
+
 
 console.log(process.env.STATUS)
 
@@ -17,6 +29,7 @@ const todoRoutes = require('./routes/todoRoutes')
 const authRoutes = require('./routes/authRoutes')
 const checklistRoutes = require('./routes/checklistRoutes')
 const focusRoutes = require('./routes/focusRoutes')
+const settingRoutes = require('./routes/settingRoutes')
 
 app.use(morgan('dev'));
 
@@ -31,6 +44,7 @@ mongoose.connect(DB_URI)
   .then(() => console.log("🧬 Connected to Database!"))
   .catch(() => console.log("Something Went Wrong to Database Connnection!"))
 
+
 app.get('/', (req, res) => {
   res.send('Hello Friend, How you get here?')
 })
@@ -43,6 +57,7 @@ app.use('/api', todoRoutes);
 app.use('/api', authRoutes);
 app.use('/api', checklistRoutes);
 app.use('/api', focusRoutes);
+app.use('/api', settingRoutes);
 
 http.listen(4000, () => {
   console.log(`Server is running on port 4000`);

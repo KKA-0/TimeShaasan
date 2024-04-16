@@ -19,6 +19,7 @@ import { Navigate } from 'react-router-dom';
 const Dashboard = () => {
 
   const user = useSelector((state) => state.user.username)
+  const BG = useSelector((state) => state.settings.bg)
   const bg_image = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/618395ed-3302-4408-bcd8-4ce51cc8b364/devuvri-72d83bb8-2c95-4c1e-8e80-408a5fc90c63.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzYxODM5NWVkLTMzMDItNDQwOC1iY2Q4LTRjZTUxY2M4YjM2NFwvZGV2dXZyaS03MmQ4M2JiOC0yYzk1LTRjMWUtOGU4MC00MDhhNWZjOTBjNjMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.FXQlzRsSZOJ1es_xcXulz8ZHGBBlButmhRuklrhLKbY"
   const [Music, setMusic] = useState(0)
   
@@ -30,7 +31,7 @@ const Dashboard = () => {
   return (
     <div className={dashboard.mainDiv}>
       <Navbar/>
-      <img className={dashboard.bg_image} alt='bg_image' src={bg_image} />
+      <img className={dashboard.bg_image} alt='bg_image' src={(!BG) ? bg_image : BG} />
       {(user) ? "" : <Navigate to="/auth"/>}
       {(user) ? <SideBar/> : ""}
       {(user) ?  <div onClick={MusicToggle} className={dashboard.MusicToggle}> <MdLibraryMusic color='white' size="2em" /> </div> : ""}

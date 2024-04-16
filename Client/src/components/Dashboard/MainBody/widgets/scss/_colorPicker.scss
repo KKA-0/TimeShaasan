@@ -1,0 +1,40 @@
+.accentSelector {
+    display: flex;
+  }
+  
+  .accentOption {
+    margin-right: 10px;
+  }
+  
+  .colorSelector {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  
+  .red {
+    background-color: red;
+  }
+  
+  .blue {
+    background-color: blue;
+  }
+  .green {
+    background-color: greenyellow;
+  }
+  
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  input[type="radio"]:checked + .colorSelector {
+    border-color: white;
+  }
+  
+  /* Add more color classes and adjust colors as needed */
+  
