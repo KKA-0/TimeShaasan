@@ -23,6 +23,7 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.25.1",
     "sass": "^1.69.6",

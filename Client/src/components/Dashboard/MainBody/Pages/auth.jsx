@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from "react-router-dom";
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import { PacmanLoader } from 'react-spinners';
 
 const Auth = () => {
     const [loading, setLoading] = useState(false); 
@@ -57,11 +58,9 @@ const Auth = () => {
   return (
     <>
       <div className="auth-Div">
-      {loading ? ( // Display loading icon if loading is true
+      {loading ? ( 
           <div className="loading-icon">
-            <p>Loading...</p>
-            {/* You can use any loading icon here */}
-            <div className="loader"></div>
+            <PacmanLoader color="black" />
           </div>
         ) : (
       <form action="" className="form">
