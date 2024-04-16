@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{ useState} from 'react'
 import './auth.css'
 import { useGoogleLogin } from '@react-oauth/google';
 import { userData } from '../../../../features/userThunk'
@@ -7,23 +7,43 @@ import { Navigate } from "react-router-dom";
 import axios from 'axios'
 
 const Auth = () => {
+    const [loading, setLoading] = useState(false); 
     const user = useSelector((state) => state.user.username)
     console.warn(user)
 
     const dispatch = useDispatch()
+    // const login = useGoogleLogin({
+    //     onSuccess: async credentialResponse  => 
+    //     {
+    //         const user = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+    //             headers : {
+    //                 "Authorization": `Bearer ${credentialResponse.access_token}`
+    //             }
+    //         })
+    //         dispatch(userData(user.data))
+    //     },
+    //     onError: () => { console.log('Login Failed'); },
+    //   });
     const login = useGoogleLogin({
-        onSuccess: async credentialResponse  => 
-        {
-            const user = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-                headers : {
-                    "Authorization": `Bearer ${credentialResponse.access_token}`
-                }
-            })
-            dispatch(userData(user.data))
+        onSuccess: async (credentialResponse) => {
+          setLoading(true);
+          try {
+            const user = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: {
+                Authorization: `Bearer ${credentialResponse.access_token}`,
+              },
+            });
+            dispatch(userData(user.data));
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          } finally {
+            setLoading(false); 
+          }
         },
-        onError: () => { console.log('Login Failed'); },
+        onError: () => {
+          console.log('Login Failed');
+        },
       });
-    
     if(user){
         return <Navigate to="/overview" replace={true} />
     }
@@ -33,6 +53,13 @@ const Auth = () => {
   return (
     <>
       <div className="auth-Div">
+      {loading ? ( // Display loading icon if loading is true
+          <div className="loading-icon">
+            <p>Loading...</p>
+            {/* You can use any loading icon here */}
+            <div className="loader"></div>
+          </div>
+        ) : (
       <form action="" className="form">
         <p>
             Welcome,<span>sign in to continue</span>
@@ -63,7 +90,7 @@ const Auth = () => {
                 Continue
                 <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg>
             </button>
-        </form>
+        </form>)}
     </div>
     </>
   )

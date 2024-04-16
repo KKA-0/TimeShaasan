@@ -210,6 +210,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    word-break: break-all;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
@@ -280,6 +281,10 @@
 
 
 @media only screen and (max-width: 850px) {
+    .task_Option{
+        height: 20px;
+        width: 20px;
+    }
     .focusSessions{
         width: 85vw !important;
         margin: 15px 0 !important;
@@ -289,9 +294,9 @@
         font-size: larger;
     }
     .mainBody{
-        width: 80%;
-        top: 80px;
-        left: 10%;
+        width: 95%;
+        top: 40px;
+        left: 3%;
     }
     .todo_Div_title{
         font-size: medium;
@@ -301,6 +306,9 @@
     }
     .doin_Div_title{
         font-size: medium;
+    }
+    .task_Title, .task_Option{
+        margin: 0px 0px;
     }
   }
 
@@ -324,7 +332,7 @@
   
   /* Define scrollbar styles */
   .scrollContainer::-webkit-scrollbar {
-    width: 8px; 
+    width: 6px; 
   }
   
   .scrollContainer::-webkit-scrollbar-thumb {
