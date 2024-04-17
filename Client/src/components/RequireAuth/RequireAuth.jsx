@@ -30,6 +30,7 @@ const RequireAuth = (Component) => {
           axios.get(`${process.env.REACT_APP_DOMAIN}/api/token`, axiosHead)
           .then(function (response) {
             console.log(response);
+            toast.success('User Data Fetched Successfully');
             dispatch(addUser(response.data.decoded))
           })
           .catch(function (error) {

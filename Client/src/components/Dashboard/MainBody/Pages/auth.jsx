@@ -35,6 +35,7 @@ const Auth = () => {
                 Authorization: `Bearer ${credentialResponse.access_token}`,
               },
             });
+            toast.success('User Data Fetched Successfully');
             dispatch(userData(user.data));
           } catch (error) {
             console.error('Error fetching user data:', error);
@@ -53,7 +54,7 @@ const Auth = () => {
     }
     else {
         console.log("Not Loggedin")
-        toast.error('Not Loggedin');
+        // toast.error('Not Loggedin');
     }
   return (
     <>
