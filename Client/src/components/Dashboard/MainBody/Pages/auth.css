@@ -163,3 +163,13 @@ body {
   flex-direction: column;
 }
 }
+
+
+.loading-icon{
+  height: 50vh;
+  /* width: 50vw; */
+  display: flex;
+  /* background-color: #2d8cf0; */
+  justify-content: center;
+  align-items: center;
+}

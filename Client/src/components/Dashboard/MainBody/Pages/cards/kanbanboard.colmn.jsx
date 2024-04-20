@@ -44,7 +44,7 @@ const Colmn = ({ title, tasks, colmn , onAddTask}) => {
             <div className={todo_Div_title()}>
                 <h3>{title}</h3>
             </div>
-            <div className={Pages.Div_cards}>
+            <div className={`${Pages.Div_cards} ${Pages.scrollContainer}`}>
                 {colmn === "todo" && 
                     <div className={Pages.todo_input}>
                         <input type='text' className={Pages.inputAddFeild} onKeyDown={handleKeyDown} maxLength={40} placeholder='your task here...' value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)}/>

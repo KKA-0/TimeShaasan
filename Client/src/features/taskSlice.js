@@ -1,7 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { taskData } from './taskThunk'
-
+import { toast } from 'react-toastify';
 const initialState = {
     todo: [],
     inProgress: [],
@@ -25,6 +25,7 @@ const moveTo = (state, source, destination, task_id, tasks, index, user_id) => {
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error('Error in moving task');
             });
         }
         return item;
@@ -51,6 +52,7 @@ export const taskSlice = createSlice({
                     })
                     .catch(function (error) {
                         console.log(error);
+                        toast.error('Error in adding task');
                     });
                 }
                 return item;
@@ -68,6 +70,7 @@ export const taskSlice = createSlice({
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error('Error in removing task');
             });
         },
         editTodo: (state, action) => {
@@ -83,6 +86,7 @@ export const taskSlice = createSlice({
             })
             .catch(function (error) {
                 console.log(error);
+                toast.error('Error in editing task');
             });
 
         },
