@@ -1,16 +1,20 @@
 import React, {useState, useRef} from 'react'
 import widget from './../widget.module.scss'
 import Pages from './../../Pages/Pages.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { editSettings } from './../../../../../features/settingSlice'
 
 const Appearance = () => {
   const usedispatch = useDispatch()
+  const user_id = useSelector((state) => state.user.id)
+  const bg = useSelector((state) => state.settings.bg)
   const newBG = useRef()
-  const [BG, setBG] = useState("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/618395ed-3302-4408-bcd8-4ce51cc8b364/devuvri-72d83bb8-2c95-4c1e-8e80-408a5fc90c63.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzYxODM5NWVkLTMzMDItNDQwOC1iY2Q4LTRjZTUxY2M4YjM2NFwvZGV2dXZyaS03MmQ4M2JiOC0yYzk1LTRjMWUtOGU4MC00MDhhNWZjOTBjNjMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.FXQlzRsSZOJ1es_xcXulz8ZHGBBlButmhRuklrhLKbY")
+  const [BG, setBG] = useState(bg)
+  
   const handleSubmitChanges = (e) => {
     e.preventDefault()
     const Changes = {
+      user_id: user_id,
       Background: newBG.current.value
     }
     usedispatch(editSettings(Changes))
