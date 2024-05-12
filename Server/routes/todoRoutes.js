@@ -1,4 +1,5 @@
 const todoController = require('./../controllers/todoController')
+const authController = require('./../controllers/authController')
 const express = require('express')
 const router = express.Router()
 
@@ -7,14 +8,14 @@ router.post('/todo', todoController.addTodo)
 
 router
     .route('/todo/:id')
-    .get(todoController.getTodos)
-    .patch(todoController.addTask)
-    .put(todoController.rmTask)
+    .get(authController.verifyRequest, todoController.getTodos)
+    .patch(authController.verifyRequest, todoController.addTask)
+    .put(authController.verifyRequest, todoController.rmTask)
 router
     .route('/todo/move/:id')
-        .patch(todoController.moveTask)
+        .patch(authController.verifyRequest, todoController.moveTask)
 router
     .route('/todo/edit/:id')
-        .patch(todoController.editTask)
+        .patch(authController.verifyRequest, todoController.editTask)
 
 module.exports = router

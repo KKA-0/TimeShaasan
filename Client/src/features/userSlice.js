@@ -3,6 +3,16 @@ import { userData, checklistData } from './userThunk'
 import { sessionThunk } from './sessionThunk'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
+import Cookies from 'js-cookie';
+
+const generateHeaders = () => {
+    const token = Cookies.get('token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
 
 const initialState = {
     username: "",
@@ -33,7 +43,8 @@ export const userSlice = createSlice({
                 task_id: task_id,
                 title: action.payload.title,
                 status: action.payload.status
-            })
+            },
+            generateHeaders() )
             .then(function (response) {
                 // console.log(response.data)
             })
@@ -49,7 +60,8 @@ export const userSlice = createSlice({
             state.checklist = state.checklist.filter(item => item.task_id !== task_id);
             axios.put(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
                 task_id: task_id
-            })
+            },
+            generateHeaders() )
             .then(function (response) {
                 console.log(response.data)
             })
@@ -65,7 +77,8 @@ export const userSlice = createSlice({
                     axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
                         task_id,
                         status: item.status === 0 ? 1 : 0
-                    })
+                    },
+                    generateHeaders() )
                     .then(function (response) {
                         // console.log(response.data)
                     })
@@ -90,7 +103,8 @@ export const userSlice = createSlice({
                     axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/edit/${state.id}`, {
                         task_id,
                         title: action.payload.newTitle
-                    })
+                    },
+                    generateHeaders() )
                     .then(function (response) {
                         console.log(response.data)
                     })
@@ -118,7 +132,8 @@ export const userSlice = createSlice({
                 start_Timestamp: action.payload.startTimestamp,
                 remaining_Time: action.payload.remainingTime,
                 ToggleTimer: action.payload.ToggleTimer
-              })
+              },
+              generateHeaders() )
               .then(function (response) {
                 // console.log(response);
               })

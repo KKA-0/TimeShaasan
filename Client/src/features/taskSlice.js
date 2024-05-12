@@ -1,6 +1,16 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { taskData } from './taskThunk'
+import Cookies from 'js-cookie';
+
+const generateHeaders = () => {
+    const token = Cookies.get('token');
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
 
 const initialState = {
     todo: [],
@@ -19,7 +29,8 @@ const moveTo = (state, source, destination, task_id, tasks, index, user_id) => {
                 sourceId: task_id,
                 source,
                 destination
-            })
+            },
+            generateHeaders() )
             .then(function (response) {
                 console.log(response.data)
             })
@@ -45,7 +56,8 @@ export const taskSlice = createSlice({
                         index: index,
                         task_id: task_id,
                         title
-                    })
+                    },
+                    generateHeaders() )
                     .then(function (response) {
                         console.log(response.data)
                     })
@@ -62,7 +74,8 @@ export const taskSlice = createSlice({
             axios.put(`${process.env.REACT_APP_DOMAIN}/api/todo/${user_id}`, {
                 colm,
                 task_id
-            })
+            },
+            generateHeaders() )
             .then(function (response) {
                 console.log(response.data)
             })
@@ -77,7 +90,8 @@ export const taskSlice = createSlice({
                 colm,
                 task_id,
                 title
-            })
+            },
+            generateHeaders() )
             .then(function (response) {
                 console.log(response.data)
             })

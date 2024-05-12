@@ -1,5 +1,5 @@
 const focus_Session_Schema = require('./../models/focusSession.schema')
-
+const authController = require('./../controllers/authController')
 exports.AddFocusSession = async (req, res) => {
     try{
         const focus = await focus_Session_Schema.create({ user_id: req.body.user_id })

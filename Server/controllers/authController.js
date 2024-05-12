@@ -17,6 +17,20 @@ exports.checkToken = async (req, res, next) => {
         res.status(200).json({
             decoded
         })
+        next();
+  } catch(err) {
+        res.status(401).json({
+            error: err
+        })
+        return;
+  }
+}
+
+exports.verifyRequest = async (req, res, next) => {
+    try {
+        const TOKEN = req.headers.authorization.split(' ')[1]
+        jwt.verify(TOKEN, process.env.SECRET);
+        next();
   } catch(err) {
         res.status(401).json({
             error: err
