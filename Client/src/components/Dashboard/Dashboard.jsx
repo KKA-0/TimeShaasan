@@ -22,6 +22,7 @@ const Dashboard = () => {
   usedispatch(SettingsData())
   const user = useSelector((state) => state.user.username)
   const BG = useSelector((state) => state.settings.bg)
+  const DefaultDB = "https://images.pexels.com/photos/2085998/pexels-photo-2085998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   const [Music, setMusic] = useState(0)
   
   const MusicToggle = () => {
@@ -32,7 +33,7 @@ const Dashboard = () => {
   return (
     <div className={dashboard.mainDiv}>
       <Navbar/>
-      <img className={dashboard.bg_image} alt='bg_image' src={(!BG) ? "" : BG} />
+      <img className={dashboard.bg_image} alt='' src={(!BG || BG === "default") ? DefaultDB : BG} />
       {(user) ? "" : <Navigate to="/auth"/>}
       {(user) ? <SideBar/> : ""}
       {(user) ?  <div onClick={MusicToggle} className={dashboard.MusicToggle}> <MdLibraryMusic color='white' size="2em" /> </div> : ""}

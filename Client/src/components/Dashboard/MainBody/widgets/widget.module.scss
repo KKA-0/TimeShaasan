@@ -45,6 +45,8 @@
     border-radius: 5px;
     cursor: pointer;
     @extend .center_div_flex;
+    justify-content: space-around;
+
 }
 .loggout:hover{
     background-color: rgba(241, 52, 52, 0.77);

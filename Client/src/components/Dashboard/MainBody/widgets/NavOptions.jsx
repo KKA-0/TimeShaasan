@@ -1,5 +1,7 @@
 import React from 'react'
 import widget from './widget.module.scss'
+import { IoIosLogOut } from "react-icons/io";
+import { PiEyeSlashDuotone } from "react-icons/pi";
 
 const NavOptions = () => {
   const removeCookies = () => {
@@ -10,7 +12,10 @@ const NavOptions = () => {
   return (
     <div className={widget.NavOptions_div}>
       <div className={widget.loggout} onClick={removeCookies}>
-        <span>LoggOut</span>
+        <PiEyeSlashDuotone  size={"1.5em"}/>  <span>Focus</span>
+      </div>
+      <div className={widget.loggout} onClick={removeCookies}>
+        <IoIosLogOut size={"1.5em"}/>  <span> Sign out</span>
       </div>
     </div>
   )

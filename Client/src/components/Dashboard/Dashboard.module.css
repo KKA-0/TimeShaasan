@@ -7,7 +7,10 @@ html{
 .mainDiv{
     height: 100vh;
     width: 100%;
-    background-color: rgb(33, 33, 33);
+    /* background-image: url("https://images.pexels.com/photos/2085998/pexels-photo-2085998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+    background-repeat: no-repeat;
+    background-size: cover; */
+    
 }
 
 .bg_image {

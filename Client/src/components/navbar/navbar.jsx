@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import navbar from './navbar.module.css'
 import logo from './../images/logoFull.png'
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp  } from "react-icons/io";
 import NavOptions from './../Dashboard/MainBody/widgets/NavOptions'
 import { useSelector } from 'react-redux'
 
@@ -22,7 +22,10 @@ const Navbar = () => {
         </div>
         {username && username !== "" && (
         <div className={navbar.user} onClick={toggle}>
-          <h2>{username}<IoIosArrowDown color="white" size="1em"/></h2>
+          <h2>{username}</h2>
+          {
+            (ToggleNav === 0) ? <IoIosArrowUp color="white" size="1.5em" style={{marginTop: "25px"}}/> : <IoIosArrowDown color="white" size="1.5em" style={{marginTop: "25px"}}/>
+          }   
         </div>
       )}</div>
   )
