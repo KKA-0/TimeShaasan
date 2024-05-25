@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis/redis-stack
+    restart: always
+    ports:
+      - "6379:6379"
+
+  server: 
+    container_name: timeshaasan-mono-server-4000
+    build: ./Server/.
+    restart: always
+    ports:
+    - "4000:4000"
+    depends_on:
+      - redis
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiMGNjYzA3MTg3Zjg2N2YwNDJiZmU3Mzg0YjZkZTE2ZGEiLCJ0IjoiMzIwZjNjN2YtZTI5Yi00ZjkyLWFlMjgtNTQ2NWUyMDQ0OWM3IiwicyI6Ik4yUmlZbVV4TVRFdE16ZzBNeTAwTlRKaExUbGpNelF0TW1ZM09EYzJNRGhqTkdJeCJ9
+    restart: unless-stopped
+    depends_on:
+      - server
+

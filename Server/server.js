@@ -9,11 +9,16 @@ const socket = require('./socket.io')
 const { createClient } = require('redis');
 
 const client = createClient({
-    password: `${process.env.PASSWORD_REDIS}`,
-    socket: {
-        host: `${process.env.HOSTNAME_REDIS}`,
-        port: process.env.PORT_REDIS
-    }
+  password: `${process.env.PASSWORD_REDIS}`,
+  socket: {
+      host: `${process.env.HOSTNAME_REDIS}`,
+      port: process.env.PORT_REDIS,
+      // connectTimeout: 50000,
+      // reconnectStrategy: times => {
+      //     const delay = Math.min(times * 50, 2000);
+      //     return delay;
+      // }
+  }
 });
 client.connect()
 module.exports = client;
