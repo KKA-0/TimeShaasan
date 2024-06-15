@@ -1,0 +1,95 @@
+@import './../Dashboard//MainBody/widgets/widget.module.scss';
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
+.section1{
+    display: flex;
+    height: 600px;
+    padding: 50px 0;
+}
+
+.section2 {
+    height: fit-content;
+    background-color: #4C4C4C;
+    width: 100%;
+    @extend .flex_direaction_vertical_container;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.section2_block1{
+    height: 150px;
+    width: 70%;
+    background-color: #FF6262;
+    margin: 20px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section2_block2{
+    height: fit-content;
+    width: 70%;
+    position: relative;
+    @extend .flexwarp_container;
+}
+
+.section2_block2_minBlock1{
+    height: 150px;
+    background-color: #FF6262;
+    width: 49%;
+    margin: 5px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section2_block1_text {
+    font-size: 50px;
+    font-family: "Share Tech", sans-serif;
+    color: white;
+    width: 150px;
+    margin: 20px;
+}
+
+.titleDiv {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.bgImage{
+    height: 100%;
+    width: 59%;
+}
+.title{
+    font-family: "Boogaloo", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 70px;
+    margin-left: 20px;
+}
+.startDiv{
+    margin: 30px;
+    height: 80px;
+    width: 250px;
+    background-color: #FF5858;
+    border-radius: 25px;
+    font-family: "Boogaloo", sans-serif;
+    @extend .center_div_flex;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+.startDiv:hover{
+    background-color: #db4040;
+    transition: 0.5s;
+}
+
+.videoWatch{
+    font-family: "Boogaloo", sans-serif;
+    margin: 0 30px;
+    font-size: 20px;
+}

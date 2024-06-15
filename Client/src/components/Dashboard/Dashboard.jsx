@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import dashboard from './Dashboard.module.css'
+import Home from './../Home/home.jsx'
 import Navbar from '../navbar/navbar'
 import SideBar from './sideBar/SideBar'
 import FocusSession from './MainBody/Pages/FocusSession'
@@ -39,7 +40,6 @@ const Dashboard = () => {
       {(user) ?  <div onClick={MusicToggle} className={dashboard.MusicToggle}> <MdLibraryMusic color='white' size="2em" /> </div> : ""}
       {(user) ? <MusicWidget MusicToggle={Music}/> : ""}
           <Routes>
-            <Route path='/' element={<FocusSession/>} />
             <Route path='/auth' element={<Auth/>} />
             <Route path='/overview' element={<div className={dashboard.mainBody}><Overview/></div>} />
             <Route path='/focus-session' element={<div className={Pages.mainBody}><FocusSession/></div>} />

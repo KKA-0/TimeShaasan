@@ -4,6 +4,7 @@ import logo from './../images/logoFull.png'
 import { IoIosArrowDown, IoIosArrowUp  } from "react-icons/io";
 import NavOptions from './../Dashboard/MainBody/widgets/NavOptions'
 import { useSelector } from 'react-redux'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const username = useSelector((state) => state.user.username)
@@ -18,7 +19,7 @@ const Navbar = () => {
     <div className={navbar.nav}>
       { (ToggleNav === 1) ? "" : <NavOptions /> }
         <div className={navbar.logoDiv}>
-            <img className={navbar.logo} src={logo} alt='logo'/>
+            <Link to={"/"}><img className={navbar.logo} src={logo} alt='logo'/></Link>
         </div>
         {username && username !== "" && (
         <div className={navbar.user} onClick={toggle}>
