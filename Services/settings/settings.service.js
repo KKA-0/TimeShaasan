@@ -7,7 +7,7 @@ const { createClient } = require('redis');
 // ENV variables
 require('dotenv').config({path: ".env"})
 
-const routes = require('./routes/focus.routes')
+const routes = require('./routes/settings.routes')
 
 // CORS
 var cors = require('cors')
