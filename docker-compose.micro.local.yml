@@ -120,11 +120,23 @@ services:
     depends_on:
       - kafka
 
-  # redis:
-  #   image: redis
-  #   restart: always
-  #   ports:
-      # - "6379:6379"
+  #Redis Settings Service 
+  redis_settings_service:
+    image: redis
+    restart: always
+    ports:
+      - "6006:6379"
+
+  # Settings Service Configuration
+  settings_service:
+    container_name: settings_service
+    build: ./Services/settings/.
+    restart: always
+    ports:
+    - "5006:5006"
+    depends_on:
+      - kafka
+      - redis_settings_service
 
   Nginx:
     image: nginx
@@ -139,4 +151,5 @@ services:
       - checklist_service
       - kanbanboard_service
       - pomodoro_service
+      - settings_service
     
