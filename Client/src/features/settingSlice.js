@@ -12,7 +12,7 @@ export const SettingsData = createAsyncThunk(
     async (SettingsData, thunkAPI) => {
       const id = thunkAPI.getState().user.id;
       try {
-          const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/settings/${id}`);
+          const response = await axios.get(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_GET_SETTINGS}${id}`);
           return response.data;
         } catch (error) {
           console.error(error);
@@ -27,7 +27,7 @@ export const settingsReducer = createSlice({
         editSettings: (state, action) => {
            state.bg =  action.payload.Background
 
-           axios.post(`${process.env.REACT_APP_DOMAIN}/api/settings/${action.payload.user_id}`,
+           axios.post(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_UPDATE_SETTINGS}${action.payload.user_id}`,
             {
                 Background: action.payload.Background
             }

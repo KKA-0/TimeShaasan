@@ -7,7 +7,7 @@ export const taskData = createAsyncThunk(
   async (taskData, thunkAPI) => {
     const id = thunkAPI.getState().user.id;
     try {
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/todo/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_GET_Task}${id}`);
         return response.data.todos;
       } catch (error) {
         console.error(error);
