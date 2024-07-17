@@ -13,18 +13,17 @@ const ConsumerConfig = async () => {
     await consumer.subscribe({ topics: ['newUser'] })
     await consumer.run({
         eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
-            createCheckList(message.value.toString())
-            console.log({
-                user_id: message.value.toString()
-            })
+            createCheckList(message.value)
         },
     })
 }
 ConsumerConfig()
-const createCheckList = async (user_id) => {
+const createCheckList = async (data) => {
     try {
+
+        const userData = JSON.parse(data)
         await checklistSchema.create({
-            user_id: user_id
+            user_id: userData.id
         });
         console.log('Checklist created successfully.');
     } catch (error) {

@@ -14,18 +14,16 @@ const ConsumerConfig = async () => {
     await consumer.run({
         eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
             heartbeat()
-            newConsumerTodo(message.value.toString())
-            console.log({
-                user_id: message.value.toString()
-            })
+            newConsumerTodo(message.value)
         },
     })
 }
 ConsumerConfig()
-const newConsumerTodo = async (user_id) => {
+const newConsumerTodo = async (data) => {
+    const userData = JSON.parse(data)
     try {
         await todoSchema.create({
-            user_id: user_id
+            user_id: userData.id
         })
         console.log('TODO created successfully.');
     } catch (error) {

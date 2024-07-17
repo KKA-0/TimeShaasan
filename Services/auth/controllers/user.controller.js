@@ -15,21 +15,25 @@ const signToken = (data) => {
 // Kafka configuration
 const kafka = new Kafka({
     clientId: 'authService',
-    brokers: ['kafka:9092',],
+    brokers: ['kafka:9092',]
 })
 
 const producerConfig = async (data) => {
     const producer = kafka.producer()
     await producer.connect()
+
+    jsonObject = {
+        'id': data.user_id,
+        'email': data.email,
+        'username': data.username
+    }
+    StingData = JSON.stringify(jsonObject);
+
     await producer.send({
       topic: 'newUser',
       messages: [
         { 
-            value: data.user_id.toString(), 
-            headers: {
-                'email': data.email,
-                'username': data.username
-            }
+            value: StingData
         },
       ],
     })
@@ -56,10 +60,7 @@ exports.addUser = async (req, res) => {
             if (!userExist){
                 const newUser = await userSchema.create(req.body);
                 // Creating User Collections
-                producerConfig({ user_id: newUser._id, email: newUser.email})
-                // await checklistSchema.create({ user_id: newUser._id });
-                // await focus_Session_Schema.create({ user_id: newUser._id })
-                // await todosSchema.create({ user_id: newUser._id })
+                producerConfig({ user_id: newUser._id, email: newUser.email, username: newUser.username});
                 const token = signToken(newUser)
                 res.status(201).json({
                     user: newUser,
