@@ -30,7 +30,7 @@ export const userSlice = createSlice({
         },
         addchecklist: (state, action) => {
             const task_id = uuidv4()
-            axios.post(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+            axios.post(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_ADD_Checklist}${state.id}`, {
                 task_id: task_id,
                 title: action.payload.title,
                 status: action.payload.status
@@ -49,7 +49,7 @@ export const userSlice = createSlice({
         removeChecklist: (state, action) => {
             const { task_id } = action.payload;
             state.checklist = state.checklist.filter(item => item.task_id !== task_id);
-            axios.put(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+            axios.put(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_REMOVE_Checklist}${state.id}`, {
                 task_id: task_id
             })
             .then(function (response) {
@@ -65,7 +65,7 @@ export const userSlice = createSlice({
             const tasks = current(state.checklist)
             const updatechecklist = tasks.map(item => {
                 if(item.task_id === task_id) {
-                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/${state.id}`, {
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_UPDATE_STATUS_Checklist}${state.id}`, {
                         task_id,
                         status: item.status === 0 ? 1 : 0
                     })
@@ -91,7 +91,7 @@ export const userSlice = createSlice({
             const updatechecklist = tasks.map(item => {
                 if(item.task_id === task_id) {
 
-                    axios.patch(`${process.env.REACT_APP_DOMAIN}/api/checklist/edit/${state.id}`, {
+                    axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_UPDATE_EDIT_Checklist}${state.id}`, {
                         task_id,
                         title: action.payload.newTitle
                     })
@@ -118,7 +118,7 @@ export const userSlice = createSlice({
             // state.session.sessionsLimit = action.payload.sessionsLimit
             // state.session.remainingTime = action.payload.remainingTime
             // state.session.ToggleTimer = action.payload.ToggleTimer
-            axios.patch(`${process.env.REACT_APP_DOMAIN}/api/focus/${action.payload.id}`, {
+            axios.patch(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_UPDATE_FOCUS}${action.payload.id}`, {
                 sessions_limit: action.payload.sessionsLimit,
                 start_Timestamp: action.payload.startTimestamp,
                 remaining_Time: action.payload.remainingTime,

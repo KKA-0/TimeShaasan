@@ -27,7 +27,7 @@ const RequireAuth = (Component) => {
               'Authorization': `Bearer ${cookiesToken}`
             }
           }
-          axios.get(`${process.env.REACT_APP_DOMAIN}/api/token`, axiosHead)
+          axios.get(`${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_TOKEN}`, axiosHead)
           .then(function (response) {
             console.log(response);
             toast.success('User Data Fetched Successfully');

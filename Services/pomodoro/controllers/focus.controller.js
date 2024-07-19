@@ -13,18 +13,16 @@ const ConsumerConfig = async () => {
     await consumer.subscribe({ topics: ['newUser'] })
     await consumer.run({
         eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
-            createConsumerPomodoro(message.value.toString())
-            console.log({
-                user_id: message.value.toString()
-            })
+            createConsumerPomodoro(message.value)
         },
     })
 }
 ConsumerConfig()
-const createConsumerPomodoro = async (user_id) => {
+const createConsumerPomodoro = async (data) => {
+    const userData = JSON.parse(data)
     try {
         await focus_Session_Schema.create({
-            user_id: user_id
+            user_id: userData.id
         });
         console.log('Focus created successfully.');
     } catch (error) {

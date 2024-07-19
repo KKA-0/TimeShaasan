@@ -20,11 +20,7 @@ const ConsumerConfig = async () => {
     await consumer.subscribe({ topics: ['newUser'] })
     await consumer.run({
         eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
-            createNotify(message.headers.email.toString(), message.headers.username.toString())
-            console.log({
-                value: message.value.toString(),
-                email: message.headers.email.toString()
-            })
+            createNotify(message.value)
         },
     })
 }
@@ -40,14 +36,16 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-const createNotify = async (email, username) => {
+const createNotify = async (data) => {
     try {
+        const userData = JSON.parse(data)
+        const username = userData.username
         const html = pug.renderFile(`${__dirname}/Views/newUser.pug`, {
-          username
+            username
         });
         const info = await transporter.sendMail({
             from: `${process.env.USER_Name} <${process.env.EMAIL}>`, // sender address
-            to: email, // list of receivers
+            to: userData.email, // list of receivers
             subject: "You are now successfully registered | TimeShaasan", // Subject line
             html // pug template body
           });
