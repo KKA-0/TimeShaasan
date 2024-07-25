@@ -27,7 +27,7 @@ const ConsumerConfig = async () => {
 ConsumerConfig()
 
 const transporter = nodemailer.createTransport({
-    host: process.env.HOSTNAME,
+    host: process.env.HOST_NAME,
     port: 587,
     secure: false,
     auth: {
