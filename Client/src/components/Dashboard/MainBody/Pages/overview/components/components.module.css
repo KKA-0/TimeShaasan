@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
 /* CHECKLIST */
-.checklistTitle{
+.checklistTitle {
     font-family: 'Silkscreen', sans-serif;
     color: whitesmoke;
-    font-size: 18px;
+    font-size: 28px;
+    font-weight: bolder;
+    padding: 20px 0;
 }
-.checkList_listDiv{
+
+.checkList_listDiv {
     height: 100%;
     width: 100%;
     display: flex;
@@ -15,13 +18,14 @@
     /* overflow-y: scroll; */
     overflow-x: hidden;
 }
-.checklist{
+
+.checklist {
     height: fit-content;
     width: 90%;
     padding: 5px 0;
     margin: 5px 0;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 15px;
     display: flex;
     align-items: center;
     background-color: rgb(29, 29, 29);
@@ -30,38 +34,48 @@
     position: relative;
     word-break: break-all;
 }
-.checkList_list_content{
+
+.checkList_list_content {
     display: flex;
     width: 65%;
+    align-items: center;
+    padding: 8px;
 }
-.optionsChecklist{
+
+.optionsChecklist {
     position: absolute;
     right: 0;
 }
-.MdDelete:hover{
+
+.MdDelete:hover {
     color: red;
     cursor: pointer;
 }
-.MdEdit:hover{
+
+.MdEdit:hover {
     color: greenyellow;
     cursor: pointer;
 }
-.EditTitle{
+
+.EditTitle {
     height: 30px;
-    background-color: #2f2f2f;
     color: white;
-    border: none;
+    border: 0;
     border-bottom-style: outset;
     margin: 0 10px;
     width: 315px;
     border-radius: 1px;
+    background: transparent;
+    font-size: 15px;
 }
-.EditTitle:focus{
+
+.EditTitle:focus {
     outline: none;
 }
+
 /* KARBAN BOARD */
 
-.todo_Div{
+.todo_Div {
     /* background-color: antiquewhite; */
     height: 250px;
     width: 33.3%;
@@ -69,14 +83,16 @@
     overflow-y: hidden;
     overflow-x: hidden;
 }
-.doin_Div{
+
+.doin_Div {
     /* background-color: aquamarine; */
     height: fit-content;
     width: 33.3%;
     overflow-y: hidden;
     overflow-x: hidden;
 }
-.done_Div{
+
+.done_Div {
     /* background-color: blue; */
     height: fit-content;
     width: 33.3%;
@@ -85,9 +101,9 @@
     overflow-x: hidden;
 }
 
-.todo_Div_title{
+.todo_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     border-radius: 10px 0px 0px 10px;
@@ -98,9 +114,10 @@
     align-items: center;
     justify-content: center;
 }
-.doin_Div_title{
+
+.doin_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     font-size: 20px;
@@ -110,9 +127,10 @@
     align-items: center;
     justify-content: center;
 }
-.done_Div_title{
+
+.done_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     border-radius: 0px 10px 10px 0px;
@@ -124,7 +142,7 @@
     justify-content: center;
 }
 
-.Div_cards{
+.Div_cards {
     height: 190px;
     width: 100%;
     display: flex;
@@ -133,7 +151,8 @@
     /* overflow-y: scroll; */
     overflow-x: hidden;
 }
-.todo_Div_card{
+
+.todo_Div_card {
     height: fit-content;
     width: 95%;
     background-color: rgb(26, 26, 26);
@@ -145,10 +164,12 @@
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
-.todo_Div_card:hover{
+
+.todo_Div_card:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
-.card_title_div{
+
+.card_title_div {
     /* background-color: aliceblue; */
     height: 100%;
     /* width: 100%; */
@@ -159,7 +180,8 @@
     display: flex;
     align-items: center;
 }
-.card_DateTime_div{
+
+.card_DateTime_div {
     /* background-color: aqua; */
     height: 40%;
     width: 100%;
@@ -167,33 +189,35 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .todo_Div_title{
+    .todo_Div_title {
         font-size: small !important;
     }
-    .done_Div_title{
+
+    .done_Div_title {
         font-size: small !important;
     }
-    .doin_Div_title{
+
+    .doin_Div_title {
         font-size: small !important;
     }
-  }
+}
 
 
-  .scrollContainer {
-    overflow-y: auto; 
-    max-height: 400px; 
-  }
-  
-  /* Define scrollbar styles */
-  .scrollContainer::-webkit-scrollbar {
-    width: 6px; 
-  }
-  
-  .scrollContainer::-webkit-scrollbar-thumb {
+.scrollContainer {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+/* Define scrollbar styles */
+.scrollContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 4px;
-  }
-  
-  .scrollContainer::-webkit-scrollbar-track {
+}
+
+.scrollContainer::-webkit-scrollbar-track {
     /* background-color: #f1f1f1; */
-  }
+}

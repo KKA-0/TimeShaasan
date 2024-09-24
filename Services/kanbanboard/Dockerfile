@@ -1,12 +1,17 @@
-FROM node:20-alpine
+# Stage 1: Build
+FROM node:20-alpine AS build
 
-WORKDIR kanbanboard/
+WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i
+RUN apk add curl && npm ci
 
 COPY . .
+
+# Set a non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
 
 EXPOSE 5003
 

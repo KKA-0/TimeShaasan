@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
-.mainBody{
+.mainBody {
     position: absolute;
     z-index: 99;
     display: flex;
@@ -14,20 +14,25 @@
     justify-content: center;
 }
 
-.iconsPause, .iconsResume, .iconsReset{
+.iconsPause,
+.iconsResume,
+.iconsReset {
     color: white;
 }
-.iconsResume:hover{
+
+.iconsResume:hover {
     color: rgb(0, 177, 0);
 }
-.iconsPause:hover{
+
+.iconsPause:hover {
     color: orange;
 }
-.iconsReset:hover{
+
+.iconsReset:hover {
     color: red;
 }
 
-.checklistDiv{
+.checklistDiv {
     height: 450px;
     width: 100%;
     bottom: 5px;
@@ -41,7 +46,7 @@
 }
 
 /* FOCUS SESSIONS */
-.focusSessions{
+.focusSessions {
     height: 250px;
     width: 50%;
     background-color: rgb(58, 58, 58);
@@ -53,7 +58,8 @@
     flex-direction: column;
     align-items: center;
 }
-.timerDiv{
+
+.timerDiv {
     background-color: rgb(22, 22, 22);
     height: 150px;
     width: 100%;
@@ -66,36 +72,42 @@
     align-items: center;
     justify-content: center;
 }
-.timer{
+
+.timer {
     font-size: 70px;
 }
-.remaining{
+
+.remaining {
     font-size: 20px;
     margin-top: 35px;
 }
-.FocusOptions{
+
+.FocusOptions {
     color: white;
     display: flex;
     flex-direction: row;
 }
-.FocusSessionSettings{
+
+.FocusSessionSettings {
     display: flex;
     flex-direction: row;
 }
-.SessionsLimit{
+
+.SessionsLimit {
     margin: 0 10px;
     background-color: #1b1b1b;
     color: white;
     border: none;
     font-family: Silkscreen, sans-serif;
 }
-.Sessions{
+
+.Sessions {
     margin: 0 10px;
     font-family: Silkscreen, sans-serif;
 }
 
 /* CHECKLIST */
-.checklist{
+.checklist {
     height: 40px;
     width: 90%;
     background-color: aquamarine;
@@ -105,7 +117,7 @@
 }
 
 /* KARBAN BOARD */
-.kanbanBoarddiv{
+.kanbanBoarddiv {
     height: 450px;
     width: 100%;
     bottom: 5px;
@@ -116,7 +128,8 @@
     display: flex;
     flex-direction: row;
 }
-.todo_Div{
+
+.todo_Div {
     /* background-color: antiquewhite; */
     height: 450px;
     width: 33.3%;
@@ -125,22 +138,24 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-.doin_Div{
+
+.doin_Div {
     /* background-color: aquamarine; */
     height: 450px;
     height: 100%;
     width: 33.3%;
 }
-.done_Div{
+
+.done_Div {
     /* background-color: blue; */
     height: 450px;
     width: 33.3%;
     border-radius: 0px 10px 10px 0px;
 }
 
-.todo_Div_title{
+.todo_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     border-radius: 10px 0px 0px 10px;
@@ -151,9 +166,10 @@
     align-items: center;
     justify-content: center;
 }
-.doin_Div_title{
+
+.doin_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     font-size: 20px;
@@ -163,9 +179,10 @@
     align-items: center;
     justify-content: center;
 }
-.done_Div_title{
+
+.done_Div_title {
     height: 60px;
-    background-color:#1b1b1b;
+    background-color: #1b1b1b;
     width: 100%;
     color: white;
     border-radius: 0px 10px 10px 0px;
@@ -177,17 +194,21 @@
     justify-content: center;
 }
 
-.Div_cards{
-    height: 390px; /* or any fixed height you desire */
+.Div_cards {
+    height: 390px;
+    /* or any fixed height you desire */
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
     position: relative;
-    overflow-y: auto; /* Use 'auto' to show scrollbar when necessary */
+    overflow-y: auto;
+    /* Use 'auto' to show scrollbar when necessary */
 }
-.todo_input{
-    min-height: 60px; /* Set a minimum height for child divs */
+
+.todo_input {
+    min-height: 60px;
+    /* Set a minimum height for child divs */
     width: 95%;
     background-color: rgb(26, 26, 26);
     margin: 8px 0px;
@@ -199,8 +220,10 @@
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
-.todo_Div_card{
-    min-height: 60px; /* Set a minimum height for child divs */
+
+.todo_Div_card {
+    min-height: 60px;
+    /* Set a minimum height for child divs */
     width: 95%;
     background-color: rgb(26, 26, 26);
     margin: 8px 0px;
@@ -214,10 +237,12 @@
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
-.todo_Div_card:hover{
+
+.todo_Div_card:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
-.task_edit{
+
+.task_edit {
     height: 60%;
     width: 70%;
     outline: none;
@@ -229,25 +254,31 @@
     margin: 0 10px;
 
 }
-.task_edit_done:hover{
+
+.task_edit_done:hover {
     color: greenyellow;
 }
-.add_Btn_div{
+
+.add_Btn_div {
     position: sticky;
     bottom: 30px;
 }
-.inputAddFeild{
-  height: 40px;
-  width: 85%;
-  background: rgb(34, 34, 34);
-  border: none;
-  border-radius: 10px;
-  padding: 0px 15px;
-  color: white;
-  outline: none;
+
+.inputAddFeild {
+    background-color: rgb(34, 34, 34);
+    border: none;
+    border-radius: 10px;
+    padding: 0px 15px;
+    color: white;
+    outline: none;
+    margin: 10px auto;
+    width: 60%;
+    min-width: 200px;
+    font-size: 15px;
+    height: 4rem;
 }
 
-.TaskList{
+.TaskList {
     padding: 3px;
     transition: background-color 0.2s ease;
     flex-grow: 1;
@@ -257,7 +288,8 @@
     flex-direction: column;
     align-items: center;
 }
-.task_Option{
+
+.task_Option {
     height: 30px;
     width: 30px;
     background-color: #202020;
@@ -266,7 +298,8 @@
     justify-content: center;
     border-radius: 20px;
 }
-.task_Option:hover{
+
+.task_Option:hover {
     height: 30px;
     width: 30px;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -275,44 +308,54 @@
     justify-content: center;
     border-radius: 20px;
 }
-.task_Title, .task_Option{
+
+.task_Title,
+.task_Option {
     margin: 10px 20px;
 }
 
 
 @media only screen and (max-width: 850px) {
-    .task_Option{
+    .task_Option {
         height: 20px;
         width: 20px;
     }
-    .focusSessions{
+
+    .focusSessions {
         width: 85vw !important;
         margin: 15px 0 !important;
-        margin-bottom: 15vh!important;
+        margin-bottom: 15vh !important;
     }
-    .timer{
+
+    .timer {
         font-size: larger;
     }
-    .mainBody{
+
+    .mainBody {
         width: 95%;
         top: 40px;
         left: 3%;
     }
-    .todo_Div_title{
+
+    .todo_Div_title {
         font-size: medium;
     }
-    .done_Div_title{
+
+    .done_Div_title {
         font-size: medium;
     }
-    .doin_Div_title{
+
+    .doin_Div_title {
         font-size: medium;
     }
-    .task_Title, .task_Option{
+
+    .task_Title,
+    .task_Option {
         margin: 0px 0px;
     }
-  }
+}
 
-  /* Table Media Query */
+/* Table Media Query */
 /* @media only screen and (max-width: 1100px) {
     .mainBody{
         width: 90%;
@@ -326,20 +369,20 @@
 /* Scrollbar  Styles */
 
 .scrollContainer {
-    overflow-y: auto; 
-    max-height: 400px; 
-  }
-  
-  /* Define scrollbar styles */
-  .scrollContainer::-webkit-scrollbar {
-    width: 6px; 
-  }
-  
-  .scrollContainer::-webkit-scrollbar-thumb {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+/* Define scrollbar styles */
+.scrollContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 4px;
-  }
-  
-  .scrollContainer::-webkit-scrollbar-track {
+}
+
+.scrollContainer::-webkit-scrollbar-track {
     /* background-color: #f1f1f1; */
-  }
+}
