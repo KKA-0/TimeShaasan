@@ -1,21 +1,30 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  # client:
-  #   image: client
-  #   build:
-  #     context: ../client
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - "3000:3000"
-
   # Kafka Configuration
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     ports:
       - "2181:2181"
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "echo",
+          "ruok",
+          "|",
+          "nc",
+          "localhost",
+          "2181",
+          "|",
+          "grep",
+          "imok",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   kafka:
     image: wurstmeister/kafka
@@ -31,125 +40,172 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "newUser:1:1"
     depends_on:
-      - zookeeper
-
+      zookeeper:
+        condition: service_healthy
   # Auth Service and DB Configuration
   auth_mongo:
     image: mongo
-    restart: always
     ports:
       - "4001:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   auth_service:
     container_name: auth_service
     build: ./Services/auth/.
-    restart: always
     ports:
-    - "5001:5001"
+      - "5001:5001"
     depends_on:
-      - kafka
-      - auth_mongo
+      kafka:
+        condition: service_started
+      auth_mongo:
+        condition: service_healthy
     environment:
       DB_URI: mongodb://auth_mongo:27017
-      
+      JWT_EXPIRES_IN: 60d
+      SECRET: "${SECRET}"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/working"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Checklist Service and DB Configuration
   checklist_mongo:
     image: mongo
-    restart: always
     ports:
       - "4002:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   checklist_service:
     container_name: checklist_service
     build: ./Services/checklist/.
-    restart: always
     ports:
-    - "5002:5002"
+      - "5002:5002"
     depends_on:
-      - kafka
-      - checklist_mongo
+      checklist_mongo:
+        condition: service_healthy
     environment:
       DB_URI: "mongodb://checklist_mongo:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002/working"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # KanbanBoard Service and DB Configuration
   kanbanboard_mongo:
     image: mongo
-    restart: always
     ports:
       - "4003:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   kanbanboard_service:
     container_name: kanbanboard_service
     build: ./Services/kanbanboard/.
-    restart: always
     ports:
-    - "5003:5003"
+      - "5003:5003"
     depends_on:
-      - kafka
-      - kanbanboard_mongo
+      kafka:
+        condition: service_started
+      kanbanboard_mongo:
+        condition: service_healthy
     environment:
       DB_URI: "mongodb://kanbanboard_mongo:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/working"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Pomodoro Service and DB Configuration
   pomodoro_mongo:
     image: mongo
-    restart: always
     ports:
       - "4004:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   pomodoro_service:
     container_name: pomodoro_service
     build: ./Services/pomodoro/.
-    restart: always
     ports:
-    - "5004:5004"
+      - "5004:5004"
     depends_on:
-      - kafka
-      - pomodoro_mongo
+      kafka:
+        condition: service_started
+      pomodoro_mongo:
+        condition: service_healthy
     environment:
       DB_URI: "mongodb://pomodoro_mongo:27017"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5004/working"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Notify Service Configuration
   notify_service:
     container_name: notify_service
     build: ./Services/notification/.
-    restart: always
     ports:
-    - "5005:5005"
+      - "5005:5005"
     depends_on:
-      - kafka
-
-  #Redis Settings Service 
-  redis_settings_service:
-    image: redis
+      kafka:
+        condition: service_started
     restart: always
-    ports:
-      - "6006:6379"
-
-  # Settings Service Configuration
-  settings_service:
-    container_name: settings_service
-    build: ./Services/settings/.
-    restart: always
-    ports:
-    - "5006:5006"
-    depends_on:
-      - kafka
-      - redis_settings_service
+    environment:
+      HOST_NAME: "smtp.mailgun.org"
+      USER_Name: "TimeShaasan"
+      EMAIL: "timeshaasan-noreply@quantgam.com"
+      PASS: "8fbb0e9618b29b76eb42bea0941a5e69-7a3af442-09aaf749"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5005/working"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   Nginx:
     image: nginx
-    restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./Nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - auth_service
-      - checklist_service
-      - kanbanboard_service
-      - pomodoro_service
-      - settings_service
-    
+      auth_service:
+        condition: service_healthy
+      checklist_service:
+        condition: service_healthy
+      kanbanboard_service:
+        condition: service_healthy
+      pomodoro_service:
+        condition: service_healthy
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
