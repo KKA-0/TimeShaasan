@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const routes = require('./routes/todo.routes')
+const { countHttpRequest, getMetrics } = require('./metrics/metrics');
+const logger = require('./logs/logs');
 
 // ENV variables
 require('dotenv').config({path: ".env"})
@@ -23,7 +25,16 @@ mongoose.connect(process.env.DB_URI)
   .catch(() => console.log("Something Went Wrong to Database Connnection!"))
 
 
+// Log request IP address and count HTTP requests
+app.use((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  logger.info(`Request from IP: ${ip}`);
+  countHttpRequest(req, res);
+  next();
+});
+
 // Routes
+app.get('/metrics', getMetrics);
 app.use('/working', (req, res) => { res.send("working") } )
 app.use('/api/v1/', routes)
 
