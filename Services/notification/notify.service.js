@@ -4,6 +4,8 @@ const PORT = 5005
 const pug = require('pug');
 const { Kafka } = require('kafkajs')
 const nodemailer = require("nodemailer");
+const { countHttpRequest, getMetrics } = require('./metrics/metrics');
+const logger = require('./logs/logs');
 
 // ENV variables
 require('dotenv').config({path: ".env"})
@@ -76,6 +78,16 @@ const createNotify = async (data) => {
 var cors = require('cors')
 app.use(cors());
 
+// Log request IP address and count HTTP requests
+app.use((req, res, next) => {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    logger.info(`Request from IP: ${ip}`);
+    countHttpRequest(req, res);
+    next();
+  });
+  
+  // Routes
+  app.get('/metrics', getMetrics);
 app.use('/working', (req, res) => { res.send("working") } )
 
 app.listen(PORT, () => {
