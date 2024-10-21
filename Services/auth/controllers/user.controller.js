@@ -15,7 +15,7 @@ const signToken = (data) => {
 // Kafka configuration
 const kafka = new Kafka({
     clientId: 'authService',
-    brokers: ['kafka:9092',]
+    brokers: [process.env.KAFKA_BROKER]
 })
 
 const producerConfig = async (data) => {

@@ -4,7 +4,7 @@ const { Kafka } = require('kafkajs')
 // Kafka configuration
 const kafka = new Kafka({
     clientId: 'checklistService',
-    brokers: ['kafka:9092',],
+    brokers: [process.env.KAFKA_BROKER],
 })
 
 const ConsumerConfig = async () => {
