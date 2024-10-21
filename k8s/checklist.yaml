@@ -1,0 +1,164 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: checklist-db
+  namespace: default
+  labels:
+    app: checklist-db
+spec:
+  selector:
+    matchLabels:
+      app: checklist-db
+  serviceName: checklist-db-service
+  replicas: 1 # Number of database replicas
+  template:
+    metadata:
+      labels:
+        app: checklist-db
+    spec:
+      containers:
+      - name: checklist-db-container
+        image: mongo:latest # Use the latest MongoDB image
+        resources:
+          requests:
+            cpu: 200m # Minimum CPU allocation
+            memory: 200Mi # Minimum memory allocation
+          limits:
+            cpu: 400m # Maximum CPU allocation
+            memory: 400Mi # Maximum memory allocation
+        livenessProbe:
+          tcpSocket:
+            port: 27017 # Check MongoDB on default port
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - mongosh
+            - --eval
+            - db.adminCommand('ping') # Ping MongoDB to check readiness
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+        - containerPort: 27017 # MongoDB default port
+          name: checklisdb-port
+      restartPolicy: Always # Restart the container in case of failure
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: checklist-db-service
+  namespace: default
+spec:
+  selector:
+    app: checklist-db
+  clusterIP: None # Use headless service for StatefulSet
+  ports:
+  - name: checklisdb-port
+    protocol: TCP
+    port: 27017
+    targetPort: 27017 # Forward incoming requests to MongoDB port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checklist-deployment
+  namespace: default
+  labels:
+    app: checklist
+spec:
+  selector:
+    matchLabels:
+      app: checklist
+  replicas: 1 # Number of replicas for the Checklist application
+  strategy:
+    rollingUpdate:
+      maxSurge: 25% # Percentage of additional replicas that can be created for a rolling update
+      maxUnavailable: 25% # Percentage of replicas that can be unavailable during a rolling update
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: checklist
+    spec:
+      initContainers:
+        - name: check-mongo
+          image: busybox
+          command: ['sh','-c', 'until nslookup checklist-db-service.default.svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+          # Wait until MongoDB is ready
+        - name: check-kafka
+          image: busybox
+          command:
+          - sh
+          - -c
+          - |
+            until nc -zv kafka-service.default.svc.cluster.local 9092; do
+              echo "Waiting for Kafka to be ready..."
+              sleep 2
+            done
+          # Wait until Kafka is ready
+      containers:
+      - name: checklist-container
+        image: kka01/timeshaasan-checklist:latest # Custom Checklist application image
+        resources:
+          requests:
+            cpu: 100m # Minimum CPU allocation
+            memory: 50Mi # Minimum memory allocation
+          limits:
+            cpu: 250m # Maximum CPU allocation
+            memory: 200Mi # Maximum memory allocation
+        livenessProbe:
+          tcpSocket:
+            port: 5002 # Check application health on port 5002
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /working
+            port: 5002 # Endpoint to check application readiness
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        env:
+        - name: DB_URI
+          value: mongodb://checklist-db-service.default.svc.cluster.local:27017
+          # MongoDB connection string
+        - name: KAFKA_BROKER
+          value: "kafka-service.default.svc.cluster.local:9092"
+          # Kafka broker connection string
+        ports:
+        - containerPort: 5002 # Application port exposed by the container
+          name: checklist-port
+      restartPolicy: Always # Restart the containers if they fail
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: checklist-service
+  namespace: default
+spec:
+  selector:
+    app: checklist
+  ports:
+  - name: checklist-port
+    protocol: TCP
+    port: 5002
+    targetPort: 5002 # Expose the Checklist application on port 5002
+

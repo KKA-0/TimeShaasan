@@ -42,12 +42,15 @@ services:
     depends_on:
       zookeeper:
         condition: service_healthy
+
   # Auth Service and DB Configuration
   auth_mongo:
     image: mongo
     ports:
       - "4001:27017"
     restart: always
+    volumes:
+      - auth_mongo_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 30s
@@ -68,6 +71,7 @@ services:
       DB_URI: mongodb://auth_mongo:27017
       JWT_EXPIRES_IN: 60d
       SECRET: "${SECRET}"
+      KAFKA_BROKER: kafka:9092
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5001/working"]
@@ -81,6 +85,8 @@ services:
     ports:
       - "4002:27017"
     restart: always
+    volumes:
+      - checklist_mongo_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 30s
@@ -95,8 +101,11 @@ services:
     depends_on:
       checklist_mongo:
         condition: service_healthy
+      kafka:
+        condition: service_started
     environment:
       DB_URI: "mongodb://checklist_mongo:27017"
+      KAFKA_BROKER: kafka:9092
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5002/working"]
@@ -110,6 +119,8 @@ services:
     ports:
       - "4003:27017"
     restart: always
+    volumes:
+      - kanbanboard_mongo_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 30s
@@ -128,6 +139,7 @@ services:
         condition: service_healthy
     environment:
       DB_URI: "mongodb://kanbanboard_mongo:27017"
+      KAFKA_BROKER: kafka:9092
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5003/working"]
@@ -141,6 +153,8 @@ services:
     ports:
       - "4004:27017"
     restart: always
+    volumes:
+      - pomodoro_mongo_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 30s
@@ -159,6 +173,7 @@ services:
         condition: service_healthy
     environment:
       DB_URI: "mongodb://pomodoro_mongo:27017"
+      KAFKA_BROKER: kafka:9092
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5004/working"]
@@ -181,12 +196,14 @@ services:
       USER_Name: "TimeShaasan"
       EMAIL: "timeshaasan-noreply@quantgam.com"
       PASS: "8fbb0e9618b29b76eb42bea0941a5e69-7a3af442-09aaf749"
+      KAFKA_BROKER: kafka:9092
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5005/working"]
       interval: 30s
       timeout: 10s
       retries: 3
 
+  # Nginx Configuration
   Nginx:
     image: nginx
     ports:
@@ -209,3 +226,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+volumes:
+  auth_mongo_data:
+  checklist_mongo_data:
+  kanbanboard_mongo_data:
+  pomodoro_mongo_data:

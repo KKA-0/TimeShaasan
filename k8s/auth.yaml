@@ -1,0 +1,171 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: auth-db
+  namespace: default
+  labels:
+    app: auth-db
+spec:
+  selector:
+    matchLabels:
+      app: auth-db
+  serviceName: auth-db-service
+  replicas: 1 # Number of MongoDB replicas
+  template:
+    metadata:
+      labels:
+        app: auth-db
+    spec:
+      containers:
+      - name: auth-db-container
+        image: mongo:latest # MongoDB latest image
+        resources:
+          requests:
+            cpu: 200m # Minimum CPU allocation
+            memory: 200Mi # Minimum memory allocation
+          limits:
+            cpu: 400m # Maximum CPU allocation
+            memory: 400Mi # Maximum memory allocation
+        livenessProbe:
+          tcpSocket:
+            port: 27017 # Check MongoDB on its default port
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - mongosh
+            - --eval
+            - db.adminCommand('ping') # Ping MongoDB to check readiness
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+        - containerPort: 27017 # MongoDB default port
+          name: auth-db-port
+      restartPolicy: Always # Restart policy for the container
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-db-service
+  namespace: default
+spec:
+  selector:
+    app: auth-db
+  clusterIP: None # Headless service for MongoDB StatefulSet
+  ports:
+  - name: auth-db-port
+    protocol: TCP
+    port: 27017
+    targetPort: 27017 # Forward requests to MongoDB port
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+  namespace: default
+  labels:
+    app: auth
+spec:
+  selector:
+    matchLabels:
+      app: auth
+  replicas: 1 # Number of application replicas
+  strategy:
+    rollingUpdate:
+      maxSurge: 25% # Additional replicas allowed during update
+      maxUnavailable: 25% # Max unavailable replicas during update
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      initContainers:
+      - name: check-mongo
+        image: busybox
+        command: ['sh','-c', 'until nslookup auth-db-service.default.svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+        # Wait until MongoDB service is available
+      - name: check-kafka
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          until nc -zv kafka-service.default.svc.cluster.local 9092; do
+            echo "Waiting for Kafka to be ready..."
+            sleep 2
+          done
+        # Wait until Kafka service is available
+      containers:
+      - name: auth-container
+        image: kka01/timeshaasan-auth:latest # Your custom auth application image
+        resources:
+          requests:
+            cpu: 100m # Minimum CPU allocation
+            memory: 50Mi # Minimum memory allocation
+          limits:
+            cpu: 250m # Maximum CPU allocation
+            memory: 200Mi # Maximum memory allocation
+        livenessProbe:
+          tcpSocket:
+            port: 5001 # Health check for application on port 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /working # Readiness endpoint
+            port: 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        env:
+        - name: DB_URI
+          value: mongodb://auth-db-service.default.svc.cluster.local:27017 
+          # MongoDB connection string
+        - name: JWT_EXPIRES_IN
+          value: 60d # JWT expiration configuration
+        - name: KAFKA_BROKER
+          value: "kafka-service.default.svc.cluster.local:9092" 
+          # Kafka broker connection string
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: timeshaasan-secrets
+              key: client-secret # Load secret from Kubernetes secret
+        ports:
+        - containerPort: 5001 # Application port exposed by the container
+          name: auth-port
+      restartPolicy: Always # Restart the containers if they fail
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: default
+spec:
+  selector:
+    app: auth
+  ports:
+  - name: auth-port
+    protocol: TCP
+    port: 5001
+    targetPort: 5001 # Expose the Auth application on port 5001
