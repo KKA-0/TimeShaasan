@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: timeshashaan-nginx
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "https://timeshaasan.quantgam.com"
+    # nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS, DELETE, PATCH, PUT"
+    # nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range"
+    # nginx.ingress.kubernetes.io/cors-expose-headers: "Content-Length,Content-Range"
+
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: "/auth/(.*)"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: auth-service
+            port:
+              number: 5001
+      - path: "/checklist/(.*)"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: checklist-service
+            port:
+              number: 5002
+      - path: "/kanbanboard/(.*)"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: kanbanboard-service
+            port:
+              number: 5003
+      - path: "/pomodoro/(.*)"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: pomodoro-service
+            port:
+              number: 5004
