@@ -2,12 +2,13 @@
 const promClient = require('prom-client');
 
 // Create a new Registry
+
 const register = promClient.Registry.globalRegistry;
 
 // Enable default system metrics collection
 promClient.collectDefaultMetrics({ register });
 
-// HTTP request counter metric
+// HTTP request counter metric for http
 const httpRequestCounter = new promClient.Counter({
   name: 'http_requests_total',
   help: 'Total number of HTTP requests',
