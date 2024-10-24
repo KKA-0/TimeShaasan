@@ -1,7 +1,6 @@
 const userSchema = require('./../models/user.schema')
-// const focus_Session_Schema = require('./../models/focusSession.schema')
-// const checklistSchema = require('./../models/checklistSchema')
-// const todosSchema = require('./../models/user.schema')
+const { incrementUserCountMetric } = require('../metrics/metrics');
+const logger = require('../logs/logs');
 const jwt = require('jsonwebtoken');
 const { Kafka } = require('kafkajs')
 
@@ -62,6 +61,10 @@ exports.addUser = async (req, res) => {
                 // Creating User Collections
                 producerConfig({ user_id: newUser._id, email: newUser.email, username: newUser.username});
                 const token = signToken(newUser)
+                if (newUser.statusCode === 201) {
+                    logger.info('User created successfully with status 201');
+                    incrementUserCountMetric();
+                }
                 res.status(201).json({
                     user: newUser,
                     Token: token

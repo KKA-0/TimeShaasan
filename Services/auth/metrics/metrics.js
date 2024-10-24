@@ -6,6 +6,7 @@ const register = promClient.Registry.globalRegistry;
 
 // Enable default system metrics collection
 promClient.collectDefaultMetrics({ register });
+register.registerMetric(userCreationCounter);
 
 // HTTP request counter metric
 const httpRequestCounter = new promClient.Counter({
@@ -14,6 +15,18 @@ const httpRequestCounter = new promClient.Counter({
   labelNames: ['method', 'route', 'status'],
   registers: [register]
 });
+
+// Count user creation API's on status 201
+const userCreationCounter = new client.Counter({
+  name: 'user_creation_total',
+  help: 'Total number of users created',
+});
+
+
+// Function to count new user creations
+const incrementUserCountMetric = () => {
+  userCreationCounter.inc();
+};
 
 // Function to handle counting requests
 function countHttpRequest(req, res) {
@@ -26,10 +39,11 @@ function countHttpRequest(req, res) {
   });
 }
 
+
 // Route for Prometheus metrics
 async function getMetrics(req, res) {
   res.set('Content-Type', register.contentType);
   res.send(await register.metrics());
 }
 
-module.exports = { countHttpRequest, getMetrics };
+module.exports = { countHttpRequest, getMetrics, incrementUserCountMetric };
