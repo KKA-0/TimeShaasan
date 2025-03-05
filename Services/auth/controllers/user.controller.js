@@ -109,8 +109,8 @@ exports.signupUser = async (req, res) => {
         if (!user) {
             // Hash password before saving
             const hashedPassword = await bcrypt.hash(password, 10);
-            const newUser = await userSchema.create({ ...req.body, password: hashedPassword });
-            producerConfig({ user_id: newUser._id, email: newUser.email, username: newUser.username});
+            const newUser = await userSchema.create({ ...req.body,username: email, password: hashedPassword });
+            producerConfig({ user_id: newUser._id, email: newUser.email, username: newUser.email});
             console.log(newUser)
             if (newUser.statusCode === 201) {
                 logger.info('User created successfully with status 201');
