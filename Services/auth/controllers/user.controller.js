@@ -3,6 +3,7 @@ const { incrementUserCountMetric } = require('../metrics/metrics');
 const logger = require('../logs/logs');
 const jwt = require('jsonwebtoken');
 const { Kafka } = require('kafkajs')
+const bcrypt = require('bcryptjs');
 
 const signToken = (data) => {
     return jwt.sign({id: data.id, email: data.email, username: data.username},
