@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN apk add curl && npm ci
+RUN apk add curl && npm i
 
 COPY . .
 
