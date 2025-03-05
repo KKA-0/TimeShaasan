@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { PacmanLoader } from 'react-spinners';
+import { addUser } from "./../../../../features/userSlice"
 
 const Auth = () => {
     const [loading, setLoading] = useState(false); 
@@ -20,8 +21,15 @@ const Auth = () => {
           `${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_ADD_USER_PASS}`,
           { email, password }
         );
+        const userDB =  {
+          id: response.data.user._id,
+          username: response.data.user.username,
+          email: response.data.user.email
+        }
         console.log(response.data);
-        dispatch(userData(response.data));
+
+        dispatch(addUser(userDB))
+        document.cookie = `token=${response.data.Token}`;
       } catch (error) {
         console.log(error);
       } finally {
