@@ -13,6 +13,22 @@ const Auth = () => {
     const user = useSelector((state) => state.user.username)
     console.warn(user)
 
+    const loginWithPass = async (email, password) => {
+      setLoading(true);
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_DOMAIN}${process.env.REACT_APP_ADD_USER_PASS}`,
+          { email, password }
+        );
+        console.log(response.data);
+        dispatch(userData(response.data));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     const dispatch = useDispatch()
     // const login = useGoogleLogin({
     //     onSuccess: async credentialResponse  => 
@@ -90,7 +106,8 @@ const Auth = () => {
                 <div></div>
             </div>
             <input type="email" placeholder="Email" name="email"/>
-            <button className="oauthButton">
+            <input type="password" placeholder="Password" name="password"/>
+            <button className="oauthButton" onClick={() => loginWithPass(document.getElementsByName('email')[0].value, document.getElementsByName('password')[0].value)}>
                 Continue
                 <svg className="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg>
             </button>
