@@ -5,6 +5,12 @@ const jwt = require('jsonwebtoken');
 const { Kafka } = require('kafkajs')
 const bcrypt = require('bcryptjs');
 
+const createToken = async (req, res) => {
+    return await jwt.sign({id: req._id, email: req.email, username: req.username},
+        process.env.SECRET,
+        {expiresIn: process.env.JWT_EXPIRES_IN});
+}
+
 const signToken = (data) => {
     return jwt.sign({id: data.id, email: data.email, username: data.username},
         process.env.SECRET,
